@@ -1,0 +1,18 @@
+- if !flash[:notice].blank?
+  %h3  #{flash[:notice]}
+
+%h2 New image:
+= link_to("Add a new image...", new_dispatch_img_path)
+
+%h2 Images list:
+- if !@imgs.blank?
+  - @imgs.each do |img|
+    = link_to(image_tag(img.image.url(:thumb)), url: '#')
+    = link_to "Edit", edit_dispatch_img_path(img.id)
+    = link_to "Delete", dispatch_img_path(img.id), method: :delete
+    %br
+
+  = paginate @imgs
+
+- else
+  No imgs to show...

@@ -1,0 +1,12 @@
+%article{ class: "image_list_wrap" }
+  = form_for(img, url: img.new_record? ? dispatch_imgs_path : dispatch_img_path(img.id), 
+                  html: {multipart: true} ) do |f|
+
+    .images_preview{ data: { type: 'upload_images' } }
+      - if !img.new_record?
+        = image_tag(img.image.url(:thumb))
+        %br
+    
+    = f.file_field :image, data: { type: 'file_field' }
+    = render partial: "tags_form", locals: { tags: @tags, image: img }
+    = f.submit "Save"

@@ -1,0 +1,8 @@
+%div{ data: { type: 'tags_area' } }
+  %div{ data: { type: 'tags_collection' } }
+    = render partial: 'tag', collection: tags, as: :tag, locals: { image_tags: image.tag_list }
+
+  = hidden_field_tag :tag_list, image.tag_list.join(', '), data: { type: 'tag_list' }
+ 
+  %div{ data: { type: "pagination" } }
+    = paginate tags, params: { controller: "dispatch_imgs", action: "paginate_tags", image: image.id }, remote: true

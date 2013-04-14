@@ -1,0 +1,36 @@
+// Place all the styles related to the images controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.image_list_wrap {
+  float: left;
+  margin: 70px 10px 0 10px;
+  width: 760px;
+
+  .image_thumbs {
+    margin: 1px;
+  }
+
+  a.link_back {
+    width: 70px;
+    display: block;
+    margin: 30px 0;
+    padding: 10px 10px;
+    color: #ff6600;
+    font-size: 1.2em;
+    text-decoration: none;
+    transition: 0.6s;
+    -moz-transition: 0.6s;
+    -webkit-transition: 0.6s;
+    -o-transition: 0.6s;
+  }
+
+  a:hover.link_back {
+    color: #444;
+    text-decoration: underline;
+    transition: 0.8s;
+    -moz-transition: 0.8s;
+    -webkit-transition: 0.8s;
+    -o-transition: 0.8s;
+  }
+}

@@ -1,0 +1,32 @@
+#menu {
+  font: 20px/12px Vernada, sans-serif;
+  padding: 50px 20px 50px 50px;
+  background: #fff; 
+  color: #ff6600;
+
+  a { 
+    padding: 5px 20px;
+    text-decoration: none; 
+    color: #444;
+    transition: 1s;
+    -moz-transition: 1s;
+    -webkit-transition: 1s;
+    -o-transition: 1s;
+  }
+  a:hover {
+    color: #ff6600;
+    transition: 1s;
+    -moz-transition: 1s;
+    -webkit-transition: 1s;
+    -o-transition: 1s;
+  }
+}
+
+
+.head_slider {
+  .logo {
+    top: 200px;
+    position: absolute;
+    font-size: 1.5em;
+  }
+}

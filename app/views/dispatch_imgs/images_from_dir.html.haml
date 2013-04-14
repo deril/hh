@@ -1,0 +1,17 @@
+%h2 Next image from list:
+
+%article{ style: "float: left" }
+  - if @img.presence
+    = image_tag("#{@img}", width: "250px")
+
+    = form_for(Image.new(), url: stack_path(), method: :post, html: { multipart: true }) do |f|
+
+      = hidden_field_tag :image, @img
+
+      = render partial: "dispatch_imgs/tags_form", locals: { tags: @tags, image: f.object }
+
+      = f.button "Accept", value: "accept"
+      = f.button "Deny", value: "deny"
+
+  - else
+    No images...

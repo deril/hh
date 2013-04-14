@@ -1,0 +1,18 @@
+- if !flash[:notice].blank?
+  %h3  #{flash[:notice]}
+
+%h2 New tag:
+= link_to "Create a new tag...", new_dispatch_tag_path
+
+%h2 Tags:
+- if !@tags.blank?
+  - @tags.each do |tag|
+    "#{tag.id} --  #{tag.name} -- count: #{tag.count}"
+    = link_to "Edit", edit_dispatch_tag_path(id: tag.id)
+    = link_to "Delete", dispatch_tag_path(id: tag.id), method: :delete
+    %br
+
+  = paginate @tags
+
+- else
+  No tags to show...

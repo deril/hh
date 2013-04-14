@@ -1,0 +1,12 @@
+%article{ class: "image_list_wrap" }
+  - if @cur_tag.presence
+    %h2= "Current tag: #{@cur_tag.name}"
+    
+  - if imgs.presence
+    - imgs.each do |img|
+      = link_to(image_tag("test_pac/thumbs/HH_"+img.id.to_s+".png", alt: img.id, width: 180, class: "image_thumbs"), 
+      image_path(img.id))
+  - else
+    No images present...
+
+  = paginate imgs

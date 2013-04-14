@@ -1,0 +1,8 @@
+%aside
+  %h2 Tags:
+  - if tags.presence
+    - tags.each do |tag|
+      = link_to "#{tag.name} (#{tag.count})", tag_path(tag.id), class: "tag_link"
+    = link_to "All tags",tags_path(), { class: "tag_link special" }
+  - else
+    No tags present...
