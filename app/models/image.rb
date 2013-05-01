@@ -7,12 +7,13 @@ class Image < ActiveRecord::Base
 
   paginates_per 10
 
-  # after_create :
+  after_create :increment_count
+  after_destroy :decrement_count
+  # TODO: how about update
 
   validates_attachment :image, presence: true, 
                                content_type: { content_type: %w(image/jpeg image/png image/gif) },
                                size: { in: 0.5..30.megabytes }
-
 
   def rename_image!
     extension = File.extname(self.image_file_name).downcase
@@ -36,5 +37,13 @@ class Image < ActiveRecord::Base
     end
   end
 
+  private
+    def increment_count
+      ActsAsTaggableOn::Tag.where(name: tag_list).update_all("count = count + 1")
+    end
+
+    def decrement_count
+      ActsAsTaggableOn::Tag.where(name: tag_list).update_all("count = count - 1")
+    end
 
 end

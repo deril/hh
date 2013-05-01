@@ -1,5 +1,9 @@
 Hh::Application.routes.draw do
 
+  # TODO: root !!!
+  # TODO: front !!!
+  # TODO: alert notice in layout
+
   # TODO: may be ruby 1.8
   # TODO: add logining for admin
   # TODO: notification
@@ -15,7 +19,7 @@ Hh::Application.routes.draw do
   get "dispatch_tags/page/:page" => "dispatch_tags#index", as: "dispatch_tags_with_page"
 
   resources :dispatch_imgs, exept: [:show, :update]
-  get "dispatch_imgs/page/:page" => "dispatch_imgs#index", as: "dispatch_imgs_with_page"
+  # get "dispatch_imgs/page/:page" => "dispatch_imgs#index", as: "dispatch_imgs_with_page"
 
   get "stack" => "dispatch_imgs#images_from_dir"
   post "stack" => "dispatch_imgs#saving_from_dir"
