@@ -1,6 +1,6 @@
 class DispatchImgsController < ApplicationController
-  #layout
-  #layout "back_end"
+
+  # layout "back_end"
   IMG_LAST_DIR = 'tmp'
   IMG_TMP_DIR = Rails.root.join("public","#{IMG_LAST_DIR}") # TODO: bad path
 
@@ -51,7 +51,6 @@ class DispatchImgsController < ApplicationController
     redirect_to dispatch_imgs_path, response
   end
 
-# TODO: need to make thumbs and imgs with individual names !!!!!!!!!!!!!!!!!!! 
   def images_from_dir
     # TODO: if no dir ????
     Dir.new(IMG_TMP_DIR).to_a.each do |file|
@@ -63,17 +62,16 @@ class DispatchImgsController < ApplicationController
     @tags = get_tags(1)
   end
 
-  # TODO: not working
   def saving_from_dir
-    # fail "#{params}"
-    # TODO: if image is invalid, it skips saving but doesn't get alert
+    file = File.open(File.join(IMG_TMP_DIR, File.basename(params[:image]))) 
+    if params[:button] == "accept"
+      @img = Image.new(image: file)
+      @img.tag_list = params[:tag_list]
+      @img.rename_image!
 
-    # if params[:button] == "accept"
-    @img = Image.new(image: File.new(File.join(IMG_TMP_DIR, File.basename(params[:image]) )))
-    @img.tag_list = params[:tag_list]
-    @img.rename_image!
-
-    response = @img.save_with_response
+      response = @img.save_with_response
+    end
+    File.delete(file)
     redirect_to stack_path, response
   end
 

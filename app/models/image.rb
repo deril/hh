@@ -7,6 +7,8 @@ class Image < ActiveRecord::Base
 
   paginates_per 10
 
+  # after_create :
+
   validates_attachment :image, presence: true, 
                                content_type: { content_type: %w(image/jpeg image/png image/gif) },
                                size: { in: 0.5..30.megabytes }
