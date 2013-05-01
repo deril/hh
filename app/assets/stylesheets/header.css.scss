@@ -30,3 +30,17 @@
     font-size: 1.5em;
   }
 }
+
+.alert {
+  padding: 5px 10px;
+  border-radius: 4px 4px 4px 4px;
+  background-color: #F2DEDE;
+  color: #B94A48;
+}
+
+.notice {
+  padding: 5px 10px;
+  border-radius: 4px 4px 4px 4px;
+  background-color: #DFF0D8;
+  color: #468847;
+}

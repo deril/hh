@@ -7,6 +7,7 @@ class Image < ActiveRecord::Base
 
   paginates_per 10
 
+  # TODO: tests
   after_create :increment_count
   after_destroy :decrement_count
   # TODO: how about update

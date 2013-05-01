@@ -12,13 +12,13 @@
       #menu
         //= link_to 'Home'
         = link_to_unless_current( 'Images', {controller: "images", action: "index"})
-        = link_to 'Abouts'
+        = link_to 'About'
       .head_slider
         .logo 
           HH
         = image_tag("imgs/front.png")
 
-      = # need alert notice
+      = alert_notifier
 
       = yield
       
