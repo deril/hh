@@ -1,11 +1,11 @@
 %article{ class: "image_list_wrap" }
   - if @cur_tag.presence
-    %h2= "Current tag: #{@cur_tag.name}"
+    %h2= "Current tag: #{@cur_tag.name.capitalize}"
     
-  - if imgs.presence
+  - if imgs.present?
     - imgs.each do |img|
-      = link_to(image_tag("test_pac/thumbs/HH_"+img.id.to_s+".png", alt: img.id, width: 180, class: "image_thumbs"), 
-      image_path(img.id))
+      = link_to image_path(img.id) do
+        = image_tag(img.image.url(:thumb), class: "image_thumbs")
   - else
     No images present...
 

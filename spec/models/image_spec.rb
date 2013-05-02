@@ -11,7 +11,7 @@ describe Image do
                                                       .allowing('image/png')
                                                       .allowing('image/gif') }
 
-  describe '"rename_image!" method' do
+  describe '"#rename_image!" method' do
     it 'renames name of attached file' do
       expect {
         image.rename_image!
@@ -19,4 +19,16 @@ describe Image do
       }.to change{ image.reload.image_file_name }.to('HH_' + image.image_updated_at.to_i.to_s + '.jpeg')
     end
   end
+
+  # describe '"#save_with_response" method' do 
+  #   it "returns notice if good saving" do
+  #     rezult = FactoryGirl.build(:image).save_with_response
+  #     rezult.should == { notice: "Image saved successfully." }
+  #   end
+  #   it "returns alert if bad saving" do
+  #     rezult = FactoryGirl.build(:image, image: nil).save_with_response
+  #     rezult.should == { alert: "Image saving failed." }
+  #   end
+  # end
+
 end

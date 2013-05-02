@@ -2,17 +2,14 @@ Hh::Application.routes.draw do
 
   # TODO: root !!!
   # TODO: front !!!
-  # TODO: alert notice in layout
-
+  
   # TODO: may be ruby 1.8
   # TODO: add logining for admin
   # TODO: notification
   # TODO: some bad idea /:page
 
-  get "images/:page" => "images#index", as: "images_list"
   resources :images, only: [:index, :show]
 
-  get "tag/:id/:page" => "images#images_by_tag", as: "by_tag_with_page"
   resources :tags, only: [:index, :show]
 
   resources :dispatch_tags, exept: [:edit]

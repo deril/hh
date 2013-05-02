@@ -7,10 +7,12 @@ class Image < ActiveRecord::Base
 
   paginates_per 10
 
-  # TODO: tests
+# TODO: tests
   after_create :increment_count
   after_destroy :decrement_count
-  # TODO: how about update
+  before_update :update_count
+
+  scope :desc, -> { order("id DESC") }
 
   validates_attachment :image, presence: true, 
                                content_type: { content_type: %w(image/jpeg image/png image/gif) },
@@ -22,6 +24,7 @@ class Image < ActiveRecord::Base
     self.image_file_name = 'HH_' + name + extension
   end
 
+  # TODO: tests
   def save_with_response
     if save
       { notice: "Image saved successfully." }
@@ -30,6 +33,7 @@ class Image < ActiveRecord::Base
     end
   end
 
+  # TODO: tests
   def destroy_with_response
     if destroy
       { notice: "Image deleted successfully." }
@@ -45,6 +49,11 @@ class Image < ActiveRecord::Base
 
     def decrement_count
       ActsAsTaggableOn::Tag.where(name: tag_list).update_all("count = count - 1")
+    end
+
+    def update_count
+      tags.update_all("count = count - 1")
+      ActsAsTaggableOn::Tag.where(name: tag_list).update_all("count = count + 1")
     end
 
 end

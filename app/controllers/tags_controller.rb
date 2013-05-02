@@ -1,20 +1,16 @@
 class TagsController < ApplicationController
+  
+  # TODO: image search also by list of tags
+  # TODO: tests!!!!
 
   def index
-    @tags = Tag.page(current_page)
-  end
-#TODO -- make image search also by list of tags
-  #show images list by current tag
-  def show 
-    @cur_tag = Tag.joins(:images).find(params[:id])
-    @imgs = @cur_tag.images.order("id DESC").page(current_page)
-    @tags = get_uniq_tags @imgs
+    @tags = ActsAsTaggableOn::Tag.page(current_page)
   end
 
-private
-  #get tags list without dublicates
-  def get_uniq_tags image_list = {}
-    tags = Tag.includes(:images).where(images: { id: image_list.map { |i| i.id } })
-    tags.sort.uniq
+  def show 
+    @cur_tag = ActsAsTaggableOn::Tag.find_by_id(params[:id])
+    @imgs = Image.tagged_with(@cur_tag).page(current_page)
+    @tags = get_uniq_tags_from(@imgs) if @imgs.present?
   end
+
 end

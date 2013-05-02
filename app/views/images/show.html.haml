@@ -1,6 +1,6 @@
 %article{ class: "image_list_wrap" }
-  %h2 Name: "HH_#{@cur_img.to_s}.png"
-  = link_to image_tag("test_pac/imgs/HH_"+@cur_img.to_s+".png"), url: "#"
+  %h2 Name: ""
+  = image_tag(@img.image.url)
   = link_to "< Back", :back, class: "link_back"
 
 = render partial: "tags/tags_list", locals: { tags: @tags }
