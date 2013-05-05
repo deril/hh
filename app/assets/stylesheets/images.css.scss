@@ -4,11 +4,12 @@
 
 .image_list_wrap {
   float: left;
-  margin: 70px 10px 0 10px;
+  margin: 30px 10px 0 10px;
   width: 760px;
 
   .image_thumbs {
-    margin: 1px;
+    margin: 2px;
+    text-decoration: none;
   }
 
   a.link_back {
@@ -17,7 +18,7 @@
     margin: 30px 0;
     padding: 10px 10px;
     color: #ff6600;
-    font-size: 1.2em;
+    font-size: 18px;
     text-decoration: none;
     transition: 0.6s;
     -moz-transition: 0.6s;
@@ -33,4 +34,10 @@
     -webkit-transition: 0.8s;
     -o-transition: 0.8s;
   }
+
+  .on_right {
+    margin: 50px 20px;
+    float: right;
+  }
+
 }

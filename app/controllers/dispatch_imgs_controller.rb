@@ -10,7 +10,7 @@ class DispatchImgsController < ApplicationController
 
   def index
     page = params[:page] ? params[:page] : 1
-    @imgs = Image.order("id DESC").page(page)
+    @imgs = Image.desc.page(page)
   end
 
   def new

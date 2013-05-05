@@ -1,6 +1,6 @@
 %h2 Edit this tag
 
-= form_for @tag, url: {action: :update} do
+= form_for(@tag, url: dispatch_tag_path(@tag.id)) do
   %h2
     = label_tag :tag, "Tag name:"
 

@@ -4,8 +4,8 @@
     
   - if imgs.present?
     - imgs.each do |img|
-      = link_to image_path(img.id) do
-        = image_tag(img.image.url(:thumb), class: "image_thumbs")
+      = link_to image_path(img.id), class: "image_thumbs" do
+        = image_tag(img.image.url(:thumb))
   - else
     No images present...
 

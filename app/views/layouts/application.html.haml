@@ -11,11 +11,10 @@
     #wrapper
       #menu
         //= link_to 'Home'
-        = link_to_unless_current( 'Images', {controller: "images", action: "index"})
-        = link_to 'About'
+        = link_to_unless_current('Images', {controller: "images", action: "index"})
+        = link_to_unless_current('About', {controller: "images", action: "about"})
+        .logo HH
       .head_slider
-        .logo 
-          HH
         = image_tag("imgs/front.png")
 
       = alert_notifier

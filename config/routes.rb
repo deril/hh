@@ -1,27 +1,25 @@
 Hh::Application.routes.draw do
 
   # TODO: root !!!
-  # TODO: front !!!
   
   # TODO: may be ruby 1.8
   # TODO: add logining for admin
   # TODO: notification
-  # TODO: some bad idea /:page
 
   resources :images, only: [:index, :show]
+  get 'about' => 'images#about'
 
   resources :tags, only: [:index, :show]
 
-  resources :dispatch_tags, exept: [:edit]
-  get "dispatch_tags/page/:page" => "dispatch_tags#index", as: "dispatch_tags_with_page"
+  resources :dispatch_tags
 
   resources :dispatch_imgs, exept: [:show, :update]
-  # get "dispatch_imgs/page/:page" => "dispatch_imgs#index", as: "dispatch_imgs_with_page"
-
   get "stack" => "dispatch_imgs#images_from_dir"
   post "stack" => "dispatch_imgs#saving_from_dir"
   
   get 'paginate_tags' => "dispatch_imgs#paginate_tags"
+
+  root :to => redirect('/images')
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

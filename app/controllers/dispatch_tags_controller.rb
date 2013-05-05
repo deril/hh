@@ -1,33 +1,35 @@
 class DispatchTagsController < ApplicationController
   #filters
-  before_filter :find_tag, except: [:index, :new, :create] 
+  before_filter :find_tag, only: [:update, :destroy, :edit] 
 
   def index
-    @tags = Tag.order("id DESC").page(current_page)
+    @tags = ActsAsTaggableOn::Tag.order("id DESC").page(current_page)
   end
 
   def new
-    @tag = Tag.new
+    @tag = ActsAsTaggableOn::Tag.new
   end
 
   def create
-    @tag = Tag.new(name: params[:tag])
-    redirect_to_index @tag.save, "Add"  #private def redirect_to_index action, note 
+    @tag = ActsAsTaggableOn::Tag.new(name: params[:tag])
+    redirect_to_index @tag.save, "Add"
   end 
   
+  def edit
+  end
+
   def update 
     @tag.name = params[:tag]
-    redirect_to_index @tag.save, "Edit" #private def redirect_to_index action, note 
+    redirect_to_index @tag.save, "Edit"
   end
 
   def destroy
-    redirect_to_index @tag.destroy, "Delet" #make it cute
-                        #private def redirect_to_index action, note 
+    redirect_to_index @tag.destroy, "Delet" 
   end
 
   private
     def find_tag 
-      @tag = Tag.find(params[:id])
+      @tag = ActsAsTaggableOn::Tag.find(params[:id])
     end
 
     #get redirection to index page with notification about success of action 

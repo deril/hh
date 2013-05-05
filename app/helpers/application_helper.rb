@@ -6,4 +6,5 @@ module ApplicationHelper
     response += content_tag(:div, flash[:alert], class: "alert") if flash[:alert].present?
     response
   end
+
 end

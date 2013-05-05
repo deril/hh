@@ -3,7 +3,7 @@ class Image < ActiveRecord::Base
   acts_as_taggable_on :tags
 
   attr_accessible :image_updated_at, :image, :tag_list
-  has_attached_file :image, styles: { thumb: "180x180>" }, :default_url => "/images/:style/missing.png"
+  has_attached_file :image, styles: { thumb: "180x180>", medium: "600x600>" }, :default_url => "/images/:style/missing.png"
 
   paginates_per 10
 
@@ -16,7 +16,7 @@ class Image < ActiveRecord::Base
 
   validates_attachment :image, presence: true, 
                                content_type: { content_type: %w(image/jpeg image/png image/gif) },
-                               size: { in: 0.5..30.megabytes }
+                               size: { in: 0.5..50.megabytes }
 
   def rename_image!
     extension = File.extname(self.image_file_name).downcase
@@ -42,6 +42,20 @@ class Image < ActiveRecord::Base
     end
   end
 
+  # TODO: tests
+  def get_dimensions
+    Paperclip::Geometry.from_file(Paperclip.io_adapters.for(image))
+  end
+
+  # TODO: tests
+  def get_adapted_size
+    if image_file_size/1024/1024 > 0
+      "#{image_file_size/1024/1024} Mb"
+    else
+      "#{image_file_size/1024} Kb"
+    end
+  end
+
   private
     def increment_count
       ActsAsTaggableOn::Tag.where(name: tag_list).update_all("count = count + 1")
@@ -53,7 +67,6 @@ class Image < ActiveRecord::Base
 
     def update_count
       tags.update_all("count = count - 1")
-      ActsAsTaggableOn::Tag.where(name: tag_list).update_all("count = count + 1")
+      increment_count
     end
-
 end

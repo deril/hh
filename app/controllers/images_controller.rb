@@ -13,4 +13,8 @@ class ImagesController < ApplicationController
     @tags = @img.try(:tags)
   end
 
+  def about
+    # do not delete
+  end
+
 end
