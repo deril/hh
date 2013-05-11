@@ -1,0 +1,25 @@
+!!! 5
+%html#document{html_attrs, :lang => 'en'}
+  %head
+    %meta{'charset' => 'utf-8'}
+    %title HH
+    = stylesheet_link_tag "application", :media => "all"
+    = javascript_include_tag "application"
+    = yield :javascript_includes
+    = csrf_meta_tags
+  %body
+    #wrapper
+      #menu
+        //= link_to 'Home'
+        = link_to_unless_current('E_Images', dispatch_imgs_path())
+        = link_to_unless_current('E_Tags', dispatch_tags_path())
+        .logo HH
+      .head_slider
+        = image_tag("imgs/front.png")
+
+      = alert_notifier
+
+      = yield
+      
+      .clear
+      .footer

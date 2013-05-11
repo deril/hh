@@ -2,12 +2,14 @@
 = link_to("Add a new image...", new_dispatch_img_path)
 
 %h2 Images list:
-- if !@imgs.blank?
+- if @imgs.present?
   - @imgs.each do |img|
-    = link_to(image_tag(img.image.url(:thumb)), url: '#')
-    = link_to "Edit", edit_dispatch_img_path(img.id)
-    = link_to "Delete", dispatch_img_path(img.id), method: :delete
-    %br
+    .edit_img
+      = image_tag(img.image.url(:thumb))
+      .edit_area
+        = link_to "Edit", edit_dispatch_img_path(img.id), alt: "edit"
+        = link_to "Delete", dispatch_img_path(img.id), method: :delete, alt: "delete", confirm: "Are you sure?"
+        = link_to "Show", img.image.url(:original), alt: "show"
 
   = paginate @imgs
 

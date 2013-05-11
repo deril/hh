@@ -1,4 +1,6 @@
 class DispatchTagsController < ApplicationController
+  layout "back_end"
+  
   #filters
   before_filter :find_tag, only: [:update, :destroy, :edit] 
 

@@ -1,5 +1,5 @@
 %article{ class: "image_list_wrap" }
-  = link_to @img.image.url do
+  = link_to @img.image.url(:original) do
     = image_tag(@img.image.url(:medium))
 
   .on_right

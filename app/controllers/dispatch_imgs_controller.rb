@@ -1,6 +1,6 @@
 class DispatchImgsController < ApplicationController
-
-  # layout "back_end"
+  layout "back_end"
+  
   IMG_LAST_DIR = 'tmp'
   IMG_TMP_DIR = Rails.root.join("public","#{IMG_LAST_DIR}") # TODO: bad path
 
