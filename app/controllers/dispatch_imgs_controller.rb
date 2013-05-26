@@ -62,6 +62,9 @@ class DispatchImgsController < ApplicationController
     @tags = get_tags(1)
   end
 
+  # TODO: clear tags on prev pages!!!!!!!!!! 
+  # TODO: make multiply choise of tag GOOD!!!
+  # Some mistake when deny
   def saving_from_dir
     file = File.open(File.join(IMG_TMP_DIR, File.basename(params[:image]))) 
     if params[:button] == "accept"
@@ -84,7 +87,7 @@ class DispatchImgsController < ApplicationController
 # TODO: modify to application controller
   private
     def get_tags(page)
-      ActsAsTaggableOn::Tag.page(page).per(5) # !!!!!!!!!! per(5)
+      ActsAsTaggableOn::Tag.page(page).per(20) # !!!!!!!!!! per(5)
     end
 
     def check_img?(file_path)
