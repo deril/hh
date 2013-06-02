@@ -1,7 +1,5 @@
 class DispatchTagsController < ApplicationController
   layout "back_end"
-  
-  #filters
   before_filter :find_tag, only: [:update, :destroy, :edit] 
 
   def index
@@ -13,7 +11,7 @@ class DispatchTagsController < ApplicationController
   end
 
   def create
-    @tag = ActsAsTaggableOn::Tag.new(name: params[:tag])
+    @tag = ActsAsTaggableOn::Tag.new(name: params[:tag].downcase.gsub(/ +/,'_'))
     redirect_to_index @tag.save, "Add"
   end 
   
@@ -21,7 +19,7 @@ class DispatchTagsController < ApplicationController
   end
 
   def update 
-    @tag.name = params[:tag]
+    @tag.name = params[:tag].downcase.gsub(/ +/,'_')
     redirect_to_index @tag.save, "Edit"
   end
 

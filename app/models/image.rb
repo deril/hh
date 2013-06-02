@@ -19,6 +19,7 @@ class Image < ActiveRecord::Base
                                size: { in: 0.5..50.megabytes }
 
   def rename_image!
+    return if self.image_file_name.blank?
     extension = File.extname(self.image_file_name).downcase
     name = image_updated_at.to_i.to_s
     self.image_file_name = 'HH_' + name + extension

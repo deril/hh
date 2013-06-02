@@ -15,13 +15,11 @@ class DispatchImgsController < ApplicationController
 
   def new
     @img = Image.new()
-    @tags = get_tags(1)
+    @tags = ActsAsTaggableOn::Tag.order("name ASC").all
   end
   
   def create
-    # TODO: if image is invalid, it skips saving but doesn't get alert
-    @img = Image.new(params[:image])
-    @img.tag_list = params[:tag_list]
+    @img = Image.new(params[:image], tag_list: params[:tag_list])
     @img.rename_image!
 
     response = @img.save_with_response
@@ -30,16 +28,15 @@ class DispatchImgsController < ApplicationController
 
   def edit
     # TODO: id was shown ??
-    # TODO: bad image link
+    
     @img = Image.find_by_id(params[:id])
     @tags = get_tags(1)
   end
 
   def update
     @img = Image.find_by_id(params[:id])
-    @img.assign_attributes(params[:image])
-    @img.tag_list = params[:tag_list]
-    @img.rename_image! if !params[:image].blank?
+    @img.assign_attributes(params[:image], tag_list: params[:tag_list])
+    @img.rename_image!
 
     response = @img.save_with_response
     redirect_to dispatch_imgs_path, response
@@ -50,7 +47,8 @@ class DispatchImgsController < ApplicationController
     response = @img.destroy_with_response
     redirect_to dispatch_imgs_path, response
   end
-
+  
+  # TODO: check back_end on missed partials!!!
   def images_from_dir
     # TODO: if no dir ????
     Dir.new(IMG_TMP_DIR).to_a.each do |file|
@@ -59,27 +57,22 @@ class DispatchImgsController < ApplicationController
         break
       end
     end
-    @tags = get_tags(1)
+    @tags = ActsAsTaggableOn::Tag.order("name ASC").all
   end
 
-  # TODO: clear tags on prev pages!!!!!!!!!! 
-  # TODO: make multiply choise of tag GOOD!!!
-  # Some mistake when deny
   def saving_from_dir
     file = File.open(File.join(IMG_TMP_DIR, File.basename(params[:image]))) 
     if params[:button] == "accept"
-      @img = Image.new(image: file)
-      @img.tag_list = params[:tag_list]
+      @img = Image.new(image: file, tag_list: params[:tag_list])
       @img.rename_image!
-
       response = @img.save_with_response
     end
-    File.delete(file)
+    File.delete(file) # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! when deny -> error
     redirect_to stack_path, response
   end
 
   def paginate_tags
-    page = params[:page] ? params[:page] : 1
+    page = params[:page] ? params[:page] : 1 
     @image = params[:id].blank? ? Image.new() : Image.find(params[:id])
     @tags = get_tags(page)
   end

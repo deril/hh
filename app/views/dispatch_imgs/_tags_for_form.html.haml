@@ -1,0 +1,7 @@
+.form_tags
+  - while all_tags.size > 0
+    .tags_part{ data: { type: 'tags_page' } }
+      - all_tags.slice!(0...20).each do |tag|
+        = label_tag tag.name
+        = check_box_tag "tag_list[]", tag.name, nil, id: tag.name
+        %br

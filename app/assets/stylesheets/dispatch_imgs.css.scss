@@ -17,12 +17,13 @@
 
 .view_img {
   display: inline;
-  float: left;
-  width: 400px;
-  margin: 0 100px 0 20px;
+  float: right;
+  width: 500px;
+  margin: 20px;
 }
 
-.edit_tags {
+.form_tags{
   margin: 20px;
-  width: 1000px;
+  float: left;
+  font-size: 1.1em;
 }

@@ -13,7 +13,7 @@ Hh::Application.routes.draw do
 
   resources :dispatch_tags
 
-  resources :dispatch_imgs, exept: [:show, :update]
+  resources :dispatch_imgs, except: [:show]
   get "stack" => "dispatch_imgs#images_from_dir"
   post "stack" => "dispatch_imgs#saving_from_dir"
   

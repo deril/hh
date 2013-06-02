@@ -7,7 +7,6 @@ aside {
 a.tag_link {
   font-size: 1.3em;
   color: #ff6600;
-  display: block;
   margin: 2px;
   padding: 7px 5px;
   text-decoration: none;
@@ -16,6 +15,14 @@ a.tag_link {
   -webkit-transition: 0.6s;
   -o-transition: 0.6s;
 }
+
+.inline {
+  display: inline-block;
+}
+.block {
+  display: block;
+}
+
 
 a:hover.tag_link {
   color: #444;
