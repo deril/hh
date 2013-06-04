@@ -9,7 +9,7 @@ class TagsController < ApplicationController
 
   def show 
     @cur_tag = ActsAsTaggableOn::Tag.find_by_id(params[:id])
-    @imgs = Image.tagged_with(@cur_tag).page(current_page)
+    @imgs = Image.includes(:tags).tagged_with(@cur_tag).page(current_page)
     @tags = get_uniq_tags_from(@imgs) if @imgs.present?
   end
 

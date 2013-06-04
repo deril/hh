@@ -3,7 +3,7 @@ class DispatchTagsController < ApplicationController
   before_filter :find_tag, only: [:update, :destroy, :edit] 
 
   def index
-    @tags = ActsAsTaggableOn::Tag.order("id DESC").page(current_page)
+    @tags = ActsAsTaggableOn::Tag.order("name ASC").page(current_page)
   end
 
   def new

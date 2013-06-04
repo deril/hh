@@ -1,4 +1,5 @@
 %h2 Edit image:
-= link_to "Back", dispatch_imgs_path()
+= link_to "< Back", dispatch_imgs_path(), class: "tag_link"
+.clear
 
 = render partial: 'form', locals: { img: @img }

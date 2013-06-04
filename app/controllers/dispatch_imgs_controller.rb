@@ -28,9 +28,8 @@ class DispatchImgsController < ApplicationController
 
   def edit
     # TODO: id was shown ??
-    
     @img = Image.find_by_id(params[:id])
-    @tags = get_tags(1)
+    @tags = ActsAsTaggableOn::Tag.order("name ASC").all
   end
 
   def update
@@ -67,6 +66,7 @@ class DispatchImgsController < ApplicationController
       @img.rename_image!
       response = @img.save_with_response
     end
+    # TODO: may be only path!!! not a file
     File.delete(file) # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! when deny -> error
     redirect_to stack_path, response
   end
@@ -80,7 +80,7 @@ class DispatchImgsController < ApplicationController
 # TODO: modify to application controller
   private
     def get_tags(page)
-      ActsAsTaggableOn::Tag.page(page).per(20) # !!!!!!!!!! per(5)
+      ActsAsTaggableOn::Tag.order("name ASC").page(page).per(20) # !!!!!!!!!! per(5)
     end
 
     def check_img?(file_path)

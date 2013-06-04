@@ -1,6 +1,6 @@
 %article{ class: "image_list_wrap" }
   = link_to @img.image.url(:original) do
-    = image_tag(@img.image.url(:medium))
+    = image_tag(@img.image.url(:medium), target: "_blank")
 
   .on_right
     Name: #{@img.image_file_name}
@@ -11,7 +11,8 @@
     Size: #{@img.get_dimensions} pixels
     %br
     Weight: #{@img.get_adapted_size}
-
-    = link_to "< Back", :back, class: "link_back"
+    %br
+    %br
+    = link_to "< Back", :back, class: "tag_link"
 
 = render partial: "tags/tags_list", locals: { tags: @tags } 
