@@ -3,6 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .image_list_wrap {
+  text-align: right;
   float: left;
   margin: 40px 10px 0 10px;
   width: 790px;
@@ -10,6 +11,11 @@
   .image_thumbs {
     margin: 4px;
     text-decoration: none;
+  }
+
+  ul li{
+    display: inline-block;
+    padding: 5px;
   }
 
 }

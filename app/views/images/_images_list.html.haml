@@ -3,9 +3,9 @@
     %h2= "Current tag: #{@cur_tag.name.capitalize}"
     
   - if imgs.present?
-    - imgs.each do |img|
-      = link_to image_path(img.id), class: "image_thumbs" do
-        = image_tag(img.image.url(:thumb))
+    %ul
+      - imgs.each do |img|
+        %li= link_to image_tag(img.image.url(:thumb)), image_path(img.id), class: "image_thumbs"
   - else
     No images present...
 
