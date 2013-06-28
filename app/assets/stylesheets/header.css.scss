@@ -4,22 +4,27 @@
   background: #fff; 
   color: #ff6600;
 
-  a { 
+  ul li{
+    display: inline;
     padding: 5px 20px;
-    text-decoration: none; 
-    color: #444;
-    transition: 1s;
-    -moz-transition: 1s;
-    -webkit-transition: 1s;
-    -o-transition: 1s;
+
+    a { 
+      text-decoration: none; 
+      color: #444;
+      transition: 1s;
+      -moz-transition: 1s;
+      -webkit-transition: 1s;
+      -o-transition: 1s;
+    }
+    a:hover {
+      color: #ff6600;
+      transition: 1s;
+      -moz-transition: 1s;
+      -webkit-transition: 1s;
+      -o-transition: 1s;
+    } 
   }
-  a:hover {
-    color: #ff6600;
-    transition: 1s;
-    -moz-transition: 1s;
-    -webkit-transition: 1s;
-    -o-transition: 1s;
-  }
+
   .logo {
     float: right;
     font-size: 1.3em;
