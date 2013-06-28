@@ -1,8 +1,12 @@
 !!! 5
 %html#document{html_attrs, :lang => 'en'}
   %head
-    %meta{'charset' => 'utf-8'}
-    %title HH
+    -# %meta{'charset' => 'utf-8'}
+    -# %meta{ name: 'keywords', content: meta_keywords } 
+    -# %meta{ name: 'description', content: meta_description }
+    -# %title= meta_title()
+    = metamagic
+    
     = stylesheet_link_tag "application", :media => "all"
     = javascript_include_tag "application"
     = yield :javascript_includes
@@ -10,8 +14,8 @@
   %body
     #wrapper
       #menu
-        //= link_to 'Home'
         = link_to_unless_current('Images', {controller: "images", action: "index"})
+        = link_to_unless_current('Tags', {controller: "tags", action: "index"})
         = link_to_unless_current('About', {controller: "images", action: "about"})
         .logo HH
       .head_slider

@@ -1,6 +1,4 @@
 Hh::Application.routes.draw do
-
-  # TODO: root !!!
   
   # TODO: may be ruby 1.8
   # TODO: add logining for admin

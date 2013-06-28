@@ -5,7 +5,7 @@ class Image < ActiveRecord::Base
   attr_accessible :image_updated_at, :image, :tag_list
   has_attached_file :image, styles: { thumb: "180x180>", medium: "600x600>" }, :default_url => "/images/:style/missing.png"
 
-  paginates_per 10
+  paginates_per 50
 
   # TODO: tests
   after_create :increment_count
