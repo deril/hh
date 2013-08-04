@@ -1,10 +1,12 @@
 class Image < ActiveRecord::Base
-  acts_as_taggable
-  acts_as_taggable_on :tags
+
+  # TODO: DELETE taggable table
 
   attr_accessible :image_updated_at, :image, :tag_list
-  has_attached_file :image, styles: { thumb: "180x180>", medium: "600x600>" }, :default_url => "/images/:style/missing.png"
+  has_attached_file :image, styles: { thumb: "180x180>", medium: "600x600>" }, 
+                            default_url: "/images/:style/missing.png"
 
+  has_and_belongs_to_many :tags
   paginates_per 50
 
   # TODO: tests

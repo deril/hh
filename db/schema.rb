@@ -11,13 +11,26 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130501111544) do
+ActiveRecord::Schema.define(:version => 20130804110331) do
+
+  create_table "groups", :force => true do |t|
+    t.string   "name",       :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "images", :force => true do |t|
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+  end
+
+  create_table "images_tags", :force => true do |t|
+    t.integer  "image_id",   :null => false
+    t.integer  "tag_id",     :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "taggings", :force => true do |t|
@@ -34,8 +47,11 @@ ActiveRecord::Schema.define(:version => 20130501111544) do
   add_index "taggings", ["taggable_id", "taggable_type", "context"], :name => "index_taggings_on_taggable_id_and_taggable_type_and_context"
 
   create_table "tags", :force => true do |t|
-    t.string  "name"
-    t.integer "count", :default => 0
+    t.string  "name",                    :null => false
+    t.integer "count",    :default => 0
+    t.integer "group_id"
   end
+
+  add_index "tags", ["group_id"], :name => "index_tags_on_group_id"
 
 end

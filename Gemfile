@@ -7,7 +7,7 @@ gem 'haml', '~> 3.1.4'
 gem "quick_magick"
 gem 'execjs'
 gem "paperclip", "~> 3.0"
-gem 'acts-as-taggable-on', '~> 2.3.1'
+# gem 'acts-as-taggable-on', '~> 2.3.1'
 gem 'metamagic'
 
 # Gems used only for assets and not required
@@ -27,8 +27,8 @@ gem 'jquery-rails'
 group :development, :test do
   gem 'thin', require: false
   gem 'simplecov', require: false
-  gem 'rspec-rails'#, '~> 2.7.0'
-  gem 'shoulda-matchers', '1.1.0', require: false
+  gem 'rspec-rails'
+  gem 'shoulda-matchers'
   gem 'factory_girl_rails', '>= 3.3.0'
   gem 'cucumber-rails', '>= 1.3.0', :require => false
   gem 'escape_utils', '0.2.4', require: false
