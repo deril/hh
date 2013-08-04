@@ -4,7 +4,8 @@ class Tag < ActiveRecord::Base
   has_and_belongs_to_many :images
   belongs_to :group
 
-  validates :name, presence: true
+  validates :name,  presence: true, 
+                    uniqueness: true
 
   # TODO: maybe group_id  get default val!
 end

@@ -3,5 +3,6 @@ class Group < ActiveRecord::Base
 
   has_many :tags
 
-  validates :name, presence: true
+  validates :name,  presence: true,
+                    uniqueness: true
 end
