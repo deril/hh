@@ -54,7 +54,6 @@ describe Image do
   #   end
   # end
 
-
   describe '#save_with_response' do 
     it "returns notice if good saving" do
       result = FactoryGirl.build(:image).save_with_response

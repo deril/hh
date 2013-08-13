@@ -7,10 +7,10 @@ class ImagesController < ApplicationController
     @tags = get_uniq_tags_from(@imgs)
   end
 
-  # may be not id
+  # TODO: may be not id
   def show 
-    @img = Image.find_by_id(params[:id])
-    @tags = @img.try(:tags)
+    @img = Image.find(params[:id])
+    @tags = @img.tags
   end
 
   def about

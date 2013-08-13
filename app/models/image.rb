@@ -1,6 +1,8 @@
 class Image < ActiveRecord::Base
 
   # TODO: DELETE taggable table
+  # TODO: FOREIFN KEYS AND DEPENDENT
+  # TODO: update count!!!!
 
   attr_accessible :image_updated_at, :image, :tags
   has_attached_file :image, styles: { thumb: "180x180>", medium: "600x600>" }, 
