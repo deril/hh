@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Image do
   
   let(:image) { FactoryGirl.create(:image) }
+  let(:tag) { FactoryGirl.create(:tag) }
 
   it { should have_attached_file(:image) }
   it { should validate_attachment_presence(:image) }
@@ -39,20 +40,25 @@ describe Image do
         }.to change(tags, :count).by(-1)
       end
     end
-  end
 
-  # describe 'before filter' do
-  #   it 'decrements count column all previous tags and increment in all new tags' do
-  #     tags = image.tags
-  #     new_tags = [ FactoryGirl.create(:tag) ] 
-  #     expect {
-  #       image.update_attributes!(tags: new_tags)
-  #     }.to change(tags, :count).by(-1)
-  #     # expect {
-  #     #   image.update_attributes!(tags: new_tags)
-  #     # }.to change(new_tags, :count).by(1)
-  #   end
-  # end
+    # describe "update_count" do
+    #   describe "if tags changed?" do
+    #     it "decrements counts of all previous tags" do
+    #       expect {
+    #         image.update_attributes(tags: [tag])
+    #       }.to change(image.tags, :count).by(-1)
+    #     end
+    #     it "increments counts of all new tags" do
+    #       expect {
+    #         image.update_attributes(tags: [tag])
+    #       }.to change(tag, :count).by(+1)
+    #     end
+    #   end
+    #   describe "if tags not changed?" do
+    #     it "nothing happens"
+    #   end
+    # end
+  end
 
   describe '#save_with_response' do 
     it "returns notice if good saving" do

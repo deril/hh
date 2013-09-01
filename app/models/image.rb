@@ -13,11 +13,8 @@ class Image < ActiveRecord::Base
 
   after_create :increment_count
   after_destroy :decrement_count
-
+  # after_update :update_count
   # TODO: !!!
-  # before_update :decrement_count
-  # after_update :increment_count
-
 
   scope :desc, -> { order("id DESC") }
 
@@ -69,4 +66,11 @@ class Image < ActiveRecord::Base
     def decrement_count
       tags.update_all("count = count - 1")
     end
+
+    # def update_count
+    #   if changes[:tags].present?
+    #     changes[:tags].first.update_all("count = count - 1")
+    #     increment_count
+    #   end
+    # end
 end
