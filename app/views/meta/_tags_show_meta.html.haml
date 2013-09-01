@@ -1,0 +1,5 @@
+- tag_name = local_assigns[:tag_name]
+
+- meta title: APP_CONFIG['default_pre_title'] + " | " + "Tag: #{tag_name}",
+       keywords: APP_CONFIG['default_pre_keys'] + ", " + join_by(sort_only_by(keywords, :count), :name, 8),
+       description: "description tests"
