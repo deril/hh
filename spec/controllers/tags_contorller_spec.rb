@@ -3,13 +3,13 @@ require 'spec_helper'
 describe TagsController do
 
   let(:custom_tag) { FactoryGirl.create(:tag) }
-  let(:tag) { FactoryGirl.create(:tag) }
+  let(:tag) { FactoryGirl.create(:tag, name: "current_name") }
   let!(:image) { FactoryGirl.create(:image, tags: [custom_tag, tag]) }
 
   describe "#index" do
     it "has respond success and has tags variable" do
       get :index
-      assigns(:tags).should == [custom_tag, tag]
+      assigns(:tags).should =~ [custom_tag, tag]
       response.should be_success
     end
   end

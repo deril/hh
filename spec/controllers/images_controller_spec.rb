@@ -14,7 +14,7 @@ describe ImagesController do
     it "has imgs and tags variables" do
       get :index
       assigns(:imgs).should == [image]
-      assigns(:tags).should == [tag_1, tag_2]
+      assigns(:tags).should =~ [tag_1, tag_2]
     end
   end
 
@@ -31,7 +31,7 @@ describe ImagesController do
     it "has img and tags variables" do
       get :show, { id: image.id }
       assigns(:img).should == image
-      assigns(:tags).should == [tag_1, tag_2]
+      assigns(:tags).should =~ [tag_1, tag_2]
     end
   end
 
