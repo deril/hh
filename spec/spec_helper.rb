@@ -9,6 +9,9 @@ require 'factory_girl_rails'
 require 'ffaker'
 require 'database_cleaner'
 require 'paperclip/matchers'
+require 'simplecov'
+
+SimpleCov.start
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
