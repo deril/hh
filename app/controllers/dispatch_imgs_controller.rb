@@ -4,6 +4,7 @@ class DispatchImgsController < ApplicationController
   IMG_LAST_DIR = 'tmp'
   IMG_TMP_DIR = Rails.root.join("public","#{IMG_LAST_DIR}") # TODO: bad path
 
+  before_filter :authenticate_admin!
 # TODO: tests!!!!!!!!!
 # TODO: check views!!!
 # TODO: refact

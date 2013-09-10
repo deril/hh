@@ -1,5 +1,7 @@
 Hh::Application.routes.draw do
   
+  devise_for :admins, path: "auth", skip: :registrations
+
   # TODO: may be ruby 1.8
   # TODO: add logining for admin
   # TODO: notification
@@ -17,7 +19,7 @@ Hh::Application.routes.draw do
   
   get 'paginate_tags' => "dispatch_imgs#paginate_tags"
 
-  root :to => redirect('/images')
+  root to: "images#index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

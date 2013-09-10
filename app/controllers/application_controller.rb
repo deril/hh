@@ -1,5 +1,11 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  before_filter :make_current_admin
+
+
+  def make_current_admin
+    @current_admin = current_admin if admin_signed_in?
+  end
 
   def current_page 
     page = (params[:page].to_i > 1) ? params[:page].to_i : 1

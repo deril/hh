@@ -1,5 +1,6 @@
 class DispatchTagsController < ApplicationController
   layout "back_end"
+  before_filter :authenticate_admin!
   before_filter :find_tag, only: [:update, :destroy, :edit] 
 
   def index
