@@ -1,10 +1,7 @@
 !!! 5
 %html#document{html_attrs, :lang => 'en'}
   %head
-    = metamagic title: APP_CONFIG['default_pre_title'] + ' | ' + APP_CONFIG['default_title'],
-                keywords:  APP_CONFIG['default_keywords'],
-                description: APP_CONFIG['default_description']
-
+    = render partial: "meta/default_meta"
     = stylesheet_link_tag "application", :media => "all"
     = javascript_include_tag "application"
     = yield :javascript_includes
