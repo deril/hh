@@ -1,6 +1,6 @@
 Hh::Application.routes.draw do
   
-  # TODO: may be ruby 1.8
+  # TODO: may be ruby 1.8 or 2.0
   # TODO: add logining for admin
   # TODO: notification
 
