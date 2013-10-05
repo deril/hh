@@ -3,15 +3,15 @@ class DispatchTagsController < ApplicationController
   before_filter :find_tag, only: [:update, :destroy, :edit] 
 
   def index
-    @tags = ActsAsTaggableOn::Tag.order("name ASC").page(current_page)
+    @tags = Tag.order("name ASC").page(current_page)
   end
 
   def new
-    @tag = ActsAsTaggableOn::Tag.new
+    @tag = Tag.new
   end
 
   def create
-    @tag = ActsAsTaggableOn::Tag.new(name: params[:tag].downcase.gsub(/ +/,'_'))
+    @tag = Tag.new(name: params[:tag].downcase.gsub(/ +/,'_'))
     redirect_to_index @tag.save, "Add"
   end 
   
@@ -29,9 +29,10 @@ class DispatchTagsController < ApplicationController
 
   private
     def find_tag 
-      @tag = ActsAsTaggableOn::Tag.find(params[:id])
+      @tag = Tag.find(params[:id])
     end
 
+    # TODO: make it better
     #get redirection to index page with notification about success of action 
     def redirect_to_index action, note 
       if action 
