@@ -7,38 +7,38 @@ class DispatchTagsController < ApplicationController
   end
 
   def new
-    @tag = Tag.new
+    @tag = Tag.new()
   end
 
   def create
-    @tag = Tag.new(name: params[:tag].downcase.gsub(/ +/,'_'))
-    redirect_to_index @tag.save, "Add"
+    @tag = Tag.new(name: trim_n_underscore(params[:tag]))
+
+    response = @tag.save_with_response
+    redirect_to dispatch_tags_path, response
   end 
   
   def edit
   end
 
   def update 
-    @tag.name = params[:tag].downcase.gsub(/ +/,'_')
-    redirect_to_index @tag.save, "Edit"
+    @tag.name = trim_n_underscore(params[:tag])
+
+    response = @tag.save_with_response
+    redirect_to dispatch_tags_path, response
   end
 
   def destroy
-    redirect_to_index @tag.destroy, "Delet" 
+    response = @tag.destroy_with_response
+    redirect_to dispatch_tags_path, response
   end
 
   private
-    def find_tag 
-      @tag = Tag.find(params[:id])
+    def trim_n_underscore str
+      str.blank? ? nil : str.strip.downcase.gsub(/\s+/,'_') 
     end
 
-    # TODO: make it better
-    #get redirection to index page with notification about success of action 
-    def redirect_to_index action, note 
-      if action 
-        redirect_to dispatch_tags_path, notice: "Tag successfully "+note.to_s+"ed."
-      else 
-        redirect_to dispatch_tags_path, notice: "Somthing bad with tag "+note.to_s+"ing."
-      end
+    # TODO: gets error!!!!
+    def find_tag  
+      @tag = Tag.find(params[:id])
     end
 end

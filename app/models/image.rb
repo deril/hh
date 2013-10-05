@@ -1,6 +1,5 @@
 class Image < ActiveRecord::Base
 
-  # TODO: DELETE taggable table
   # TODO: FOREIFN KEYS AND DEPENDENT
   # TODO: update count!!!!
 
