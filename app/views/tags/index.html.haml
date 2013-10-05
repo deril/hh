@@ -2,7 +2,10 @@
 
 %h2 Tags list:
 
-- @tags.each do |tag|
-  = link_to "#{tag.name} (#{tag.count})", tag_path(tag.id), class: "tag_link"
+- if @tgs.present?
+  - @tags.each do |tag|
+    = link_to "#{tag.name} (#{tag.count})", tag_path(tag.id), class: "tag_link"
+- else 
+  No tags found...
 
 = paginate @tags

@@ -17,7 +17,7 @@ Hh::Application.routes.draw do
   
   get 'paginate_tags' => "dispatch_imgs#paginate_tags"
 
-  root :to => redirect('/images')
+  root :to => "images#index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
