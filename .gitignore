@@ -16,4 +16,5 @@
 /public
 # Ignore other unneeded files.
 .secret
+*.swp
 
