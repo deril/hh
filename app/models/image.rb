@@ -8,6 +8,12 @@ class Image < ActiveRecord::Base
                             default_url: "/images/:style/missing.png"
 
   has_and_belongs_to_many :tags
+
+  # TODO: test it!!!
+  # TODO: does not work!!!! 
+  # TODO: fix it by adding ImagesTags model @@@
+  accepts_nested_attributes_for :tags 
+
   paginates_per 50
 
   after_create :increment_count

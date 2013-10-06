@@ -5,5 +5,5 @@
     .tags_part{ data: { type: 'tags_page' } }
       - all_tags.slice!(0...20).each do |tag|
         = label_tag tag.name
-        = check_box_tag "tag_list[]", tag.name, image_tag_list.include?(tag.name), id: tag.name
+        = check_box_tag "tags[ids:][]", tag.id, image_tag_list.include?(tag.name), id: tag.name
         %br

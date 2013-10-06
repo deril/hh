@@ -15,11 +15,14 @@ class DispatchImgsController < ApplicationController
 
   def new
     @img = Image.new()
-    @tags = ActsAsTaggableOn::Tag.order("name ASC").all
+    @tags = Tag.order("name ASC").all
   end
   
   def create
-    @img = Image.new(params[:image], tag_list: params[:tag_list])
+
+    # fail "#{params}"
+    # TODO: !!!! tags does not adds
+    @img = Image.new(params[:image], tags: params[:tags])
     @img.rename_image!
 
     response = @img.save_with_response
@@ -29,7 +32,7 @@ class DispatchImgsController < ApplicationController
   def edit
     # TODO: id was shown ??
     @img = Image.find_by_id(params[:id])
-    @tags = ActsAsTaggableOn::Tag.order("name ASC").all
+    @tags = Tag.order("name ASC").all
   end
 
   def update
