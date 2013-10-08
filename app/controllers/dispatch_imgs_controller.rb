@@ -19,10 +19,9 @@ class DispatchImgsController < ApplicationController
   end
   
   def create
-
     # fail "#{params}"
-    # TODO: !!!! tags does not adds
-    @img = Image.new(params[:image], tags: params[:tags])
+    # TODO: !!!! can't add tags
+    @img = Image.new(params[:image], images_tags: params[:images_tags])
     @img.rename_image!
 
     response = @img.save_with_response
