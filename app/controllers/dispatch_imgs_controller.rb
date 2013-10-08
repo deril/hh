@@ -36,7 +36,7 @@ class DispatchImgsController < ApplicationController
 
   def update
     @img = Image.find_by_id(params[:id])
-    @img.assign_attributes(params[:image], tag_list: params[:tag_list])
+    @img.assign_attributes(params[:image], images_tags: params[:images_tags])
     @img.rename_image!
 
     response = @img.save_with_response
@@ -58,13 +58,13 @@ class DispatchImgsController < ApplicationController
         break
       end
     end
-    @tags = ActsAsTaggableOn::Tag.order("name ASC").all
+    @tags = Tag.order("name ASC").all
   end
 
   def saving_from_dir
     file = File.open(File.join(IMG_TMP_DIR, File.basename(params[:image]))) 
     if params[:button] == "accept"
-      @img = Image.new(image: file, tag_list: params[:tag_list])
+      @img = Image.new(image: file, images_tags: params[:images_tags])
       @img.rename_image!
       response = @img.save_with_response
     end
@@ -82,7 +82,7 @@ class DispatchImgsController < ApplicationController
 # TODO: modify to application controller
   private
     def get_tags(page)
-      ActsAsTaggableOn::Tag.order("name ASC").page(page).per(20) # !!!!!!!!!! per(5)
+      Tag.order("name ASC").page(page).per(20) # !!!!!!!!!! per(5)
     end
 
     def check_img?(file_path)
