@@ -1,6 +1,5 @@
 class Image < ActiveRecord::Base
 
-  # TODO: DELETE taggable table
   # TODO: FOREIFN KEYS AND DEPENDENT
   # TODO: update count!!!!
 
@@ -8,7 +7,15 @@ class Image < ActiveRecord::Base
   has_attached_file :image, styles: { thumb: "180x180>", medium: "600x600>" }, 
                             default_url: "/images/:style/missing.png"
 
-  has_and_belongs_to_many :tags
+  # TODO: test it
+  has_many :images_tags, dependent: :destroy
+  has_many :tags, through: :images_tags
+
+  # TODO: test it!!!
+  # TODO: does not work!!!! 
+  # TODO: fix it by adding ImagesTags model @@@
+  accepts_nested_attributes_for :images_tags 
+
   paginates_per 50
 
   after_create :increment_count
