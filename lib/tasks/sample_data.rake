@@ -6,27 +6,32 @@ namespace :db do
     Rake::Task["db:migrate"].invoke
 
     puts "Creating groups..."
-    %w(Activity Creature Attribute).each do |cat|
-      Group.create!(name: cat)
+    groups = []
+    %w(Group_1 Group_2 Group_3).each do |cat|
+      groups << Group.find_or_create_by_name!(cat)
     end
-    
+
     puts "Creating tags..."
-    %w(Bestiality Cheating Netorare Swinging).each do |tag|
-      Group.find(2).tags.create(name: tag)
+    tags = []
+    %w(Tag_1 Tag_10 Tag_100 Tag_1000).each do |tag|
+      tags << groups[0].tags.find_or_create_by_name!(tag)
     end
-    %w(Furry Monster).each do |tag|
-      Group.find(3).tags.create!(name: tag)
+    %w(Tag_2 Tag_20).each do |tag|
+      tags << groups[1].tags.find_or_create_by_name!(tag)
     end
-    %w(Futanari Shemale Big\ Breasts Huge\ Breasts).each do |tag|
-      Group.find(4).tags.create!(name: tag)
+    %w(Tag_3 Tag_30 Tag_300 Tag_3000 Tag_30000).each do |tag|
+      tags << groups[2].tags.find_or_create_by_name!(tag)
     end
-    
+
     puts "Creating images..."
+    tags_size_set = (1...tags.size)
     100.times do |n|
       image = File.open(Dir.glob(File.join(Rails.root, 'sampleimages', '*')).sample)
       img = Image.create!(image: image)
-      img.tags.push(Tag.find(rand(1..10)), Tag.find(rand(1..10)), Tag.find(rand(1..10)))
-    end   
+      img.tags.push(tags[rand(tags_size_set)],
+                    tags[rand(tags_size_set)],
+                    tags[rand(tags_size_set)])
+    end
   end
 end
 
