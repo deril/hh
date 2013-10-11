@@ -1,6 +1,5 @@
 class ImagesTag < ActiveRecord::Base
 
-  # TODO: test it 
   belongs_to :image
   belongs_to :tag
 

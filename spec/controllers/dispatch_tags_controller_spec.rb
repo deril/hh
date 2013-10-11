@@ -33,7 +33,7 @@ describe DispatchTagsController do
     it "response redirect if fail" do
       post :create, {}
       response.should redirect_to dispatch_tags_path
-      flash[:alert].should == "Somthing bad with tag Saving."
+      flash[:alert].should == "Something bad with tag Saving."
     end
 
     it 'has correct tag name' do
@@ -63,7 +63,7 @@ describe DispatchTagsController do
     it "response redirect if fail" do 
       put :update, { id: tag1.id }
       response.should redirect_to dispatch_tags_path
-      flash[:alert].should == "Somthing bad with tag Saving."
+      flash[:alert].should == "Something bad with tag Saving."
     end
 
     it "has correct tag name" do

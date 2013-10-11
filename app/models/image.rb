@@ -1,19 +1,15 @@
 class Image < ActiveRecord::Base
 
-  # TODO: FOREIFN KEYS AND DEPENDENT
+  # TODO: FOREIFN KEYS
   # TODO: update count!!!!
 
   attr_accessible :image_updated_at, :image, :tags
   has_attached_file :image, styles: { thumb: "180x180>", medium: "600x600>" }, 
                             default_url: "/images/:style/missing.png"
 
-  # TODO: test it
   has_many :images_tags, dependent: :destroy
   has_many :tags, through: :images_tags
 
-  # TODO: test it!!!
-  # TODO: does not work!!!! 
-  # TODO: fix it by adding ImagesTags model @@@
   accepts_nested_attributes_for :images_tags 
 
   paginates_per 50
@@ -22,6 +18,7 @@ class Image < ActiveRecord::Base
   after_destroy :decrement_count
   # after_update :update_count
   # TODO: !!!
+  # TODO: maybe need recount
 
   scope :desc, -> { order("id DESC") }
 
@@ -56,7 +53,6 @@ class Image < ActiveRecord::Base
     Paperclip::Geometry.from_file(Paperclip.io_adapters.for(image))
   end
 
-  # TODO: tests
   def get_adapted_size
     if image_file_size/1024/1024 > 0
       "#{image_file_size/1024/1024} Mb"
@@ -65,19 +61,19 @@ class Image < ActiveRecord::Base
     end
   end
 
-  private
+  #private
     def increment_count
-      tags.update_all("count = count + 1")
+      self.tags.update_all("count = count + 1")
     end
 
     def decrement_count
       tags.update_all("count = count - 1")
     end
 
-    # def update_count
-    #   if changes[:tags].present?
-    #     changes[:tags].first.update_all("count = count - 1")
-    #     increment_count
-    #   end
-    # end
+    #def update_count
+      #if changes[:tags].present?
+      #  changes[:tags].first.update_all("count = count - 1")
+      #  increment_count
+      #end
+    #end
 end

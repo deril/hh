@@ -11,7 +11,11 @@ describe Image do
   it { should validate_attachment_content_type(:image).allowing('image/jpeg')
                                                       .allowing('image/png')
                                                       .allowing('image/gif') }
-  it { should have_and_belong_to_many(:tags) }
+
+  it { should have_many(:tags).through(:images_tags) }
+  it { should have_many(:images_tags).dependent(:destroy) }
+
+  it { should accept_nested_attributes_for(:images_tags) }
 
   describe '"#rename_image!" method' do
     it 'renames name of attached file' do
@@ -24,8 +28,9 @@ describe Image do
 
   describe "after filter" do
     describe "increment_count" do
-      it 'add +1 to count column of all images tags' do
+      it 'increments 1 to count column of all images tags' do
         new_img = FactoryGirl.build(:image)
+        new_img.tags << tag
         expect {
           new_img.save!
         }.to change(new_img.tags, :count).by(1)
@@ -34,6 +39,7 @@ describe Image do
 
     describe "decrement_count" do
       it "decrements 1 from count column of all images tags" do
+        image.tags << tag
         tags = image.tags
         expect {
           image.destroy
