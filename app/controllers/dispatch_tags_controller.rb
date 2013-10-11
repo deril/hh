@@ -37,8 +37,11 @@ class DispatchTagsController < ApplicationController
       str.blank? ? nil : str.strip.downcase.gsub(/\s+/,'_') 
     end
 
-    # TODO: gets error!!!!
+    # TODO: test!!
+
     def find_tag  
       @tag = Tag.find(params[:id])
+    rescue
+      redirect_to dispatch_tags_path, { alert: "Can't find such Tag." }
     end
 end

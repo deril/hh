@@ -26,4 +26,16 @@ describe DispatchImgsController do
     end
   end
 
+  describe 'GET "edit"' do
+    it 'gets good response' do
+      get :edit, { id: image.id }
+      response.should be_success
+    end
+    it 'has assigns' do
+      get :edit, { id: image.id }
+      assigns(:img).should == image
+      assigns(:tags).should == [tag]
+    end
+  end
+
 end

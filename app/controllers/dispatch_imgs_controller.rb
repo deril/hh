@@ -5,7 +5,7 @@ class DispatchImgsController < ApplicationController
   IMG_TMP_DIR = Rails.root.join("public","#{IMG_LAST_DIR}") # TODO: bad path
 
 # TODO: tests!!!!!!!!!
-# TODO: check views!!!
+# TODO: !!!! can't add tags
 # TODO: refact
 
   def index
@@ -17,10 +17,10 @@ class DispatchImgsController < ApplicationController
     @img = Image.new()
     @tags = Tag.order("name ASC").all
   end
-  
+
+  # TODO: !!!! can't add tags
   def create
     # fail "#{params}"
-    # TODO: !!!! can't add tags
     @img = Image.new(params[:image], images_tags: params[:images_tags])
     @img.rename_image!
 
@@ -28,12 +28,13 @@ class DispatchImgsController < ApplicationController
     redirect_to dispatch_imgs_path, response
   end
 
+  # TODO: id was shown ??
   def edit
-    # TODO: id was shown ??
     @img = Image.find_by_id(params[:id])
     @tags = Tag.order("name ASC").all
   end
 
+  # TODO: !!!! can't edit tags
   def update
     @img = Image.find_by_id(params[:id])
     @img.assign_attributes(params[:image], images_tags: params[:images_tags])
@@ -44,7 +45,7 @@ class DispatchImgsController < ApplicationController
   end
 
   def destroy
-    @img = Image.find(params[:id])
+    @img = Image.find_by_id(params[:id])
     response = @img.destroy_with_response
     redirect_to dispatch_imgs_path, response
   end
@@ -92,5 +93,4 @@ class DispatchImgsController < ApplicationController
       file.close()
       return data[0,4] == "GIF8" || data[0,4] == "\xff\xd8\xff\xe0" || data[0,4] == "\x89\x50\x4e\x47"
     end
-
 end
