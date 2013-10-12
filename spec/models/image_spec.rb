@@ -96,4 +96,16 @@ describe Image do
     end
   end
 
+  describe "#get_adapted_size" do
+    it "shows Kb's" do
+      image.get_adapted_size.should == "156 Kb" 
+    end
+
+    it "shows Mb's" do
+      image.image_file_size = 52428800
+      image.save!
+      image.get_adapted_size.should == "50 Mb" 
+    end
+  end
+
 end

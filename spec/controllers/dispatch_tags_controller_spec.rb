@@ -47,9 +47,16 @@ describe DispatchTagsController do
       get :edit, { id: tag1.id }
       response.should be_success
     end
+
     it "has current tag" do
       get :edit, { id: tag1.id }
       assigns(:tag).should == tag1
+    end
+
+    it "redirects on index if tag not found" do
+      get :edit, { id: 0 }
+      response.should redirect_to dispatch_tags_path
+      flash[:alert].should == "Can't find such Tag."
     end
   end
 
@@ -71,6 +78,12 @@ describe DispatchTagsController do
       assigns(:tag).should == tag1 
       assigns(:tag).name.should == "some_new_action"
     end
+
+    it "redirects on index if tag not found" do
+      put :update, { id: 0 }
+      response.should redirect_to dispatch_tags_path
+      flash[:alert].should == "Can't find such Tag."
+    end
   end
 
   describe "#destroy" do
@@ -85,5 +98,13 @@ describe DispatchTagsController do
         delete :destroy, { id: tag1.id }
       }.to change(Tag, :count).by(-1)
     end
+
+    it "redirects on index if tag not found" do
+      delete :destroy, { id: 0 }
+      response.should redirect_to dispatch_tags_path
+      flash[:alert].should == "Can't find such Tag."
+    end
   end
+
+
 end
