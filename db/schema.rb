@@ -26,9 +26,15 @@ ActiveRecord::Schema.define(:version => 20130923172846) do
     t.datetime "image_updated_at"
   end
 
+  create_table "images_tags", :id => false, :force => true do |t|
+    t.integer "tag_id"
+    t.integer "image_id"
+  end
+
   create_table "tags", :force => true do |t|
     t.string   "name",       :limit => 40
     t.integer  "count",                    :default => 0
+    t.integer  "group_id"
     t.datetime "created_at",                              :null => false
     t.datetime "updated_at",                              :null => false
   end
