@@ -1,11 +1,8 @@
-class DestoyTagsTable < ActiveRecord::Migration
-  def up
-    drop_table :tags
-  end
-
-  def down
+class CreateTagsTable < ActiveRecord::Migration
+  def change
     create_table :tags do |t|
       t.string :name, limit: '40', presence: true
+      t.integer :count, default: 0
       t.timestamps
     end
   end
