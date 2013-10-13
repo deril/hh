@@ -1,9 +1,11 @@
 class Image < ActiveRecord::Base
 
   # TODO: FOREIFN KEYS
+  # TODO: make constants of saving/deleting responses
   # TODO: update count!!!!
 
-  attr_accessible :image_updated_at, :image, :tags, :image_file_size
+  attr_accessible :image_updated_at, :image, :tags, :image_file_size, :images_tags 
+
   has_attached_file :image, styles: { thumb: "180x180>", medium: "600x600>" }, 
                             default_url: "/images/:style/missing.png"
 
@@ -14,6 +16,7 @@ class Image < ActiveRecord::Base
 
   paginates_per 50
 
+  before_create :rename_image!
   after_create :increment_count
   after_destroy :decrement_count
   # after_update :update_count
@@ -29,8 +32,12 @@ class Image < ActiveRecord::Base
   def rename_image!
     return if self.image_file_name.blank?
     extension = File.extname(self.image_file_name).downcase
-    name = image_updated_at.to_i.to_s
+    name = Time.now.to_i.to_s
     self.image_file_name = 'HH_' + name + extension
+  end
+
+  def self.not_found
+    { alert: "Can't find such Image." }
   end
 
   def save_with_response
@@ -61,7 +68,7 @@ class Image < ActiveRecord::Base
     end
   end
 
-  #private
+  private
     def increment_count
       self.tags.update_all("count = count + 1")
     end

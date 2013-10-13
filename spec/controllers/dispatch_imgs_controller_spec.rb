@@ -5,6 +5,7 @@ describe DispatchImgsController do
   let!(:tagging) { FactoryGirl.create(:images_tag) }
   let(:image) { tagging.image }
   let(:tag) { tagging.tag }
+  let!(:file_fixture) { fixture_file_upload('/images/valid.jpeg', 'image/jpeg') } 
 
   describe 'GET "index"' do
     it "gets good response" do
@@ -27,6 +28,28 @@ describe DispatchImgsController do
     end
   end
 
+  describe 'POST "create"' do
+    it "response redirect if all good" do
+      post :create, { image: { image: file_fixture } }
+      response.should redirect_to dispatch_imgs_path
+      flash[:notice].should == "Image saved successfully."
+    end
+
+    it "response redirect if fail" do
+      post :create
+      response.should redirect_to dispatch_imgs_path
+      flash[:alert].should == "Image saving failed."
+    end
+
+    it "adds new image into db" do 
+      expect {
+        post :create, { image: { image: file_fixture } }
+      }.to change(Image, :count).by(1) 
+    end
+
+    xit "adds new images_tags into db"
+  end
+
   describe 'GET "edit"' do
     it 'gets good response' do
       get :edit, { id: image.id }
@@ -38,32 +61,44 @@ describe DispatchImgsController do
       assigns(:img).should == image
       assigns(:tags).should == [tag]
     end
+
+    it "redirects on index if tag not found" do
+      get :edit, { id: 0 }
+      response.should redirect_to dispatch_imgs_path
+      flash[:alert].should == Image.not_found[:alert]
+    end
   end
 
   describe 'PUT update' do 
     it "response redirects if all good" do
-      put :update, { id: image.id }#, image: { image_file_size: 10 } }
+      put :update, { id: image.id }
       response.should redirect_to dispatch_imgs_path
       flash[:notice].should == "Image saved successfully."
     end
-    it "response redirects if all good" do
+    it "response redirects if fail" do
       put :update, { id: image.id, image: { image: nil } }
       response.should redirect_to dispatch_imgs_path
       flash[:alert].should == "Image saving failed."
     end
 
-    xit "has assign" do
+    it "has assign" do
       put :update, { id: image.id, image: { image_file_size: 10 } }
-      assigns(:image).should == image
+      assigns(:img).should == image
     end
 
-    xit "changes image" do 
+    it "changes image" do 
       expect {
         put :update, { id: image.id, image: { image_file_size: 10 } }
-      }.to change{ image.image_file_size }.to(10)
+      }.to change{ image.reload.image_file_size }.to(10)
     end
 
     xit "changes tags of image"
+
+    it "redirects on index if tag not found" do
+      put :update, { id: 0 }
+      response.should redirect_to dispatch_imgs_path
+      flash[:alert].should == Image.not_found[:alert]
+    end
   end
 
   describe 'DELETE "destroy"' do
@@ -89,6 +124,12 @@ describe DispatchImgsController do
       expect {
         delete :destroy, { id: image.id }
         }.to change(ImagesTag, :count).by(-count)
+    end
+
+    it "redirects on index if tag not found" do
+      delete :destroy, { id: 0 }
+      response.should redirect_to dispatch_imgs_path
+      flash[:alert].should == Image.not_found[:alert]
     end
   end
 

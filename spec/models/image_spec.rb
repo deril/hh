@@ -17,12 +17,23 @@ describe Image do
 
   it { should accept_nested_attributes_for(:images_tags) }
 
-  describe '"#rename_image!" method' do
+  describe '"#rename_image!"' do
     it 'renames name of attached file' do
-      expect {
-        image.rename_image!
-        image.save
-      }.to change{ image.reload.image_file_name }.to('HH_' + image.image_updated_at.to_i.to_s + '.jpeg')
+      image.rename_image!
+      image.image_file_name.should == 'HH_' + Time.now.to_i.to_s + '.jpeg'
+    end
+  end
+
+  describe "before filter" do
+    let!(:image_unsaved) { FactoryGirl.build(:image) }
+
+    describe "rename_image!" do
+      it "change image name" do
+        name = 'HH_' + Time.now.to_i.to_s + '.jpeg'
+        expect {
+          image_unsaved.save!
+        }.to change{ image_unsaved.image_file_name }.to(name)
+      end
     end
   end
 

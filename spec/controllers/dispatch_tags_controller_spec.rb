@@ -40,6 +40,12 @@ describe DispatchTagsController do
       post :create, { tag: " some Action " }
       assigns(:tag).name.should == "some_action"
     end
+
+    it 'adds new tag into db' do
+      expect {
+        post :create, { tag: " some Action " }
+      }.to change(Tag, :count).by(1)
+    end
   end
 
   describe "#edit" do
@@ -56,7 +62,7 @@ describe DispatchTagsController do
     it "redirects on index if tag not found" do
       get :edit, { id: 0 }
       response.should redirect_to dispatch_tags_path
-      flash[:alert].should == "Can't find such Tag."
+      flash[:alert].should == Tag.not_found[:alert]
     end
   end
 
@@ -82,7 +88,7 @@ describe DispatchTagsController do
     it "redirects on index if tag not found" do
       put :update, { id: 0 }
       response.should redirect_to dispatch_tags_path
-      flash[:alert].should == "Can't find such Tag."
+      flash[:alert].should == Tag.not_found[:alert] 
     end
   end
 
@@ -102,7 +108,7 @@ describe DispatchTagsController do
     it "redirects on index if tag not found" do
       delete :destroy, { id: 0 }
       response.should redirect_to dispatch_tags_path
-      flash[:alert].should == "Can't find such Tag."
+      flash[:alert].should == Tag.not_found[:alert]
     end
   end
 
