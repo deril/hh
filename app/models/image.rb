@@ -29,13 +29,6 @@ class Image < ActiveRecord::Base
                                content_type: { content_type: %w(image/jpeg image/png image/gif) },
                                size: { in: 0.5..50.megabytes }
 
-  def rename_image!
-    return if self.image_file_name.blank?
-    extension = File.extname(self.image_file_name).downcase
-    name = Time.now.to_i.to_s
-    self.image_file_name = 'HH_' + name + extension
-  end
-
   def self.not_found
     { alert: "Can't find such Image." }
   end
@@ -54,6 +47,13 @@ class Image < ActiveRecord::Base
     else
       { alert: "Image deleting failed." }
     end
+  end
+  
+  def rename_image!
+    return if self.image_file_name.blank?
+    extension = File.extname(self.image_file_name).downcase
+    name = Time.now.to_i.to_s
+    self.image_file_name = 'HH_' + name + extension
   end
 
   def get_dimensions
