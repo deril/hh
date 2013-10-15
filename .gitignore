@@ -16,3 +16,4 @@
 /public
 # Ignore other unneeded files.
 .secret
+.idea/

@@ -56,7 +56,7 @@ class DispatchImgsController < ApplicationController
     if Dir.exist? IMG_TMP_DIR
       Dir.chdir(IMG_TMP_DIR) do
         file = Dir["*.{jpg,jpeg,png,gif}"].first
-        @img = "#{IMG_LAST_DIR}/#{file}" if check_img?(file)
+        @img = "#{IMG_LAST_DIR}/#{file}" if file && check_img?(file)
       end
       @tags = Tag.order('name ASC').all
     else
@@ -67,9 +67,8 @@ class DispatchImgsController < ApplicationController
   def saving_from_dir
     file = File.open(File.join(IMG_TMP_DIR, File.basename(params[:image])))
     if params[:button] == 'accept'
-      raise params[:images_tags].inspect
       img = Image.create!(image: file)
-      img.tags.push()
+      img.tag_ids = params[:tag_ids]
     end
     File.delete(File.join(IMG_TMP_DIR, File.basename(params[:image])))
     redirect_to stack_path
