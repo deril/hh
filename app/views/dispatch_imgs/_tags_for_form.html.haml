@@ -1,9 +1,12 @@
 - image_tag_list = [] if local_assigns[:image_tag_list].nil?
 
 .form_tags
-  - while all_tags.size > 0
-    .tags_part{ data: { type: 'tags_page' } }
-      - all_tags.slice!(0...20).each do |tag|
-        = label_tag tag.name
-        = check_box_tag "tag_list[]", tag.name, image_tag_list.include?(tag.name), id: tag.name
-        %br
+  = fields_for :images_tags, image do |img_t|
+    = img_t.fields_for :tag do |t|
+
+      - while all_tags.size > 0
+        .tags_part{ data: { type: 'tags_page' } }
+          - all_tags.slice!(0...20).each do |tag|
+            = label_tag tag.name
+            = t.check_box :tag_id, { id: tag.name }, tag.id, nil
+            %br
