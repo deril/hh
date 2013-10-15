@@ -4,7 +4,7 @@ class Image < ActiveRecord::Base
   # TODO: update count!!!!
 
   attr_accessible :image_updated_at, :image, :tags
-  has_attached_file :image, styles: { thumb: "180x180>", medium: "600x600>" }, 
+  has_attached_file :image, styles: { thumb: "180x180>", medium: "600x600>" },
                             default_url: "/images/:style/missing.png"
 
   # TODO: test it
@@ -12,9 +12,9 @@ class Image < ActiveRecord::Base
   has_many :tags, through: :images_tags
 
   # TODO: test it!!!
-  # TODO: does not work!!!! 
+  # TODO: does not work!!!!
   # TODO: fix it by adding ImagesTags model @@@
-  accepts_nested_attributes_for :images_tags 
+  accepts_nested_attributes_for :images_tags
 
   paginates_per 50
 
@@ -25,10 +25,11 @@ class Image < ActiveRecord::Base
 
   scope :desc, -> { order("id DESC") }
 
-  validates_attachment :image, presence: true, 
+  validates_attachment :image, presence: true,
                                content_type: { content_type: %w(image/jpeg image/png image/gif) },
                                size: { in: 0.5..50.megabytes }
 
+  # TODO: move as before_create and before_save filter
   def rename_image!
     return if self.image_file_name.blank?
     extension = File.extname(self.image_file_name).downcase

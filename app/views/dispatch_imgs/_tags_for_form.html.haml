@@ -1,5 +1,3 @@
-- image_tag_list = [] if local_assigns[:image_tag_list].nil?
-
 .form_tags
   = fields_for :images_tags, image do |img_t|
     = img_t.fields_for :tag do |t|
