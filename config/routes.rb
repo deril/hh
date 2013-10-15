@@ -13,7 +13,8 @@ Hh::Application.routes.draw do
 
   resources :dispatch_imgs, except: [:show]
 
-  get "stack" => "dispatch_stack#images_from_dir"
+  resources :dispatch_stack, only: [:index, :create]
+  # get "stack" => "dispatch_stack#images_from_dir"
   post "stack" => "dispatch_stack#saving_from_dir"
   
   root :to => "images#index"

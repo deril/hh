@@ -3,7 +3,7 @@
 %article
 
   - if @img.presence
-    = form_for(Image.new(), url: stack_path(), method: :post, html: { multipart: true }) do |f|
+    = form_for(Image.new(), url: dispatch_stack_index_path(), method: :post, html: { multipart: true }) do |f|
       = f.button "Accept", value: "accept"
       = f.button "Deny", value: "deny"
       .clear

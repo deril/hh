@@ -9,34 +9,32 @@ class DispatchStackController < ApplicationController
 
   DIR_NOT_FOUND = "Dir not found"
 
-  # TODO: may be new fake model or something ???
+  # TODO: may be new fake model or something for DispatchStackController ???
   # TODO: !!!! can't add tags
   # TODO: rename actions !!!!
-  # TODO: refactor me !!!!
 
-  def images_from_dir 
-    redirect_to dispatch_imgs_path, { alert: "Dir not found" } unless IMG_TMP_DIR.exist? 
-    
-    Dir.new(IMG_TMP_DIR).to_a.each do |file|
-      if check_img?("#{IMG_TMP_DIR}/#{file}")
-        @img = "/#{IMG_LAST_DIR}/#{file}"
-        break
-      end
+  def index
+    if IMG_TMP_DIR.exist? 
+      @img = Dir["#{IMG_TMP_DIR}/*"].find { |e| check_img?(e) }
+      @img = "/#{IMG_LAST_DIR}/#{File.basename(@img)}"
+      @tags = Tag.order("name ASC").all
+    else 
+      redirect_to dispatch_imgs_path, { alert: "Dir not found" }
     end
-    @tags = Tag.order("name ASC").all
   end
 
   # TODO: !!!! can't add tags
   # TODO: !!!! tags: [tags]
-  def saving_from_dir
-    file = File.open(File.join(IMG_TMP_DIR, File.basename(params[:image]))) 
+
+  def create
+    response = {} 
+    file_path = params[:image] ? Rails.root.join("#{IMG_TMP_DIR}", File.basename(params[:image])) : nil
     if params[:button] == "accept"
-      @img = Image.new(image: file)
-      @img.rename_image!
+      @img = Image.new(image: File.new(file_path))
       response = @img.save_with_response
     end
-    File.delete(file) # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! when deny -> error
-    redirect_to stack_path, response
+    File.delete(file_path)                                  # FIXME: bug!!!!!
+    redirect_to dispatch_stack_index_path, response
   end
   
   private

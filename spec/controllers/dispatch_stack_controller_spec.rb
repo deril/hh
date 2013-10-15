@@ -1,16 +1,68 @@
 require 'spec_helper'
+require 'fileutils'
 
 describe DispatchStackController do
 
-  describe "#images_from_dir" do
-    before :all do
-      DispatchStackController.redefine_const(:IMG_TMP_DIR, 'images')
-      DispatchStackController.redefine_const(:IMG_LAST_DIR, Rails.root.join("spec", "fixtures", "#{IMG_LAST_DIR}"))
+  def reset_stack_const(const_name, value)
+    if DispatchStackController.const_defined?(const_name)
+      DispatchStackController.send(:remove_const, const_name)
+      DispatchStackController.const_set(const_name, value)
     end
+  end
 
-    it "redirects if dir not found"
-    it "has good response if all good"
-    it "gets assigns"
+  describe 'GET "show"' do
+    before :each do
+      reset_stack_const(:IMG_LAST_DIR, 'images')
+      stack_path = Rails.root.join("spec", "fixtures", "#{DispatchStackController::IMG_LAST_DIR}")
+      reset_stack_const(:IMG_TMP_DIR, stack_path)
+    end
+    it "redirects if dir not found" do
+      reset_stack_const(:IMG_TMP_DIR, Rails.root.join("fake_path"))
+      get :index
+      response.should redirect_to dispatch_imgs_path
+      flash[:alert].should == "Dir not found"
+    end
+    it "has good response if all good" do
+      get :index
+      response.should be_success
+    end
+    it "gets assigns" do
+      get :index
+      assigns(:img).should == "/#{DispatchStackController::IMG_LAST_DIR}/valid.jpeg"
+      assigns(:tags).should == Tag.all
+    end
+  end
+
+  describe 'POST "create"' do
+    before :all do
+      reset_stack_const(:IMG_LAST_DIR, 'images')
+      stack_path = Rails.root.join("spec", "fixtures", "#{DispatchStackController::IMG_LAST_DIR}")
+      reset_stack_const(:IMG_TMP_DIR, stack_path)
+      File.stubs(:delete).returns(true)
+    end
+    it "response redirects" do
+      post :create
+      response.should redirect_to dispatch_stack_index_path
+    end
+    context "if image accepted" do
+      it "creates new image row" do
+        expect {
+          post :create, { image: "valid.jpeg", button: "accept" }
+        }.to change(Image, :count).by(1)
+      end
+      it "gets good response" do
+        post :create, { image: "valid.jpeg", button: "accept" }
+        flash[:notice].should == "Image saved successfully."
+      end
+      xit "adds images_tags"
+    end
+    context "if image not accepted" do
+      it "does not create new image row" do
+        expect {
+          post :create, { image: "valid.jpeg", button: "deny" }
+        }.to change(Image, :count).by(0)
+      end
+    end
   end
 
   describe "#check_img?" do
