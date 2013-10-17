@@ -10,9 +10,5 @@ class ImagesController < ApplicationController
     @img = Image.find(params[:id])
     @tags = @img.tags
   end
-
-  def about
-    # do not delete
-  end
-
+  
 end

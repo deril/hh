@@ -33,12 +33,18 @@ describe DispatchTagsController do
     it "response redirect if fail" do
       post :create, {}
       response.should redirect_to dispatch_tags_path
-      flash[:alert].should == "Somthing bad with tag Saving."
+      flash[:alert].should == "Something bad with tag Saving."
     end
 
     it 'has correct tag name' do
       post :create, { tag: " some Action " }
       assigns(:tag).name.should == "some_action"
+    end
+
+    it 'adds new tag into db' do
+      expect {
+        post :create, { tag: " some Action " }
+      }.to change(Tag, :count).by(1)
     end
   end
 
@@ -47,9 +53,16 @@ describe DispatchTagsController do
       get :edit, { id: tag1.id }
       response.should be_success
     end
+
     it "has current tag" do
       get :edit, { id: tag1.id }
       assigns(:tag).should == tag1
+    end
+
+    it "redirects on index if tag not found" do
+      get :edit, { id: 0 }
+      response.should redirect_to dispatch_tags_path
+      flash[:alert].should == Tag.not_found[:alert]
     end
   end
 
@@ -63,13 +76,19 @@ describe DispatchTagsController do
     it "response redirect if fail" do 
       put :update, { id: tag1.id }
       response.should redirect_to dispatch_tags_path
-      flash[:alert].should == "Somthing bad with tag Saving."
+      flash[:alert].should == "Something bad with tag Saving."
     end
 
     it "has correct tag name" do
       put :update, { id: tag1.id, tag: " some New  Action " } 
       assigns(:tag).should == tag1 
       assigns(:tag).name.should == "some_new_action"
+    end
+
+    it "redirects on index if tag not found" do
+      put :update, { id: 0 }
+      response.should redirect_to dispatch_tags_path
+      flash[:alert].should == Tag.not_found[:alert] 
     end
   end
 
@@ -85,5 +104,13 @@ describe DispatchTagsController do
         delete :destroy, { id: tag1.id }
       }.to change(Tag, :count).by(-1)
     end
+
+    it "redirects on index if tag not found" do
+      delete :destroy, { id: 0 }
+      response.should redirect_to dispatch_tags_path
+      flash[:alert].should == Tag.not_found[:alert]
+    end
   end
+
+
 end
