@@ -25,4 +25,8 @@ class Tag < ActiveRecord::Base
       { alert: "Something bad with tag Deleting." }
     end
   end
+
+  def self.not_found
+    { alert: "Can't find such Tag." }
+  end
 end

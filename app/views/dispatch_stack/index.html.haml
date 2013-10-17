@@ -4,10 +4,12 @@
   - if flash.present?
     - flash.each do |key, value|
       %div{class: "alert alert-#{key}"}= value
+
   - if @img.presence
-    = form_for Image.new, url: stack_path, html: { multipart: true } do |f|
+    = form_for Image.new, url: dispatch_stack_index_path, html: { multipart: true } do |f|
       = f.button 'Accept', value: 'accept'
       = f.button 'Deny', value: 'deny'
+
       .form_tags
         = f.fields_for :tag do |t|
           - while @tags.size > 0

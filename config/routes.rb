@@ -12,11 +12,9 @@ Hh::Application.routes.draw do
   resources :dispatch_tags
 
   resources :dispatch_imgs, except: [:show]
-  get "stack" => "dispatch_imgs#images_from_dir"
-  post "stack" => "dispatch_imgs#saving_from_dir"
-  
-  get 'paginate_tags' => "dispatch_imgs#paginate_tags"
 
+  resources :dispatch_stack, only: [:index, :create]
+  
   root :to => "images#index"
 
   # The priority is based upon order of creation:

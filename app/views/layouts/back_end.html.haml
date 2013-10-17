@@ -13,7 +13,7 @@
         //= link_to 'Home'
         = link_to_unless_current('E_Images', dispatch_imgs_path())
         = link_to_unless_current('E_Tags', dispatch_tags_path())
-        = link_to_unless_current('E_Stack', stack_path())
+        = link_to_unless_current('E_Stack', dispatch_stack_index_path())
         .logo HH
       - #.head_slider
       - #  = image_tag("imgs/front.png")

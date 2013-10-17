@@ -11,21 +11,39 @@ describe Image do
   it { should validate_attachment_content_type(:image).allowing('image/jpeg')
                                                       .allowing('image/png')
                                                       .allowing('image/gif') }
-  it { should have_and_belong_to_many(:tags) }
 
-  describe '"#rename_image!" method' do
+  it { should have_many(:tags).through(:images_tags) }
+  it { should have_many(:images_tags).dependent(:destroy) }
+
+  it { should accept_nested_attributes_for(:images_tags) }
+
+  describe '"#rename_image!"' do
     it 'renames name of attached file' do
-      expect {
-        image.rename_image!
-        image.save
-      }.to change{ image.reload.image_file_name }.to('HH_' + image.image_updated_at.to_i.to_s + '.jpeg')
+      image.rename_image!
+      image.image_file_name.should == 'HH_' + Time.now.to_i.to_s + '.jpeg'
+    end
+  end
+
+  describe "before filter" do
+    let!(:image_unsaved) { FactoryGirl.build(:image) }
+
+
+    # FIXME: transiant
+    describe "rename_image!" do
+      it "change image name" do
+        name = 'HH_' + Time.now.to_i.to_s + '.jpeg'
+        expect {
+          image_unsaved.save!
+        }.to change{ image_unsaved.image_file_name }.to(name)
+      end
     end
   end
 
   describe "after filter" do
     describe "increment_count" do
-      it 'add +1 to count column of all images tags' do
+      it 'increments 1 to count column of all images tags' do
         new_img = FactoryGirl.build(:image)
+        new_img.tags << tag
         expect {
           new_img.save!
         }.to change(new_img.tags, :count).by(1)
@@ -34,6 +52,7 @@ describe Image do
 
     describe "decrement_count" do
       it "decrements 1 from count column of all images tags" do
+        image.tags << tag
         tags = image.tags
         expect {
           image.destroy
@@ -87,6 +106,18 @@ describe Image do
     it 'returns images sizes' do
       sizes = Paperclip::Geometry.from_file(Paperclip.io_adapters.for(image.image))
       image.get_dimensions.to_s.should == sizes.to_s 
+    end
+  end
+
+  describe "#get_adapted_size" do
+    it "shows Kb's" do
+      image.get_adapted_size.should == "156 Kb" 
+    end
+
+    it "shows Mb's" do
+      image.image_file_size = 52428800
+      image.save!
+      image.get_adapted_size.should == "50 Mb" 
     end
   end
 

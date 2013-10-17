@@ -34,11 +34,4 @@ describe ImagesController do
       assigns(:tags).should =~ [tag_1, tag_2]
     end
   end
-
-  describe "#about" do
-    it "has just a good response" do
-      get :about
-      response.should be_success
-    end 
-  end
 end

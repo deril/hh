@@ -30,4 +30,8 @@ describe Tag do
     end
   end
 
+  describe "#not_found" do
+    it { Tag.not_found.should == { alert: "Can't find such Tag." } }
+  end
+
 end

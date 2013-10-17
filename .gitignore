@@ -16,4 +16,7 @@
 /public
 # Ignore other unneeded files.
 .secret
-.idea/
+.idea/*
+/coverage
+*.swp
+
