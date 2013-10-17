@@ -18,4 +18,4 @@
 .secret
 .idea/*
 /coverage
-
+*.swp
