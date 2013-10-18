@@ -5,6 +5,8 @@ This is the source for
 [site.example.com](http://site.example.com/).
 and currently under development.
 
+You can find additional information about methods in [this file](hh_project/hh/blob/master/doc/index.html)
+
 Bug reports and whatnot can be viewed/added on the github issues page.
 
 
