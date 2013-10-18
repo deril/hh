@@ -14,7 +14,7 @@ Hh::Application.routes.draw do
   resources :dispatch_imgs, except: [:show]
 
   resources :dispatch_stack, only: [:index, :create]
-  
+
   root :to => "images#index"
 
   # The priority is based upon order of creation:
