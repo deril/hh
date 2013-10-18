@@ -5,15 +5,7 @@
     = form_for Image.new, url: dispatch_stack_index_path, html: { multipart: true } do |f|
       = f.button 'Accept', value: 'accept'
       = f.button 'Deny', value: 'deny'
-
-      .form_tags
-        = f.fields_for :tag do |t|
-          - while @tags.size > 0
-            .tags_part{ data: { type: 'tags_page' } }
-              - @tags.slice!(0...20).each do |tag|
-                = label_tag tag.name
-                = check_box_tag 'tag_ids[]', tag.id
-
+      = render partial: "dispatch_imgs/tags_for_form", locals: { all_tags: @tags, f: f, image: @img}
       = image_tag("#{@img}", class: "view_img")
       = hidden_field_tag :image, @img
       .clear

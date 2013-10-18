@@ -1,7 +1,7 @@
 namespace :db do
   desc "Fill database with sample data"
   task populate: :environment do
-    
+
     Rake::Task["db:reset"].invoke
     Rake::Task["db:migrate"].invoke
 
@@ -26,12 +26,13 @@ namespace :db do
     puts "Creating images..."
     tags_size_set = (1...tags.size)
     100.times do |n|
-      image = File.open(Dir.glob(File.join(Rails.root, 'sampleimages', '*')).sample)
+      image = File.open(Dir.glob(File.join(Rails.root, 'lib/assets/images', '*')).sample)
       img = Image.create!(image: image)
       img.tags.push(tags[rand(tags_size_set)],
                     tags[rand(tags_size_set)],
                     tags[rand(tags_size_set)])
     end
+    Rake::Task["db:test:prepare"].invoke
   end
 end
 

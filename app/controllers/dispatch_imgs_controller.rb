@@ -11,15 +11,13 @@ class DispatchImgsController < ApplicationController
   end
 
   def new
-    @img = Image.new()
+    @img = Image.new
     @tags = Tag.order("name ASC").all
   end
 
-  # TODO: !!!! can't add tags
-  # TODO: !!!! tags: [tags]
   def create
     @img = Image.new(params[:image])
-
+    @img.tag_ids = params[:tag_ids] if params[:tag_ids]
     response = @img.save_with_response
     redirect_to dispatch_imgs_path, response
   end
@@ -29,10 +27,9 @@ class DispatchImgsController < ApplicationController
     @tags = Tag.order("name ASC").all
   end
 
-  # TODO: !!!! can't edit tags
-  # TODO: !!!! tags: [tags]
   def update
     @img.assign_attributes(params[:image])
+    @img.tag_ids = params[:tag_ids]
     response = @img.save_with_response
     redirect_to dispatch_imgs_path, response
   end
@@ -41,29 +38,6 @@ class DispatchImgsController < ApplicationController
     response = @img.destroy_with_response
     redirect_to dispatch_imgs_path, response
   end
-
-  # TODO: check back_end on missed partials!!!
-  #def images_from_dir
-  #  if Dir.exist? IMG_TMP_DIR
-  #    Dir.chdir(IMG_TMP_DIR) do
-  #      file = Dir["*.{jpg,jpeg,png,gif}"].first
-  #      @img = "#{IMG_LAST_DIR}/#{file}" if file && check_img?(file)
-  #    end
-  #    @tags = Tag.order('name ASC').all
-  #  else
-  #    flash[:error] = "The directory #{IMG_TMP_DIR} does not exist. Create it before continue"
-  #  end
-  #end
-  #
-  #def saving_from_dir
-  #  file = File.open(File.join(IMG_TMP_DIR, File.basename(params[:image])))
-  #  if params[:button] == 'accept'
-  #    img = Image.create!(image: file)
-  #    img.tag_ids = params[:tag_ids]
-  #  end
-  #  File.delete(File.join(IMG_TMP_DIR, File.basename(params[:image])))
-  #  redirect_to stack_path
-  #end
 
   private
     def find_image

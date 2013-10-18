@@ -41,13 +41,18 @@ describe DispatchImgsController do
       flash[:alert].should == "Image saving failed."
     end
 
-    it "adds new image into db" do 
+    it "adds new image into db" do
       expect {
         post :create, { image: { image: file_fixture } }
-      }.to change(Image, :count).by(1) 
+      }.to change(Image, :count).by(1)
     end
 
-    xit "adds new images_tags into db"
+    it "adds new images_tags into db" do
+      tid = Tag.last.id.to_s
+      expect {
+        post :create, { image: { image: file_fixture, tag_ids: [tid] }}
+      }.to change(ImagesTag, :count).by(1)
+    end
   end
 
   describe 'GET "edit"' do
@@ -92,7 +97,14 @@ describe DispatchImgsController do
       }.to change{ image.reload.image_file_size }.to(10)
     end
 
-    xit "changes tags of image"
+    it "changes tags of image" do
+      tid = []
+      tid << FactoryGirl.create(:orphan_tag).id.to_s
+      tid << FactoryGirl.create(:orphan_tag).id.to_s
+      expect {
+        put :update, { id: image.id, tag_ids: tid }
+      }.to change { image.reload.tags.count }.to(2)
+    end
 
     it "redirects on index if tag not found" do
       put :update, { id: 0 }

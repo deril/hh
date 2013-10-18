@@ -15,8 +15,9 @@ class DispatchStackController < ApplicationController
   # TODO: rename actions !!!!
 
   def index
-    if IMG_TMP_DIR.exist? && file = Dir["#{IMG_TMP_DIR}/*.{jpg,jpeg,png,gif}"].first
-      @img = "#{IMG_LAST_DIR}/#{File.basename(file)}" if check_img?(file)
+    if IMG_TMP_DIR.exist?
+      images = Dir["#{IMG_TMP_DIR}/*"].select { |e| check_img?(e) }
+      @img = "#{IMG_LAST_DIR}/#{File.basename(images.first)}"
       @tags = Tag.order("name ASC").all
     else 
       redirect_to dispatch_imgs_path, { alert: "Dir not found or empty" }
@@ -38,6 +39,7 @@ class DispatchStackController < ApplicationController
 
   private
     def check_img?(file_path)
+      return false if file_path.scan(/.jpg$|.jpeg$|.gif$|.png$/).blank?
       file = File.open(file_path.to_s)
       data = file.read(9)
       file.close
