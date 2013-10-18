@@ -1,9 +1,9 @@
 class DispatchImgsController < ApplicationController
   layout "back_end"
 
-  before_filter :find_image, only: [:update, :destroy, :edit] 
+  # TODO: move backend to directory like 'admin'
 
-  # TODO: !!!! can't add tags
+  before_filter :find_image, only: [:update, :destroy, :edit]
 
   def index
     page = params[:page] ? params[:page] : 1
@@ -11,15 +11,13 @@ class DispatchImgsController < ApplicationController
   end
 
   def new
-    @img = Image.new()
+    @img = Image.new
     @tags = Tag.order("name ASC").all
   end
 
-  # TODO: !!!! can't add tags
-  # TODO: !!!! tags: [tags]
   def create
     @img = Image.new(params[:image])
-
+    @img.tag_ids = params[:tag_ids] if params[:tag_ids]
     response = @img.save_with_response
     redirect_to dispatch_imgs_path, response
   end
@@ -29,10 +27,9 @@ class DispatchImgsController < ApplicationController
     @tags = Tag.order("name ASC").all
   end
 
-  # TODO: !!!! can't edit tags
-  # TODO: !!!! tags: [tags]
   def update
     @img.assign_attributes(params[:image])
+    @img.tag_ids = params[:tag_ids]
     response = @img.save_with_response
     redirect_to dispatch_imgs_path, response
   end

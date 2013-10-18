@@ -27,6 +27,8 @@ describe Image do
   describe "before filter" do
     let!(:image_unsaved) { FactoryGirl.build(:image) }
 
+
+    # FIXME: transiant
     describe "rename_image!" do
       it "change image name" do
         name = 'HH_' + Time.now.to_i.to_s + '.jpeg'

@@ -20,7 +20,7 @@ describe DispatchStackController do
       reset_stack_const(:IMG_TMP_DIR, Rails.root.join("fake_path"))
       get :index
       response.should redirect_to dispatch_imgs_path
-      flash[:alert].should == "Dir not found"
+      flash[:alert].should == "Dir not found or empty"
     end
     it "has good response if all good" do
       get :index
@@ -28,7 +28,7 @@ describe DispatchStackController do
     end
     it "gets assigns" do
       get :index
-      assigns(:img).should == "/#{DispatchStackController::IMG_LAST_DIR}/valid.jpeg"
+      assigns(:img).should == "#{DispatchStackController::IMG_LAST_DIR}/valid.jpeg"
       assigns(:tags).should == Tag.all
     end
   end
@@ -54,7 +54,13 @@ describe DispatchStackController do
         post :create, { image: "valid.jpeg", button: "accept" }
         flash[:notice].should == "Image saved successfully."
       end
-      xit "adds images_tags"
+      it "adds images_tags" do
+        tids = []
+        tids << FactoryGirl.create(:orphan_tag).id.to_s
+        expect {
+          post :create, { image: "valid.jpeg", tag_ids: tids, button: "accept" }
+        }.to change(ImagesTag, :count).by(1)
+      end
     end
     context "if image not accepted" do
       it "does not create new image row" do
