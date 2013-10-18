@@ -1,0 +1,13 @@
+Fri, 18 Oct 2013 21:03:08 +0300
+doc/README_FOR_APP	Mon, 30 Sep 2013 20:25:15 +0300
+app/controllers/application_controller.rb	Fri, 18 Oct 2013 21:01:49 +0300
+app/controllers/dispatch_imgs_controller.rb	Fri, 18 Oct 2013 21:00:14 +0300
+app/controllers/dispatch_stack_controller.rb	Fri, 18 Oct 2013 21:00:14 +0300
+app/controllers/dispatch_tags_controller.rb	Fri, 18 Oct 2013 21:00:14 +0300
+app/controllers/images_controller.rb	Fri, 18 Oct 2013 21:00:14 +0300
+app/controllers/tags_controller.rb	Sat, 05 Oct 2013 20:08:58 +0300
+app/helpers/application_helper.rb	Sat, 05 Oct 2013 20:08:58 +0300
+app/models/group.rb	Sat, 05 Oct 2013 20:08:58 +0300
+app/models/image.rb	Fri, 18 Oct 2013 21:00:14 +0300
+app/models/images_tag.rb	Fri, 18 Oct 2013 21:00:14 +0300
+app/models/tag.rb	Fri, 18 Oct 2013 21:00:14 +0300
