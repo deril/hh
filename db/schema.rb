@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131005085804) do
+ActiveRecord::Schema.define(:version => 20131025124844) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(:version => 20131005085804) do
 
   create_table "groups", :force => true do |t|
     t.string   "name",       :null => false
+    t.integer  "parent_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -44,13 +45,19 @@ ActiveRecord::Schema.define(:version => 20131005085804) do
     t.datetime "image_updated_at"
   end
 
-  create_table "images_tags", :id => false, :force => true do |t|
-  create_table "tags", :force => true do |t|
-    t.string   "name",       :limit => 40
-    t.integer  "count",                    :default => 0
-    t.integer  "group_id"
-    t.datetime "created_at",                              :null => false
-    t.datetime "updated_at",                              :null => false
+  create_table "images_tags", :force => true do |t|
+    t.integer  "image_id",   :null => false
+    t.integer  "tag_id",     :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
+
+  create_table "tags", :force => true do |t|
+    t.string  "name",                    :null => false
+    t.integer "count",    :default => 0
+    t.integer "group_id"
+  end
+
+  add_index "tags", ["group_id"], :name => "index_tags_on_group_id"
 
 end
