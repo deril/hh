@@ -12,7 +12,6 @@ class DispatchTagsController < ApplicationController
 
   def create
     @tag = Tag.new(name: trim_n_underscore(params[:tag]))
-
     response = @tag.save_with_response
     redirect_to dispatch_tags_path, response
   end 
@@ -22,7 +21,6 @@ class DispatchTagsController < ApplicationController
 
   def update 
     @tag.name = trim_n_underscore(params[:tag])
-
     response = @tag.save_with_response
     redirect_to dispatch_tags_path, response
   end
@@ -37,8 +35,8 @@ class DispatchTagsController < ApplicationController
       str.blank? ? nil : str.strip.downcase.gsub(/\s+/,'_') 
     end
 
-    # TODO: gets error!!!!
     def find_tag  
-      @tag = Tag.find(params[:id])
+      @tag = Tag.find_by_id(params[:id])
+      redirect_to dispatch_tags_path, Tag.not_found unless @tag
     end
 end
