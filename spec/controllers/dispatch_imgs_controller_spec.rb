@@ -1,11 +1,17 @@
 require 'spec_helper'
 
 describe DispatchImgsController do
-  
+
+  let!(:admin) { FactoryGirl.create(:admin) }  
   let!(:tagging) { FactoryGirl.create(:images_tag) }
   let!(:image) { tagging.image }
   let(:tag) { tagging.tag }
   let!(:file_fixture) { fixture_file_upload('/images/valid.jpeg', 'image/jpeg') } 
+
+  before :each do
+    @request.env["devise.mapping"] = Devise.mappings[:admin]
+    sign_in admin
+  end
 
   describe 'GET "index"' do
     it "gets good response" do

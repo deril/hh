@@ -7,8 +7,8 @@ gem 'haml', '~> 3.1.4'
 gem "quick_magick"
 gem 'execjs'
 gem "paperclip", "~> 3.0"
-# gem 'acts-as-taggable-on', '~> 2.3.1'
 gem 'metamagic'
+gem 'devise'
 
 # Gems used only for assets and not required
 # in production environments by default.

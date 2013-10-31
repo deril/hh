@@ -3,6 +3,13 @@ require 'fileutils'
 
 describe DispatchStackController do
 
+  let!(:admin) { FactoryGirl.create(:admin) } 
+
+  before :each do
+    @request.env["devise.mapping"] = Devise.mappings[:admin]
+    sign_in admin
+  end
+
   def reset_stack_const(const_name, value)
     if DispatchStackController.const_defined?(const_name)
       DispatchStackController.send(:remove_const, const_name)
@@ -10,12 +17,13 @@ describe DispatchStackController do
     end
   end
 
-  describe 'GET "show"' do
+  describe 'GET "index"' do
     before :each do
       reset_stack_const(:IMG_LAST_DIR, 'images')
       stack_path = Rails.root.join("spec", "fixtures", "#{DispatchStackController::IMG_LAST_DIR}")
       reset_stack_const(:IMG_TMP_DIR, stack_path)
     end
+
     it "redirects if dir not found" do
       reset_stack_const(:IMG_TMP_DIR, Rails.root.join("fake_path"))
       get :index
@@ -40,6 +48,7 @@ describe DispatchStackController do
       reset_stack_const(:IMG_TMP_DIR, stack_path)
       File.stubs(:delete).returns(true)
     end
+    
     it "response redirects" do
       post :create
       response.should redirect_to dispatch_stack_index_path

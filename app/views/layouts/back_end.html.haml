@@ -9,6 +9,7 @@
     = csrf_meta_tags
   %body
     #wrapper
+      = render partial: "layouts/for_login"
       #menu
         //= link_to 'Home'
         = link_to_unless_current('E_Images', dispatch_imgs_path())

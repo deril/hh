@@ -1,9 +1,28 @@
 {
   "RSpec": {
     "coverage": {
-      "/home/dimon/dev/hh/app/controllers/application_controller.rb": [
+      "/home/fattaf/Public/hh/app/models/admin.rb": [
+        1,
+        null,
+        null,
+        null,
+        1,
+        null,
+        null,
+        null,
+        1,
+        null,
+        null
+      ],
+      "/home/fattaf/Public/hh/app/controllers/application_controller.rb": [
         1,
         1,
+        1,
+        null,
+        null,
+        1,
+        57,
+        null,
         null,
         1,
         9,
@@ -20,7 +39,7 @@
         null,
         null
       ],
-      "/home/dimon/dev/hh/app/helpers/application_helper.rb": [
+      "/home/fattaf/Public/hh/app/helpers/application_helper.rb": [
         1,
         null,
         null,
@@ -43,12 +62,11 @@
         null,
         null
       ],
-      "/home/dimon/dev/hh/app/controllers/dispatch_imgs_controller.rb": [
+      "/home/fattaf/Public/hh/app/controllers/dispatch_imgs_controller.rb": [
         1,
         1,
         null,
-        null,
-        null,
+        1,
         1,
         null,
         1,
@@ -92,20 +110,19 @@
         null,
         null
       ],
-      "/home/dimon/dev/hh/app/controllers/dispatch_stack_controller.rb": [
+      "/home/fattaf/Public/hh/app/controllers/dispatch_stack_controller.rb": [
         1,
         1,
         null,
         1,
         1,
         1,
+        null,
+        1,
         1,
         1,
         null,
         1,
-        null,
-        null,
-        null,
         null,
         null,
         null,
@@ -116,8 +133,6 @@
         2,
         null,
         1,
-        null,
-        null,
         null,
         null,
         null,
@@ -143,7 +158,8 @@
         null,
         null
       ],
-      "/home/dimon/dev/hh/app/controllers/dispatch_tags_controller.rb": [
+      "/home/fattaf/Public/hh/app/controllers/dispatch_tags_controller.rb": [
+        1,
         1,
         1,
         1,
@@ -187,7 +203,7 @@
         null,
         null
       ],
-      "/home/dimon/dev/hh/app/controllers/images_controller.rb": [
+      "/home/fattaf/Public/hh/app/controllers/images_controller.rb": [
         1,
         null,
         1,
@@ -203,7 +219,7 @@
         null,
         null
       ],
-      "/home/dimon/dev/hh/app/models/image.rb": [
+      "/home/fattaf/Public/hh/app/models/image.rb": [
         1,
         null,
         null,
@@ -290,7 +306,7 @@
         null,
         null
       ],
-      "/home/dimon/dev/hh/app/controllers/tags_controller.rb": [
+      "/home/fattaf/Public/hh/app/controllers/tags_controller.rb": [
         1,
         null,
         null,
@@ -307,7 +323,7 @@
         null,
         null
       ],
-      "/home/dimon/dev/hh/app/models/tag.rb": [
+      "/home/fattaf/Public/hh/app/models/tag.rb": [
         1,
         1,
         null,
@@ -341,17 +357,18 @@
         null,
         null
       ],
-      "/home/dimon/dev/hh/app/models/group.rb": [
+      "/home/fattaf/Public/hh/app/models/group.rb": [
         1,
         1,
         null,
+        1,
         1,
         null,
         1,
         null,
         null
       ],
-      "/home/dimon/dev/hh/app/models/images_tag.rb": [
+      "/home/fattaf/Public/hh/app/models/images_tag.rb": [
         1,
         null,
         1,
@@ -362,6 +379,6 @@
         null
       ]
     },
-    "timestamp": 1382118817
+    "timestamp": 1383219582
   }
 }

@@ -1,8 +1,10 @@
 Hh::Application.routes.draw do
   
-  # TODO: may be ruby 1.8 or 2.0
-  # TODO: add logining for admin
+  # TODO: ruby 2.1
+  # TODO: rails 4 
   # TODO: notification
+  
+  devise_for :admins, path: "auth", skip: :registrations
 
   resources :images, only: [:index, :show]
   get 'about' => 'images#about'
@@ -15,7 +17,7 @@ Hh::Application.routes.draw do
 
   resources :dispatch_stack, only: [:index, :create]
 
-  root :to => "images#index"
+  root to: "images#index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

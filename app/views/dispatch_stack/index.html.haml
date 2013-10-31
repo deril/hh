@@ -6,7 +6,7 @@
       = f.button 'Accept', value: 'accept'
       = f.button 'Deny', value: 'deny'
       = render partial: "dispatch_imgs/tags_for_form", locals: { all_tags: @tags, f: f, image: @img}
-      = image_tag("#{@img}", class: "view_img")
+      = image_tag("/#{@img}", class: "view_img")
       = hidden_field_tag :image, @img
       .clear
 

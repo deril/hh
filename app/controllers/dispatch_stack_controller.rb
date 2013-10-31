@@ -2,21 +2,20 @@ class DispatchStackController < ApplicationController
   layout "back_end"
 
   IMG_LAST_DIR = 'tmp'
-  IMG_TMP_DIR = Rails.root.join('app', 'assets', 'images', "#{IMG_LAST_DIR}")
+  IMG_TMP_DIR = Rails.root.join('public', "#{IMG_LAST_DIR}")
+  DIR_NOT_FOUND = "Dir not found"
+
   GIF = "gif8"
   JPEG = "\xff\xd8\xff\xe0"
   PNG = "\x89\x50\x4e\x47"
 
-  DIR_NOT_FOUND = "Dir not found"
+  before_filter :authenticate_admin!
 
   # TODO: may be new fake model or something for DispatchStackController ???
 
-  # TODO: !!!! can't add tags
-  # TODO: rename actions !!!!
-
   def index
     if IMG_TMP_DIR.exist?
-      images = Dir["#{IMG_TMP_DIR}/*"].select { |e| check_img?(e) }
+      images = Dir["#{IMG_TMP_DIR}/*"].select { |e| check_img?(e) }    
       @img = "#{IMG_LAST_DIR}/#{File.basename(images.first)}"
       @tags = Tag.order("name ASC").all
     else 
@@ -24,8 +23,6 @@ class DispatchStackController < ApplicationController
     end
   end
 
-  # TODO: !!!! can't add tags
-  # TODO: !!!! tags: [tags]
   def create
     response = {}
     file_path = params[:image] ? Rails.root.join("#{IMG_TMP_DIR}", File.basename(params[:image])) : nil

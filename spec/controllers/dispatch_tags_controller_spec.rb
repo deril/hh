@@ -2,8 +2,14 @@ require 'spec_helper'
 
 describe DispatchTagsController do
 
+  let!(:admin) { FactoryGirl.create(:admin) }  
   let!(:tag1) { FactoryGirl.create(:tag, name: "A_first") }
   let!(:tag2) { FactoryGirl.create(:tag, name: "Z_last") }
+
+  before :each do
+    @request.env["devise.mapping"] = Devise.mappings[:admin]
+    sign_in admin
+  end
 
   describe "#index" do
     it "finds group of tags" do

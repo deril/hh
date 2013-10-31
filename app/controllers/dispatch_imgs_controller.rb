@@ -1,9 +1,8 @@
 class DispatchImgsController < ApplicationController
   layout "back_end"
 
-  # TODO: move backend to directory like 'admin'
-
   before_filter :find_image, only: [:update, :destroy, :edit]
+  before_filter :authenticate_admin!
 
   def index
     page = params[:page] ? params[:page] : 1
