@@ -1,21 +1,19 @@
 !!! 5
 %html#document{html_attrs, :lang => 'en'}
   %head
-    = metamagic title: APP_CONFIG['default_pre_title'] + ' | ' + APP_CONFIG['default_title'],
-                keywords:  APP_CONFIG['default_keywords'],
-                description: APP_CONFIG['default_description']
-
+    = render partial: "meta/default_meta"
     = stylesheet_link_tag "application", :media => "all"
     = javascript_include_tag "application"
     = yield :javascript_includes
     = csrf_meta_tags
   %body
     #wrapper
+      = render partial: "layouts/for_login"
       #menu
         %ul
-          %li= link_to_unless_current('Images', {controller: "images", action: "index"})
-          %li= link_to_unless_current('Tags', {controller: "tags", action: "index"})
-          %li= link_to_unless_current('About', {controller: "images", action: "about"}) 
+          %li= link_to_unless_current('Images', images_path)
+          %li= link_to_unless_current('Tags', tags_path)
+          %li= link_to_unless_current('About', about_path) 
           %li.logo HH
       .head_slider
         = image_tag("imgs/front.png")

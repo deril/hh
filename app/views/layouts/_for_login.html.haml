@@ -1,0 +1,4 @@
+- if admin_signed_in?
+  #logined
+    Logined as #{@current_admin.email.capitalize},
+    = link_to "Log_out", destroy_admin_session_path, method: :delete

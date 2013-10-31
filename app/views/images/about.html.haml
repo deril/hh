@@ -1,20 +1,63 @@
 %article{ class: "body_wrap" }
   %div
-    = link_to "Contacts", "#", class: "tag_link", data: { type: "hide_link" }
+    = link_to "Contact us", "#", class: "tag_link", data: { type: "hide_link" }
     
-    %div{ class: "hidden", data: { type: "hide_content" } }
-      Our email: press_email_@_mail.com
-
+    %div{ data: { type: "hide_content" } }
+      Our email: 
+      = mail_to('press_email_@_mail.com')
 
   %div
-    = link_to "Copyright and Intellectual Property", "#", class: "tag_link", data: { type: "hide_link" } 
-
-    %div{ class: "hidden", data: { type: "hide_content" } }
+    = link_to "Terms of Service", "#", class: "tag_link", data: { type: "hide_link" }
+    %div{ data: { type: "hide_content" } }
       %p
-        Unfortunately, in a cause of huge volume, it is impossible for us, verify all the copyright status of every content unit. 
+        By accessing the 'HH' website (next "Site" or "HH") you accept the following terms. 
+        From that point onwards, we will treat your use of the Site as acceptance of the Terms.
+      %ul
+        %li The Site reserves the right to change these terms at any time. 
+        %li If you are a minor, then you are not allowed use the Site.
+        %li The Site is presented to you as it is, without any warranty, express or implied. 
+        %li You understand, that there is may be content, that does not appeal to you, or your feelings of morality.
+        %li You accept that the Site is not liable for any content that you may find here.
+        %li You are visiting this site only for personal use.
+
+  %div
+    = link_to "Prohibited Content and Privacy Policy", "#", class: "tag_link", data: { type: "hide_link" }
+    %div{ data: { type: "hide_content" } }
+      %p 
+        The 'HH' website (next 'HH' or 'Site') is the supporter of freedom in using content. 
+        And strict misunderstanding of nonsexual content policy.
+        That's why all content on the 'HH' is completely free for personal use.
+      %p 
+        Anyway, 'HH' is the resource for  hentai,  adult manga, anime, and cartoon only.
+        We try to provide only the best quality of our content. 
+        'HH' will not disclose the IP address or email address of any user except to the staff. 
+        We hope you share our ideals.
+      %p
+        But, also 'HH', in our own moral and other convictions, has some subject restrictions. 
+        It is not allowed any following content, like:
+      %ul 
+        %li
+          Child pornography: 
+          Any photograph, or photorealistic drawing or movie that depicts children in a sexual manner. 
+          This includes nudity, explicit sex, implied sex, or sexually persuasive positions.
+        %li
+          Bestiality: 
+          Any photograph or photorealistic drawing or movie that depicts humans having sex (either explicit or implied) with other non-human animals.
+        %li
+          Watermarked: 
+          Any image where a person who is not the original copyright owner has placed a watermark on the image.
+      %p
+        The Site is not allowed to make public anything else except manga, anime, hentai and adult cartoon content in any ways.
+
+  %div
+    = link_to "Something about Copyright and Intellectual Property", "#", class: "tag_link", 
+                                                                          data: { type: "hide_link" }
+    %div{ data: { type: "hide_content" } }
+      %p
+        Unfortunately, in a cause of huge volume, it is impossible to verify all the copyright status of every content unit. 
       %p
         If you find that your copyright has been infringed, please report us.
-        Please make sure to include all the information below:
+        Please, make sure to include all the information below:
       %ul
         %li A physical or electronic signature of a person authorized to act on behalf of the owner of an exclusive right that is infringed;
         %li Name or id of material that is claimed to be infringing or to be the subject of infringing activity and has to be removed;
@@ -23,52 +66,10 @@
         %li A statement that the information in the notification is accurate.
       %p
         A properly filed takedown notice needs the following information to be valid. 
-        You are hereby made aware that if any of the legally required information is missing or invalid, we cannot be legally considered to have actual knowledge of copyright infringement.
+        We should to aware you, that if any of the legally required information is missing or invalid, we cannot be legally considered to have actual knowledge of copyright infringement.
       %p
-        In that case, please, sent us an email with all this information.
+        In that case, please, send us an email with all this information.
         Normally we respond within the one day. 
       %p
         Furthermore, please be aware that all copyright claims are made under perjury of law, and false claims may be prosecuted.
      
-     
-     
-
-  %div
-    = link_to "Terms of Service", "#", class: "tag_link", data: { type: "hide_link" }
-   
-    %div{ class: "hidden", data: { type: "hide_content" } }
-      %p
-        By accessing the HH website ("Site") you accept the following Terms of Service. 
-        From that point onwards, HH will treat your use of the Site as acceptance of the Terms.
-      %ul
-        %li The Site reserves the right to change these terms at any time. 
-        %li If you are a minor, then you will not use the Site.
-        %li The Site is presented to you as it is, without any warranty, express or implied. 
-        %li You will not hold the Site or its staff members liable for damages caused by the use of the site.
-        %li You understand that there may be content on the Site that does not appeal to you or you feel is morally wrong.
-        %li You accept that the Site is not liable for any content that you may find here.
-        %li You are visiting this site only for personal use.
-
-
-  %div
-    = link_to "Prohibited Content and Privacy Policy", "#", class: "tag_link", data: { type: "hide_link" }
-   
-    %div{ class: "hidden", data: { type: "hide_content" } }
-      %p
-        In addition, you may not use the Site to upload any of the following:
-      %ul 
-        %li
-          Child pornography: 
-          Any photograph or photorealistic drawing or movie that depicts children in a sexual manner. 
-          This includes nudity, explicit sex, implied sex, or sexually persuasive positions.
-        %li
-          Bestiality: 
-          Any photograph or photorealistic drawing or movie that depicts humans having sex (either explicit or implied) with other non-human animals.
-        %li
-          Watermarked: 
-          Any image where a person who is not the original copyright owner has placed a watermark on the image.
-        %li
-          Paysites.
-      %p
-        The Site will not disclose the IP address or email address of any user except to the staff.
-        The Site is allowed to make public everything else except manga, anime, hentai and adult cartoon content in any ways.

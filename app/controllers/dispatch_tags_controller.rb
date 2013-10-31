@@ -1,43 +1,43 @@
 class DispatchTagsController < ApplicationController
   layout "back_end"
+  before_filter :authenticate_admin!
   before_filter :find_tag, only: [:update, :destroy, :edit] 
 
   def index
-    @tags = ActsAsTaggableOn::Tag.order("name ASC").page(current_page)
+    @tags = Tag.order("name ASC").page(current_page)
   end
 
   def new
-    @tag = ActsAsTaggableOn::Tag.new
+    @tag = Tag.new()
   end
 
   def create
-    @tag = ActsAsTaggableOn::Tag.new(name: params[:tag].downcase.gsub(/ +/,'_'))
-    redirect_to_index @tag.save, "Add"
+    @tag = Tag.new(name: trim_n_underscore(params[:tag]))
+    response = @tag.save_with_response
+    redirect_to dispatch_tags_path, response
   end 
   
   def edit
   end
 
   def update 
-    @tag.name = params[:tag].downcase.gsub(/ +/,'_')
-    redirect_to_index @tag.save, "Edit"
+    @tag.name = trim_n_underscore(params[:tag])
+    response = @tag.save_with_response
+    redirect_to dispatch_tags_path, response
   end
 
   def destroy
-    redirect_to_index @tag.destroy, "Delet" 
+    response = @tag.destroy_with_response
+    redirect_to dispatch_tags_path, response
   end
 
   private
-    def find_tag 
-      @tag = ActsAsTaggableOn::Tag.find(params[:id])
+    def trim_n_underscore str
+      str.blank? ? nil : str.strip.downcase.gsub(/\s+/,'_') 
     end
 
-    #get redirection to index page with notification about success of action 
-    def redirect_to_index action, note 
-      if action 
-        redirect_to dispatch_tags_path, notice: "Tag successfully "+note.to_s+"ed."
-      else 
-        redirect_to dispatch_tags_path, notice: "Somthing bad with tag "+note.to_s+"ing."
-      end
+    def find_tag  
+      @tag = Tag.find_by_id(params[:id])
+      redirect_to dispatch_tags_path, Tag.not_found unless @tag
     end
 end

@@ -1,20 +1,14 @@
 class ImagesController < ApplicationController
 
-  # TODO: tests!!!!
-
   def index
     @imgs = Image.includes(:tags).desc.page(current_page)
     @tags = get_uniq_tags_from(@imgs)
   end
 
-  # may be not id
+  # TODO: may be not id
   def show 
-    @img = Image.find_by_id(params[:id])
-    @tags = @img.try(:tags)
+    @img = Image.find(params[:id])
+    @tags = @img.tags
   end
-
-  def about
-    # do not delete
-  end
-
+  
 end
