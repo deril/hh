@@ -13,7 +13,6 @@ require 'ffaker'
 require 'database_cleaner'
 require 'paperclip/matchers'
 
-
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
@@ -21,6 +20,7 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 RSpec.configure do |config|
 
   config.before(:suite) do
+    Paperclip::Attachment.default_options[:path] = ":rails_root/public/test:url"
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
   end
@@ -31,6 +31,10 @@ RSpec.configure do |config|
 
   config.after(:each) do
     DatabaseCleaner.clean
+  end
+
+  config.after(:suite) do
+    FileUtils.rm_rf(Dir["#{Rails.root}/public/test"])
   end
   
   config.include Paperclip::Shoulda::Matchers
