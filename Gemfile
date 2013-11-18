@@ -9,6 +9,7 @@ gem 'execjs'
 gem "paperclip", "~> 3.0"
 gem 'metamagic'
 gem 'devise'
+gem 'timecop'
 
 # Gems used only for assets and not required
 # in production environments by default.

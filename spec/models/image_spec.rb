@@ -17,19 +17,24 @@ describe Image do
 
   it { should accept_nested_attributes_for(:images_tags) }
 
-  describe '"#rename_image!"' do
+  before(:all) do
+    Timecop.freeze(Time.now)
+  end
 
-    # FIXME: transiant
+  after(:all) do
+    Timecop.return
+  end
+
+  describe '"#rename_image!"' do
     it 'renames name of attached file' do
+      name = 'HH_' + Time.now.to_i.to_s + '.jpeg'
       image.rename_image!
-      image.image_file_name.should == 'HH_' + time.to_i.to_s + '.jpeg'
+      image.image_file_name.should == name
     end
   end
 
   describe "before filter" do
     let!(:image_unsaved) { FactoryGirl.build(:image) }
-
-    # FIXME: transiant
     describe "rename_image!" do
       it "change image name" do
         name = 'HH_' + Time.now.to_i.to_s + '.jpeg'
