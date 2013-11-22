@@ -11,6 +11,7 @@ class Image < ActiveRecord::Base
 
   has_many :images_tags, dependent: :destroy
   has_many :tags, through: :images_tags
+  belongs_to :warn
 
   accepts_nested_attributes_for :images_tags
 
