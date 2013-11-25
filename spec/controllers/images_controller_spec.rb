@@ -19,14 +19,14 @@ describe ImagesController do
   end
 
   describe "#show" do
+    it "has response redirect if tag not found" do
+      get :show, { id: 0 }
+      response.should redirect_to(images_path)
+      flash[:alert].should == Image.not_found[:alert]
+    end
     it "has success response" do
       get :show, { id: image.id }
       response.should be_success
-    end
-    it "has bad response if image does not exist" do
-      expect {
-        get :show, { id: 100500 }
-      }.to raise_error
     end
     it "has img and tags variables" do
       get :show, { id: image.id }
