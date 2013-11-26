@@ -11,13 +11,14 @@ class DispatchStackController < ApplicationController
 
   before_filter :authenticate_admin!
 
-  # TODO: may be new fake model or something for DispatchStackController ???
+  # TODO: may_be new fake model or something for DispatchStackController ???
 
   def index
     if IMG_TMP_DIR.exist?
       images = Dir["#{IMG_TMP_DIR}/*"].select { |e| check_img?(e) }    
       @img = "#{IMG_LAST_DIR}/#{File.basename(images.first)}"
       @tags = Tag.order("name ASC").all
+      @warns = Warn.all
     else 
       redirect_to dispatch_imgs_path, { alert: "Dir not found or empty" }
     end
@@ -27,7 +28,7 @@ class DispatchStackController < ApplicationController
     response = {}
     file_path = params[:image] ? Rails.root.join("#{IMG_TMP_DIR}", File.basename(params[:image])) : nil
     if params[:button] == "accept"
-      @img = Image.new(image: File.new(file_path), tag_ids: params[:tag_ids])
+      @img = Image.new(image: File.new(file_path), tag_ids: params[:tag_ids], warn_id: params[:warn_id])
       response = @img.save_with_response
     end
     File.delete(file_path) unless response.has_key? :alert

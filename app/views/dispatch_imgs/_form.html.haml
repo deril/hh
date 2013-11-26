@@ -5,6 +5,8 @@
     = f.file_field :image, data: { type: 'file_field' }
     = f.submit "Save"
     .clear
+
+    = render partial: "dispatch_imgs/warns_for_form", locals: { all_warns: @warns, f: f, image: @img }
     = render partial: "dispatch_imgs/tags_for_form", locals: { all_tags: @tags, f: f, image: img }
 
     .images_preview{ data: { type: 'upload_images' } }

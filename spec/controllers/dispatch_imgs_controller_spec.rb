@@ -6,6 +6,7 @@ describe DispatchImgsController do
   let!(:tagging) { FactoryGirl.create(:images_tag) }
   let!(:image) { tagging.image }
   let(:tag) { tagging.tag }
+  let!(:warn) { FactoryGirl.create(:warn) }
   let!(:file_fixture) { fixture_file_upload('/images/valid.jpeg', 'image/jpeg') } 
 
   before :each do
@@ -30,7 +31,8 @@ describe DispatchImgsController do
     it 'has assigns' do
       get :new
       assigns(:img).should be_a_new(Image)
-      assigns(:tags).should == [tag]
+      assigns(:tags).should == Tag.order("name ASC").all
+      assigns(:warns).should == Warn.all
     end
   end
 
@@ -56,7 +58,7 @@ describe DispatchImgsController do
     it "adds new images_tags into db" do
       tid = Tag.last.id.to_s
       expect {
-        post :create, { image: { image: file_fixture, tag_ids: [tid] }}
+        post :create, { image: { image: file_fixture }, tag_ids: [tid] }
       }.to change(ImagesTag, :count).by(1)
     end
   end
@@ -70,7 +72,8 @@ describe DispatchImgsController do
     it 'has assigns' do
       get :edit, { id: image.id }
       assigns(:img).should == image
-      assigns(:tags).should == [tag]
+      assigns(:tags).should == Tag.order("name ASC").all
+      assigns(:warns).should == Warn.all
     end
 
     it "redirects on index if tag not found" do

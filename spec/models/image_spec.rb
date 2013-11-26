@@ -17,6 +17,7 @@ describe Image do
   it { should belong_to(:warn) }
 
   it { should accept_nested_attributes_for(:images_tags) }
+  it { should accept_nested_attributes_for(:warn) }
 
   before(:all) do
     Timecop.freeze(Time.now)
