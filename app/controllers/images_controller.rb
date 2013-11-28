@@ -1,5 +1,7 @@
 class ImagesController < ApplicationController
 
+  before_filter :find_image, only: [:show]
+
   def index
     @imgs = Image.includes(:tags).desc.page(current_page)
     @tags = get_uniq_tags_from(@imgs)
@@ -7,8 +9,13 @@ class ImagesController < ApplicationController
 
   # TODO: may be not id
   def show 
-    @img = Image.find(params[:id])
     @tags = @img.tags
   end
+
+  private
+    def find_image
+      @img = Image.find_by_id(params[:id])
+      redirect_to images_path, Image.not_found unless @img
+    end
   
 end
