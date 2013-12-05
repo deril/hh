@@ -14,7 +14,8 @@ describe Image do
 
   it { should have_many(:tags).through(:images_tags) }
   it { should have_many(:images_tags).dependent(:destroy) }
-
+  it { should belong_to(:warn) }
+  
   it { should accept_nested_attributes_for(:images_tags) }
 
   before(:all) do

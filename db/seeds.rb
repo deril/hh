@@ -7,3 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 # ruby encoding: utf-8
+
+
+# TODO: may be not here!! 
+Warn.create([{ name: 'virgin' }, { name: 'hot' }, { name: 'extra' }]
