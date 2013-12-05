@@ -17,6 +17,6 @@
 # Ignore other unneeded files.
 .secret
 .idea/*
-/coverage/**
+/coverage
 *.swp
 
