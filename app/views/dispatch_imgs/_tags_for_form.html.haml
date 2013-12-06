@@ -5,4 +5,14 @@
     -#    - all_tags.slice!(0...20).each do |tag|
     -#      = label_tag tag.name
     -#      = check_box_tag 'tag_ids[]', tag.id, image.instance_of?(Image) ? image.tag_ids.include?(tag.id) : false
-    
+    .accordion
+      - Group.parents_only.each do |parent_group|
+        %h3=  parent_group.name
+        %div
+          .accordion
+            %h3 some 
+            %div
+              some else
+            %h3 some 
+            %div
+              some else
