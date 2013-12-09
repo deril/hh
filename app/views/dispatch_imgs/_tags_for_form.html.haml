@@ -1,19 +1,6 @@
 .form_tags
   = f.fields_for :tag do
     .accordion
-      - Group.parents_only.includes(:tags).each do |parent_group|
-        %h3= parent_group.name
-        %div
-          .accordion
-            - parent_group.children.each do |child_group| 
-              %h3= child_group.name 
-              %div
-                - child_group.tags.each do |tag|
-                  %p
-                    = label_tag tag.name
-                    = check_box_tag 'tag_ids[]', tag.id, image.instance_of?(Image) ? image.tag_ids.include?(tag.id) : false
-          %div
-            - parent_group.tags.each do |tag|
-              %p
-                = label_tag tag.name
-                = check_box_tag 'tag_ids[]', tag.id, image.instance_of?(Image) ? image.tag_ids.include?(tag.id) : false
+      = render partial: "dispatch_imgs/children_tags_for_form", 
+               collection: Group.parents_only.includes(:tags, :children), as: :group,
+               locals: { image: image }
