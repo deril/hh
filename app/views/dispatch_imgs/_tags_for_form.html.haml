@@ -1,10 +1,5 @@
 .form_tags
   = f.fields_for :tag do
-    -#- while all_tags.size > 0
-    -#  .tags_part{ data: { type: 'tags_page' } }
-    -#    - all_tags.slice!(0...20).each do |tag|
-    -#      = label_tag tag.name
-    -#      = check_box_tag 'tag_ids[]', tag.id, image.instance_of?(Image) ? image.tag_ids.include?(tag.id) : false
     .accordion
       - Group.parents_only.includes(:tags).each do |parent_group|
         %h3= parent_group.name
@@ -15,11 +10,10 @@
               %div
                 - child_group.tags.each do |tag|
                   %p
-                    = check_box_tag tag.name
                     = label_tag tag.name
-
+                    = check_box_tag 'tag_ids[]', tag.id, image.instance_of?(Image) ? image.tag_ids.include?(tag.id) : false
           %div
             - parent_group.tags.each do |tag|
               %p
-                = check_box_tag tag.name
                 = label_tag tag.name
+                = check_box_tag 'tag_ids[]', tag.id, image.instance_of?(Image) ? image.tag_ids.include?(tag.id) : false

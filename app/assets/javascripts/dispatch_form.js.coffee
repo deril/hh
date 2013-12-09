@@ -1,6 +1,7 @@
 $(document).ready -> 
 
   $(".accordion").accordion 
+    active: false,
     heightStyle: "content",
-    event: "mouseover",
+    # event: "mouseover",
     collapsible: true
