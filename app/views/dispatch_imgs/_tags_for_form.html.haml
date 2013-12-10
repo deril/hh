@@ -1,3 +1,4 @@
+- image_tag_ids = image.instance_of?(Image) ? image.tag_ids : []
 .form_tags
   = f.fields_for :tag do
     .accordion
