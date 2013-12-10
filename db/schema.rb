@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(:version => 20131206151754) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.integer  "warn_id"
   end
 
   create_table "images_tags", :force => true do |t|
@@ -59,5 +60,11 @@ ActiveRecord::Schema.define(:version => 20131206151754) do
   end
 
   add_index "tags", ["group_id"], :name => "index_tags_on_group_id"
+
+  create_table "warns", :force => true do |t|
+    t.string   "name",       :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
 end
