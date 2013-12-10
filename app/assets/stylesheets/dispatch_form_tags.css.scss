@@ -1,0 +1,35 @@
+.form_tags{
+  margin: 20px;
+  float: left;
+  font-size: 1.1em;
+  max-width: 400px;
+  min-width: 100px;  
+
+  h3.tag_form {
+    font-size: 16px;
+  };
+
+  ul.tag_form {
+    li  {
+      font-size: 16px;
+      padding: 5px;
+
+      input[type=checkbox] {
+        display:none;
+      };
+
+      input[type=checkbox] + label {
+        display:inline-block;
+        margin:-2px;
+        padding: 5px 12px;
+        background-color: #e7e7e7;
+        border: 1px solid #ddd;
+      };
+
+      input[type=checkbox]:checked + label {
+        background-image: none;
+        background-color:#d0d0d0;
+      };
+    };
+  };
+}
