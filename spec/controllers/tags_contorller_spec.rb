@@ -15,15 +15,15 @@ describe TagsController do
   end
 
   describe "#show" do
+    it "has response redirect" do
+      get :show, { id: 0 }
+      response.should redirect_to(tags_path)
+      flash[:alert].should == Tag.not_found[:alert]
+    end
     it "has respond success" do
       get :show, { id: tag.id }
       response.should be_success
     end 
-    it "has an Exception id cur_tag is undefined" do
-      expect {
-        get :show, { id: 100500 }
-      }.to raise_error
-    end
     it "has cur_tag and images variable" do
       get :show, { id: tag.id }
       assigns(:cur_tag).should == tag
