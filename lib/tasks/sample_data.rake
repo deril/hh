@@ -32,6 +32,7 @@ namespace :db do
                     tags[rand(tags_size_set)],
                     tags[rand(tags_size_set)])
     end
+    Rake::Task["db:seed"].invoke
     Rake::Task["db:test:prepare"].invoke
   end
 end

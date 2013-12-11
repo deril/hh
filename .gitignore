@@ -15,6 +15,7 @@
 /tmp
 /public
 /coverage
+
 # Ignore other unneeded files.
 .secret
 .idea/*
