@@ -12,11 +12,12 @@ class DispatchImgsController < ApplicationController
   def new
     @img = Image.new
     @tags = Tag.order("name ASC").all
+    @warns = Warn.all
   end
 
   def create
     @img = Image.new(params[:image])
-    @img.tag_ids = params[:tag_ids] if params[:tag_ids]
+    @img.assign_attributes(tag_ids: params[:tag_ids], warn_id: params[:warn_id])
     response = @img.save_with_response
     redirect_to dispatch_imgs_path, response
   end
@@ -24,11 +25,12 @@ class DispatchImgsController < ApplicationController
   # TODO: id was shown ??
   def edit
     @tags = Tag.order("name ASC").all
+    @warns = Warn.all
   end
 
   def update
     @img.assign_attributes(params[:image])
-    @img.tag_ids = params[:tag_ids]
+    @img.assign_attributes(tag_ids: params[:tag_ids], warn_id: params[:warn_id])
     response = @img.save_with_response
     redirect_to dispatch_imgs_path, response
   end

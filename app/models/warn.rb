@@ -1,9 +1,9 @@
 class Warn < ActiveRecord::Base
   
-attr_accessible :name
+  attr_accessible :name
+  
+  has_many :images
 
-has_many :images
-
-validates :name, presence: true
+  validates :name, presence: true
 
 end

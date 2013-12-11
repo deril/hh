@@ -1,9 +1,10 @@
 require 'spec_helper'
-require 'fileutils'
 
 describe DispatchStackController do
 
   let!(:admin) { FactoryGirl.create(:admin) } 
+  let!(:tag) { FactoryGirl.create(:orphan_tag) }
+  let!(:warn) { FactoryGirl.create(:warn) }
 
   before :each do
     @request.env["devise.mapping"] = Devise.mappings[:admin]
@@ -37,7 +38,8 @@ describe DispatchStackController do
     it "gets assigns" do
       get :index
       assigns(:img).should == "#{DispatchStackController::IMG_LAST_DIR}/valid.jpeg"
-      assigns(:tags).should == Tag.all
+      assigns(:tags).should == Tag.order("name ASC").all
+      assigns(:warns).should == Warn.all
     end
   end
 
@@ -64,8 +66,7 @@ describe DispatchStackController do
         flash[:notice].should == "Image saved successfully."
       end
       it "adds images_tags" do
-        tids = []
-        tids << FactoryGirl.create(:orphan_tag).id.to_s
+        tids = [tag.id.to_s]
         expect {
           post :create, { image: "valid.jpeg", tag_ids: tids, button: "accept" }
         }.to change(ImagesTag, :count).by(1)
