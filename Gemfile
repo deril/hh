@@ -10,6 +10,8 @@ gem "paperclip", "~> 3.0"
 gem 'metamagic'
 gem 'devise'
 gem 'timecop'
+gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -22,8 +24,6 @@ group :assets do
 
   gem 'uglifier', '>= 1.0.3'
 end
-
-gem 'jquery-rails'
 
 group :development, :test do
   gem 'thin', require: false
