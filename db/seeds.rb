@@ -8,3 +8,7 @@
 
 # ruby encoding: utf-8
 Admin.first_or_create(email: 'admin@admin.com', password: 'supperpass')
+
+# TODO: may be not here!!
+Warn.create([{ name: 'virgin' }, { name: 'hot' }, { name: 'extra' }])
+

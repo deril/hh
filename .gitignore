@@ -19,5 +19,8 @@
 # Ignore other unneeded files.
 .secret
 .idea/*
+coverage/.resultset.json
+coverage/index.html
+coverage/assets/**
 *.swp
 
