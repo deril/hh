@@ -1,4 +1,6 @@
 = render partial: 'meta/images_index_meta', locals: { keywords: @tags }
 
 = render partial: "images_list", locals: { imgs: @imgs }
-= render partial: "tags/tags_list", locals: { tags: @tags, all_tags: true }
+%aside
+  = render partial: "warns_list", locals: {warns: @warns }
+  = render partial: "tags/tags_list", locals: { tags: @tags, all_tags: true }
