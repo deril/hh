@@ -5,6 +5,7 @@ class ImagesController < ApplicationController
   def index
     @imgs = Image.includes(:tags).desc.page(current_page)
     @tags = get_uniq_tags_from(@imgs)
+    @warns = Warn.all
   end
 
   # TODO: may be not id

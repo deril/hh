@@ -13,14 +13,16 @@
         %ul
           %li= link_to_unless_current('Images', images_path)
           %li= link_to_unless_current('Tags', tags_path)
-          %li= link_to_unless_current('About', about_path) 
-          %li.logo HH
+          %li= link_to_unless_current('About', about_path)
+          %li.logo Hentaria
       .head_slider
-        = image_tag("imgs/front.png")
+        = form_tag "#", {class: "header-search"}
+        = text_field_tag "search_query", nil, class: "header-search__input"
+        = submit_tag "", class: "header-search__submit icon-search"
 
       = alert_notifier
 
       = yield
-      
+
       .clear
       .footer

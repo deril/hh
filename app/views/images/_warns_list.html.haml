@@ -1,0 +1,6 @@
+%h2 Warns:
+- if warns.presence
+  - warns.each do |warn|
+    = link_to warn.name, "#", class: "tag_link block", title: warn.name
+- else
+  Nothing to show
