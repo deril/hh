@@ -4,15 +4,16 @@
 
   - if @img.presence
     = form_for Image.new, url: dispatch_stack_index_path, html: { multipart: true } do |f|
-      = f.button 'Accept', value: 'accept'
-      = f.button 'Deny', value: 'deny'
+      = render partial: "dispatch_imgs/tags_for_form", locals: { all_tags: @tags, f: f, image: @img }
+
+      .float_right
+        = f.button 'Accept', value: 'accept'
+        = f.button 'Deny', value: 'deny'
 
       = render partial: "dispatch_imgs/warns_for_form", locals: { all_warns: @warns, f: f, image: @img }
-      = render partial: "dispatch_imgs/tags_for_form", locals: { all_tags: @tags, f: f, image: @img }
 
       = image_tag("/#{@img}", class: "view_img")
       = hidden_field_tag :image, @img
-      .clear
 
   - else
     No images...

@@ -1,15 +1,27 @@
-.form_tags{
+.float_left { float: left; };
+.float_right { float: right; };
+
+.form_warns, .form_tags{
   margin: 20px;
-  float: left;
   font-size: 1.1em;
   max-width: 400px;
-  min-width: 100px;  
+  min-width: 100px;
 
-  h3.tag_form {
+  h3.tag_part {
     font-size: 16px;
   };
 
-  ul.tag_form {
+  ul.warns_part {
+    li  {
+      display:inline-block;
+
+      font-size: 16px;
+      padding: 2px 10px;
+    };
+  };
+
+
+  ul.tag_part {
     li  {
       font-size: 16px;
       padding: 5px;
