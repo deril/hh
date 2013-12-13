@@ -9,8 +9,10 @@ class ImagesController < ApplicationController
   end
 
   # TODO: may be not id
-  def show 
+  def show
     @tags = @img.tags
+    @warns = Warn.all
+    @selected_warn = @img.warn.id
   end
 
   private
@@ -18,5 +20,5 @@ class ImagesController < ApplicationController
       @img = Image.find_by_id(params[:id])
       redirect_to images_path, Image.not_found unless @img
     end
-  
+
 end

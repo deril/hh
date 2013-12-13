@@ -15,6 +15,9 @@ a.tag_link {
   -webkit-transition: 0.6s;
   -o-transition: 0.6s;
 }
+a.active {
+  color: #444;
+}
 
 .inline {
   display: inline-block;
