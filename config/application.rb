@@ -58,6 +58,9 @@ module Hh
     # add app/assets/fonts to the asset path
     # config.assets.paths << Rails.root.join("app", "assets", "fonts")
 
+    # Install sass as default syntax for css
+    config.sass.preferred_syntax = :sass
+
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
     config.generators do |g|
