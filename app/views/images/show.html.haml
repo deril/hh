@@ -4,13 +4,6 @@
   = link_to @img.image.url(:original), target: "_blank" do
     = image_tag(@img.image.url(:medium), class: "image-show-wrap__img")
 
-  .image-show__detail__right
-    %ul.image-show__detail
-      %li Name: #{@img.image_file_name}
-      %li Posted: #{@img.image_updated_at}
-      %li Size: #{@img.get_dimensions} pixels
-      %li Weight: #{@img.get_adapted_size}
-    = link_to "< Back", :back, class: "tag_link"
-
+= link_to "< Back", :back, class: "tag_link"
 = render partial: "images/warns_list", locals: { warns: @warns, selected_warn: @selected_warn }
 = render partial: "tags/tags_list", locals: { tags: @tags }

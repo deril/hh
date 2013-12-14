@@ -12,7 +12,7 @@ class ImagesController < ApplicationController
   def show
     @tags = @img.tags
     @warns = Warn.all
-    @selected_warn = @img.warn.id
+    @selected_warn = @img.warn.try(:id)
   end
 
   private
