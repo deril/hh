@@ -16,7 +16,7 @@ class Image < ActiveRecord::Base
   accepts_nested_attributes_for :images_tags
   accepts_nested_attributes_for :warn
 
-  paginates_per 50
+  paginates_per 32
 
   before_create :rename_image!
   after_create :increment_count
