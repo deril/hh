@@ -17,7 +17,9 @@
             %li= link_to_unless_current('Images', images_path)
             %li= link_to_unless_current('Tags', tags_path)
             %li= link_to_unless_current('About', about_path)
-        .header__logo Hentaria
+        .header__logo
+          Hentaria
+          %span .beta
         .clear-legacy
         .header__slider
           = form_tag "#", {class: "header-search"}
