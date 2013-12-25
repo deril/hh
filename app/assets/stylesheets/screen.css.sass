@@ -1,14 +1,18 @@
 @import partials/base
 $container-style: fluid
 body
-  +container
-  +susy-grid-background
+  // +susy-grid-background
 #wrapper
   +container
 header
-  +span-columns(12)
+  +span-columns(12 omega)
 #menu
   +span-columns(10)
 .header__logo
   +span-columns(2 omega)
 .header__slider
+
+.image_list_wrap
+  +span-columns(10,12)
+.r-sidebar
+  +span-columns(2 omega, 12)
