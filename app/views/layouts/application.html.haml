@@ -10,19 +10,21 @@
     = csrf_meta_tags
   %body
     #wrapper
-      = render partial: "layouts/for_login"
-      #menu
-        %ul
-          %li= link_to_unless_current('Images', images_path)
-          %li= link_to_unless_current('Tags', tags_path)
-          %li= link_to_unless_current('About', about_path)
-          %li.logo 
-            Hentaria
-            %span .beta
-      .head_slider
-        = form_tag "#", {class: "header-search"}
-        = text_field_tag "search_query", nil, class: "header-search__input"
-        = submit_tag "", class: "header-search__submit icon-search"
+      %header
+        = render partial: "layouts/for_login"
+        %nav#menu
+          %ul
+            %li= link_to_unless_current('Images', images_path)
+            %li= link_to_unless_current('Tags', tags_path)
+            %li= link_to_unless_current('About', about_path)
+        .header__logo
+          Hentaria
+          %span .beta
+        .clear-legacy
+        .header__slider
+          = form_tag "#", {class: "header-search"}
+          = text_field_tag "search_query", nil, class: "header-search__input"
+          = submit_tag "", class: "header-search__submit icon-search"
 
       = alert_notifier
 
