@@ -20,4 +20,4 @@ def secure_token
 end
 
 Hh::Application.config.secret_token = secure_token
-
+Devise.secret_key = secure_token
