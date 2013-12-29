@@ -1,9 +1,7 @@
 @import partials/base
-$container-style: fluid
-body
-  // +susy-grid-background
 #wrapper
   +container
+  // +susy-grid-background
 header
   +span-columns(12 omega)
 #menu
@@ -13,6 +11,6 @@ header
 .header__slider
 
 .image_list_wrap, .image-show__wrap
-  +span-columns(10,12)
+  +span-columns(10 omega,12)
 .r-sidebar
-  +span-columns(2 omega, 12)
+  +span-columns(2, 12)

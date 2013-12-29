@@ -1,6 +1,7 @@
 = render partial: "meta/tags_show_meta", locals: { tag_name: @cur_tag.name, keywords: @tags }
 
-= render partial: "images/images_list", locals: { imgs: @imgs }
 %aside.r-sidebar
   = render partial: "images/warns_list", locals: {warns: @warns }
   = render partial: "tags_list", locals: { tags: @tags }
+
+= render partial: "images/images_list", locals: { imgs: @imgs }
