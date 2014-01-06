@@ -33,14 +33,25 @@
       input[type=checkbox] + label {
         display:inline-block;
         margin:-2px;
-        padding: 5px 12px;
+        padding: 5px 22px;
         background-color: #e7e7e7;
-        border: 1px solid #ddd;
+        border: 2px solid #ddd;
+        -webkit-border-radius: 50px; 
+        -moz-border-radius: 50px; 
+        -o-border-radius: 50px; 
+        -khtml-border-radius: 50px;
+        border-radius: 50px;
       };
 
       input[type=checkbox]:checked + label {
         background-image: none;
-        background-color:#d0d0d0;
+        background-color:#cbcbcb;
+
+        -webkit-box-shadow: inset 0px 2px 2px #B2B3B5, 0px 1px 0 #fff;
+        -moz-box-shadow: inset 0px 2px 2px #B2B3B5, 0px 1px 0 #fff;
+        -o-box-shadow: inset 0px 2px 2px #B2B3B5, 0px 1px 0 #fff;
+        -khtml-box-shadow: inset 0px 2px 2px #B2B3B5, 0px 1px 0 #fff;
+        box-shadow: inset 0px 2px 2px #B2B3B5, 0px 1px 0 #fff;
       };
     };
   };

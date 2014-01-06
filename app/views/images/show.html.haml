@@ -1,20 +1,10 @@
 = render partial: "meta/images_show_meta", locals: { image_name: @img.image_file_name, keywords: @tags  }
 
-%article{ class: "image_list_wrap" }
-  = link_to @img.image.url(:original) do
-    = image_tag(@img.image.url(:medium), target: "_blank")
+%aside.r-sidebar
+  = render partial: "images/warns_list", locals: { warns: @warns, selected_warn: @selected_warn }
+  = render partial: "tags/tags_list", locals: { tags: @tags }
 
-  .on_right
-    Name: #{@img.image_file_name}
-    %br 
-    %br
-    Posted: #{@img.image_updated_at}
-    %br
-    Size: #{@img.get_dimensions} pixels
-    %br
-    Weight: #{@img.get_adapted_size}
-    %br
-    %br
-    = link_to "< Back", :back, class: "tag_link"
-
-= render partial: "tags/tags_list", locals: { tags: @tags } 
+%article{ class: "image-show__wrap" }
+  = link_to "< Back", :back, class: "tag_link tag-link__block"
+  = link_to @img.image.url(:original), target: "_blank" do
+    = image_tag(@img.image.url(:original), class: "image-show-wrap__img")

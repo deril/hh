@@ -1,11 +1,11 @@
-%article{ class: "image_list_wrap" }
+%section{ class: "image_list_wrap#{' m-92-top' unless @cur_tag.presence}" }
 
   - # TODO: BAD - may be yield
   - if @cur_tag.presence
     %h2= "Current tag: #{@cur_tag.name.capitalize}"
-    
+
   - if imgs.present?
-    %ul
+    %ul.image-list__block
       - imgs.each do |img|
         %li= link_to image_tag(img.image.url(:thumb)), image_path(img.id), class: "image_thumbs"
   - else

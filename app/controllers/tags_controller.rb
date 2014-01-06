@@ -11,6 +11,7 @@ class TagsController < ApplicationController
   def show 
     @imgs = @cur_tag.images.includes(:tags).page(current_page)
     @tags = get_uniq_tags_from(@imgs, @cur_tag) if @imgs.present?
+    @warns = Warn.all
   end
 
   private

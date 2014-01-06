@@ -27,11 +27,12 @@ namespace :db do
     tags_size_set = (1...tags.size)
     100.times do |n|
       image = File.open(Dir.glob(File.join(Rails.root, 'lib/assets/images', '*')).sample)
-      img = Image.create!(image: image)
+      img = Image.create!(image: image, warn_id: rand(1..3))
       img.tags.push(tags[rand(tags_size_set)],
                     tags[rand(tags_size_set)],
                     tags[rand(tags_size_set)])
     end
+    Rake::Task["db:seed"].invoke
     Rake::Task["db:test:prepare"].invoke
   end
 end

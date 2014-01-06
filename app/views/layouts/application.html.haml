@@ -4,23 +4,31 @@
     = render partial: "meta/default_meta"
     = stylesheet_link_tag "application", :media => "all"
     = javascript_include_tag "application"
+    = render :partial => 'analytics/analytics' if Rails.env == 'production'
+    = render :partial => 'analytics/metrica' if Rails.env == 'production'
     = yield :javascript_includes
     = csrf_meta_tags
   %body
     #wrapper
-      = render partial: "layouts/for_login"
-      #menu
-        %ul
-          %li= link_to_unless_current('Images', images_path)
-          %li= link_to_unless_current('Tags', tags_path)
-          %li= link_to_unless_current('About', about_path) 
-          %li.logo HH
-      .head_slider
-        = image_tag("imgs/front.png")
+      %header
+        = render partial: "layouts/for_login"
+        %nav#menu
+          %ul
+            %li= link_to_unless_current('Images', images_path)
+            %li= link_to_unless_current('Tags', tags_path)
+            %li= link_to_unless_current('About', about_path)
+        .header__logo
+          Hentaria
+          %span .beta
+        .clear-legacy
+        .header__slider
+          = form_tag "#", {class: "header-search"}
+          = text_field_tag "search_query", nil, class: "header-search__input"
+          = submit_tag "", class: "header-search__submit icon-search"
 
       = alert_notifier
 
       = yield
-      
+
       .clear
       .footer

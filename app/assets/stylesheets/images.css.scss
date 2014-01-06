@@ -13,9 +13,22 @@
     text-decoration: none;
   }
 
-  ul li{
+  .image-list__block li{
     display: inline-block;
+    height: 190px;
     padding: 5px;
+    width: 250px;
   }
-
+}
+.image-list__block {
+  text-align: center;
+}
+.image-show__wrap {
+  float: left;
+  margin: 40px 10px 0;
+  text-align: right;
+  width: 870px;
+}
+.image-show-wrap__img {
+  margin-right: 20px;
 }

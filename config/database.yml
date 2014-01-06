@@ -24,6 +24,8 @@ test:
   timeout: 5000
 
 production:
+  username: 'hh_user'
+  password: <%= begin IO.read("/var/.db") rescue "" end %>
   adapter: mysql2
   database: hh_production
   encoding: utf8

@@ -7,6 +7,6 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 # ruby encoding: utf-8
-
+Admin.first_or_create(email: 'admin@admin.com', password: 'supperpass')
 
 Warn.create([{ name: 'virgin' }, { name: 'hot' }, { name: 'extra' }])

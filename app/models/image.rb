@@ -6,7 +6,7 @@ class Image < ActiveRecord::Base
 
   attr_accessible :image_updated_at, :image, :tags, :image_file_size, :images_tags, :tag_ids, :warn_id
 
-  has_attached_file :image, styles: { thumb: "180x180>", medium: "600x600>" },
+  has_attached_file :image, styles: { thumb: "250x190>", medium: "600x600>" },
                             default_url: "/images/:style/missing.png"
 
   has_many :images_tags, dependent: :destroy
@@ -16,7 +16,7 @@ class Image < ActiveRecord::Base
   accepts_nested_attributes_for :images_tags
   accepts_nested_attributes_for :warn
 
-  paginates_per 50
+  paginates_per 32
 
   before_create :rename_image!
   after_create :increment_count
