@@ -1,15 +1,17 @@
 - children = group.children
 
-%h3= group.name
+%h3.tag_part= group.name
 %div
-  - if children.present?
-    .accordion
-      = render partial: "dispatch_imgs/children_tags_for_form", 
-               collection: children.includes(:tags, :children), as: :group,
-               locals: { image: image }
+  %ul.tag_part
+    - if children.present?
+      %li
+        .accordion
+          = render partial: "dispatch_imgs/children_tags_for_form", 
+                   collection: children.includes(:tags, :children), as: :group,
+                   locals: { image: image }
 
-  %div
     - group.tags.each do |tag|
-      %p
-        = check_box_tag 'tag_ids[]', tag.id, image.instance_of?(Image) ? image.tag_ids.include?(tag.id) : false
-        = label_tag tag.name
+      %li
+        = check_box_tag 'tag_ids[]', tag.id, image.instance_of?(Image) ? image.tag_ids.include?(tag.id) : false, 
+                                     { id: "#{tag.name}_#{tag.id}" }
+        = label_tag "#{tag.name}_#{tag.id}", tag.name
