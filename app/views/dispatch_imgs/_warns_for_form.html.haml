@@ -1,5 +1,7 @@
 - if all_warns.present?
-  .form_warns.float_right
+  .form_warns
+    %h3 Warns: 
+
     = f.fields_for :warns do
       %ul.warns_part
         - all_warns.reverse.each do |warn|
