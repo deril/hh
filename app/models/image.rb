@@ -5,8 +5,10 @@ class Image < ActiveRecord::Base
 
   attr_accessible :image_updated_at, :image, :tags, :image_file_size, :images_tags, :tag_ids, :warn_id
 
-  has_attached_file :image, styles: { thumb: "180x210>", medium: "600x600>" },
-                            default_url: "/images/:style/missing.png"
+  has_attached_file :image,
+    styles: { thumb: "180x180#", medium: "600x600>" },
+    # convert_options: { thumb: "-gravity north -thumbnail 180x180^ -extent 180x180"},
+    default_url: "/images/:style/missing.png"
 
   has_many :images_tags, dependent: :destroy
   has_many :tags, through: :images_tags
