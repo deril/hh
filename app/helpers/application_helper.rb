@@ -1,5 +1,5 @@
 module ApplicationHelper
-  
+
   # TODO: tests
 
   def alert_notifier
@@ -16,6 +16,15 @@ module ApplicationHelper
   def join_by(array, title, amount = nil)
     rezult = array[0...amount] if amount
     rezult.collect{  |t| t.send(title.to_sym) }.join(", ")
+  end
+
+  def tag_cloud(tags, classes)
+    max = tags.sort_by(&:count).last.count
+    max = 1 if max.zero?
+    tags.each do |tag|
+      index = tag.count.to_f / max * (classes.size - 1)
+      yield tag, classes[index.round]
+    end
   end
 
 end
