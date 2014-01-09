@@ -1,5 +1,5 @@
 module ApplicationHelper
-  
+
   # TODO: tests
 
   def alert_notifier
