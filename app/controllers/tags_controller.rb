@@ -14,6 +14,14 @@ class TagsController < ApplicationController
     @warns = Warn.all
   end
 
+  # TODO: tests
+  def autocomplete_search
+    term = params["term"].split(/,\s*/).last.strip
+    tag_names = Tag.where("name REGEXP ?", term).select(:name).map(&:name)
+    # fail tag_names.inspect
+    render :json => tag_names
+  end
+
   private
     def find_tag
       @cur_tag = Tag.find_by_id(params[:id])

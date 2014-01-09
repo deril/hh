@@ -23,7 +23,10 @@
         .clear-legacy
         .header__slider
           = form_tag "#", {class: "header-search"}
-          = text_field_tag "search_query", nil, class: "header-search__input"
+          = text_field_tag "search_query", nil, class: "header-search__input", 
+                                                data: { type: "autocomplete" } 
+          = hidden_field_tag "autocomplete_path", autocomplete_search_tags_path, 
+                                                  data: { type: "autocomplete_path" }   
           = submit_tag "", class: "header-search__submit icon-search"
 
       = alert_notifier
