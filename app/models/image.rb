@@ -2,7 +2,6 @@ class Image < ActiveRecord::Base
 
   # TODO: FOREIFN KEYS
   # TODO: make constants of saving/deleting responses !!!! and may be new class for them
-  # TODO: update count!!!!
 
   attr_accessible :image_updated_at, :image, :tags, :image_file_size, :images_tags, :tag_ids, :warn_id
 
@@ -19,10 +18,6 @@ class Image < ActiveRecord::Base
   paginates_per 32
 
   before_create :rename_image!
-  after_create :increment_count
-  after_destroy :decrement_count
-  # after_update :update_count
-  # TODO: !!! maybe need recount
 
   scope :desc, -> { order("id DESC") }
 
@@ -34,7 +29,7 @@ class Image < ActiveRecord::Base
     return if self.image_file_name.blank?
     extension = File.extname(self.image_file_name).downcase
     name = image_updated_at.to_i.to_s
-    self.image_file_name = 'HH_' + name + extension
+    self.image_file_name = 'hentaria_' + name + extension
   end
 
   def self.not_found
@@ -69,19 +64,4 @@ class Image < ActiveRecord::Base
     end
   end
 
-  private
-    def increment_count
-      self.tags.update_all("count = count + 1")
-    end
-
-    def decrement_count
-      tags.update_all("count = count - 1")
-    end
-
-    # def update_count
-    #   if changes[:tags].present?
-    #     changes[:tags].first.update_all("count = count - 1")
-    #     increment_count
-    #   end
-    # end
 end
