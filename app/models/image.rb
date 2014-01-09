@@ -7,7 +7,6 @@ class Image < ActiveRecord::Base
 
   has_attached_file :image,
     styles: { thumb: "180x180#", medium: "600x600>" },
-    # convert_options: { thumb: "-gravity north -thumbnail 180x180^ -extent 180x180"},
     default_url: "/images/:style/missing.png"
 
   has_many :images_tags, dependent: :destroy
