@@ -3,9 +3,9 @@
 %h2 Tags list:
 
 - if @tags.present?
-  - @tags.each do |tag|
-    = link_to "#{tag.name} (#{tag.count})", tag_path(tag.id), class: "tag_link"
-- else 
+  - tag_cloud @tags, %w[tag-link__s tag-link__m tag-link__l] do |tag, css_class|
+    = link_to "#{tag.name} (#{tag.count})", tag_path(tag.id), class: "tag_link #{css_class} tag-link__inline-block"
+- else
   No tags found...
 
 = paginate @tags
