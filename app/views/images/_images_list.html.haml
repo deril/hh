@@ -1,10 +1,10 @@
-%section{ class: "image_list_wrap#{' m-92-top' unless @cur_tag.presence}" }
+%section{ class: "image_list_wrap#{' m-92-top' unless @cur_tag.presence || @search_tags.present? }" }
 
   - # TODO: BAD - may be yield
   - if @cur_tag.presence
     %h2= "Current tag: #{@cur_tag.name.capitalize}"
-  - elsif @cur_tags.present?
-    %h2= "Current tag: #{@cur_tags.map{|tag| tag.name.capitalize}.join(', ')}"
+  - elsif @search_tags.present?
+    %h2= "Current tag: #{@search_tags.map{|tag| tag.capitalize}.join(', ')}"
 
   - if imgs.present?
     %ul.image-list__block

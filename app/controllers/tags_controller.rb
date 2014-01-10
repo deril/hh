@@ -23,10 +23,12 @@ class TagsController < ApplicationController
   end
 
   # TODO: tests
+  # FIXME: show searching query
   def search
-    search_tags = params["search_query"].strip.chomp(",").split(/,\s*/)
-    @cur_tags = Tag.where(name: search_tags)
-    @imgs = Image.includes(:tags).where(tags: { name: search_tags }).page(current_page)
+    @search_tags = params["search_query"].strip.chomp(",").split(/,\s*/)
+
+    @cur_tags = Tag.where(name: @search_tags)
+    @imgs = Image.includes(:tags).where(tags: { name: @search_tags }).page(current_page)
     @tags = get_uniq_tags_from(@imgs)
     @warns = Warn.all
   end
