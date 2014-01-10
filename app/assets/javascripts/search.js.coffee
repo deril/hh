@@ -17,20 +17,12 @@ $(document).ready ->
     "z-index": 9999
     source: $path
     focus: ->
-
       # prevent value inserted on focus
       false
-
     select: (event, ui) ->
       terms = split(@value)
-
-      # remove the current input
       terms.pop()
-
-      # add the selected item
-      terms.push ui.item.value
-
-      # add placeholder to get the comma-and-space at the end
-      terms.push ""
+      terms.push(ui.item.value)
+      terms.push("")
       @value = terms.join(", ")
       false

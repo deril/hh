@@ -12,6 +12,7 @@ Hh::Application.routes.draw do
   resources :tags, only: [:index, :show] do
     collection do
       get :autocomplete_search
+      post :search, as: "search"
     end
   end
 

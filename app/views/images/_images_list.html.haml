@@ -3,6 +3,8 @@
   - # TODO: BAD - may be yield
   - if @cur_tag.presence
     %h2= "Current tag: #{@cur_tag.name.capitalize}"
+  - elsif @cur_tags.present?
+    %h2= "Current tag: #{@cur_tags.map{|tag| tag.name.capitalize}.join(', ')}"
 
   - if imgs.present?
     %ul.image-list__block

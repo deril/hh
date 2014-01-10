@@ -15,11 +15,22 @@ class TagsController < ApplicationController
   end
 
   # TODO: tests
+  # TODO: check replacing income query!!!
+  # TODO: exept chooosen
   def autocomplete_search
     term = params["term"].split(/,\s*/).last.strip
     tag_names = Tag.where("name REGEXP ?", term).select(:name).map(&:name)
     # fail tag_names.inspect
     render :json => tag_names
+  end
+
+  # TODO: tests
+  def search
+    search_tags = params["search_query"].strip.chomp(",").split(/,\s*/)
+    @cur_tags = Tag.where(name: search_tags)
+    @imgs = Image.includes(:tags).where(tags: { name: search_tags }).page(current_page)
+    @tags = get_uniq_tags_from(@imgs)
+    @warns = Warn.all
   end
 
   private
