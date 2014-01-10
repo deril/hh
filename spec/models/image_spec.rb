@@ -29,62 +29,10 @@ describe Image do
 
   describe '"#rename_image!"' do
     it 'renames name of attached file' do
-      name = 'HH_' + Time.now.to_i.to_s + '.jpeg'
+      name = 'hentaria_' + Time.now.to_i.to_s + '.jpeg'
       image.rename_image!
       image.image_file_name.should == name
     end
-  end
-
-  describe "before filter" do
-    let!(:image_unsaved) { FactoryGirl.build(:image) }
-    describe "rename_image!" do
-      it "change image name" do
-        name = 'HH_' + Time.now.to_i.to_s + '.jpeg'
-        expect {
-          image_unsaved.save!
-        }.to change{ image_unsaved.image_file_name }.to(name)
-      end
-    end
-  end
-
-  describe "after filter" do
-    describe "increment_count" do
-      it 'increments 1 to count column of all images tags' do
-        new_img = FactoryGirl.build(:image)
-        new_img.tags << tag
-        expect {
-          new_img.save!
-        }.to change(new_img.tags, :count).by(1)
-      end
-    end
-
-    describe "decrement_count" do
-      it "decrements 1 from count column of all images tags" do
-        image.tags << tag
-        tags = image.tags
-        expect {
-          image.destroy
-        }.to change(tags, :count).by(-1)
-      end
-    end
-
-    # describe "update_count" do
-    #   describe "if tags changed?" do
-    #     it "decrements counts of all previous tags" do
-    #       expect {
-    #         image.update_attributes(tags: [tag])
-    #       }.to change(image.tags, :count).by(-1)
-    #     end
-    #     it "increments counts of all new tags" do
-    #       expect {
-    #         image.update_attributes(tags: [tag])
-    #       }.to change(tag, :count).by(+1)
-    #     end
-    #   end
-    #   describe "if tags not changed?" do
-    #     it "nothing happens"
-    #   end
-    # end
   end
 
   describe '#save_with_response' do 

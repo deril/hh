@@ -1,5 +1,6 @@
 HH
 ================
+[![Code Climate](https://codeclimate.com/github/HH-project/hh.png)](https://codeclimate.com/github/HH-project/hh)
 
 This is the source for
 [site.example.com](http://site.example.com/).

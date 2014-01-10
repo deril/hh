@@ -5,7 +5,7 @@ class TagsController < ApplicationController
   # TODO: image search also by list of tags
 
   def index
-    @tags = Tag.page(current_page)
+    @tags = Tag.all
   end
 
   def show
