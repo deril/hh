@@ -15,13 +15,11 @@ class TagsController < ApplicationController
   end
 
   # TODO: tests
-  # TODO: check replacing income query!!!
-  # TODO: exept chooosen
   def autocomplete_search
-    term = params["term"].split(/,\s*/).last.strip
-    tag_names = Tag.where("name REGEXP ?", term).select(:name).map(&:name)
-    # fail tag_names.inspect
-    render :json => tag_names
+    all_terms = params["term"].split(/,\s*/)
+    last_term = all_terms.pop.strip
+    tag_names = Tag.where("name REGEXP ?", last_term).select(:name).map(&:name)
+    render :json => tag_names - all_terms
   end
 
   # TODO: tests
