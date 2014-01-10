@@ -18,6 +18,11 @@ module ApplicationHelper
     rezult.collect{  |t| t.send(title.to_sym) }.join(", ")
   end
 
+  # === Attributes
+  # * +tags+ array of Tags objects
+  # * +classes+ array of strings
+  # === Yields
+  # yield recieve tag element and class element, that couting by count of tag usages
   def tag_cloud(tags, classes)
     max = tags.sort_by(&:count).last.count
     max = 1 if max.zero?
