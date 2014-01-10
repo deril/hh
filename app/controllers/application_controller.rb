@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   end
 
   # OPTIMIZE: refact 
-  def get_uniq_tags_from(image_list = {}, except_tag = nil)
+  def get_uniq_tags_from(image_list = [], except_tag = nil)
     all_tags = []
     image_list.map { |image| all_tags += image.tags }
     all_tags.uniq!
