@@ -1,4 +1,4 @@
 %h2 Add new image:
-= link_to "Back", dispatch_imgs_path
+= link_to "< Back", :back, class: "tag_link"
 
 = render partial: 'form', locals: { img: @img }
