@@ -3,7 +3,6 @@
   %head
     = render partial: "meta/default_meta"
     = stylesheet_link_tag "application", :media => "all"
-    = stylesheet_link_tag "http://code.jquery.com/ui/jquery-ui-git.css"
     = javascript_include_tag "application"
     = render :partial => 'analytics/analytics' if Rails.env == 'production'
     = render :partial => 'analytics/metrica' if Rails.env == 'production'
