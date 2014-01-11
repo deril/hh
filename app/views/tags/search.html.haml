@@ -1,0 +1,8 @@
+= render partial: "meta/tags_search_meta", locals: { tags_name: @cur_tags.map(&:name), keywords: @tags }
+
+%aside.r-sidebar
+  = render partial: "images/warns_list", locals: { warns: @warns }
+  = render partial: "tags_list", locals: { tags: @tags }
+
+- # FIXME: @cur_tag & @search_tags does not giving in partial
+= render partial: "images/images_list", locals: { imgs: @imgs }

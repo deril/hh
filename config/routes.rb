@@ -9,9 +9,14 @@ Hh::Application.routes.draw do
   resources :images, only: [:index, :show]
   get 'about' => 'images#about'
 
-  resources :tags, only: [:index, :show]
+  resources :tags, only: [:index, :show] do
+    collection do
+      get :autocomplete_search
+      post :search, as: "search"
+    end
+  end
 
-  resources :dispatch_tags
+  resources :dispatch_tags 
 
   resources :dispatch_imgs, except: [:show]
 

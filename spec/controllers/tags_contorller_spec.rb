@@ -39,5 +39,38 @@ describe TagsController do
     end 
   end
 
+  describe "#autocomplete_search" do
+    it "has response success" do
+      get :autocomplete_search
+      response.should be_success
+    end
+    it "gets good response if something found" do
+      get :autocomplete_search, { term: tag.name[0,3] }
+       JSON.parse(response.body).should == ["current_name"]
+    end
+    it "gets [] if nothing was found" do
+      get :autocomplete_search, { term: '' }
+      JSON.parse(response.body).should == []
+    end
+  end
+
+  describe "#search" do
+    it "has response success" do
+      get :search, { search_query: tag.name + ", some" }
+      response.should be_success
+    end
+    it "has response success" do
+      get :search
+      response.should redirect_to images_path
+    end
+    it "has current vars" do
+      get :search, { search_query: tag.name + ", some" }
+      assigns(:search_tags).should == [tag.name, "some"]
+      assigns(:cur_tags).should == [tag]
+      assigns(:imgs).should == [image]
+      assigns(:tags).should == [tag]
+      assigns(:warns).should == Warn.all
+    end
+  end
 
 end
