@@ -95,6 +95,8 @@
 
   <ul class="link-list">
   
+    <li><a href="./Admin.html">Admin</a>
+  
     <li><a href="./ApplicationController.html">ApplicationController</a>
   
     <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
@@ -116,6 +118,8 @@
     <li><a href="./Tag.html">Tag</a>
   
     <li><a href="./TagsController.html">TagsController</a>
+  
+    <li><a href="./Warn.html">Warn</a>
   
   </ul>
 </nav>
@@ -164,10 +168,11 @@
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/images_controller.rb, line 3</span>
+            <pre><span class="ruby-comment"># File app/controllers/images_controller.rb, line 5</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
   <span class="ruby-ivar">@imgs</span> = <span class="ruby-constant">Image</span>.<span class="ruby-identifier">includes</span>(<span class="ruby-value">:tags</span>).<span class="ruby-identifier">desc</span>.<span class="ruby-identifier">page</span>(<span class="ruby-identifier">current_page</span>)
   <span class="ruby-ivar">@tags</span> = <span class="ruby-identifier">get_uniq_tags_from</span>(<span class="ruby-ivar">@imgs</span>)
+  <span class="ruby-ivar">@warns</span> = <span class="ruby-constant">Warn</span>.<span class="ruby-identifier">all</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- index-source -->
           
@@ -195,10 +200,11 @@
 
           
           <div class="method-source-code" id="show-source">
-            <pre><span class="ruby-comment"># File app/controllers/images_controller.rb, line 9</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span> 
-  <span class="ruby-ivar">@img</span> = <span class="ruby-constant">Image</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+            <pre><span class="ruby-comment"># File app/controllers/images_controller.rb, line 12</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
   <span class="ruby-ivar">@tags</span> = <span class="ruby-ivar">@img</span>.<span class="ruby-identifier">tags</span>
+  <span class="ruby-ivar">@warns</span> = <span class="ruby-constant">Warn</span>.<span class="ruby-identifier">all</span>
+  <span class="ruby-ivar">@selected_warn</span> = <span class="ruby-ivar">@img</span>.<span class="ruby-identifier">warn</span>.<span class="ruby-identifier">try</span>(<span class="ruby-value">:id</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- show-source -->
           

@@ -70,6 +70,8 @@
     
     <li><a href="#method-i-sort_only_by">#sort_only_by</a>
     
+    <li><a href="#method-i-tag_cloud">#tag_cloud</a>
+    
   </ul>
 </nav>
 
@@ -90,6 +92,8 @@
   <h3 class="section-header">Class and Module Index</h3>
 
   <ul class="link-list">
+  
+    <li><a href="./Admin.html">Admin</a>
   
     <li><a href="./ApplicationController.html">ApplicationController</a>
   
@@ -112,6 +116,8 @@
     <li><a href="./Tag.html">Tag</a>
   
     <li><a href="./TagsController.html">TagsController</a>
+  
+    <li><a href="./Warn.html">Warn</a>
   
   </ul>
 </nav>
@@ -162,7 +168,7 @@
           <div class="method-source-code" id="alert_notifier-source">
             <pre><span class="ruby-comment"># File app/helpers/application_helper.rb, line 5</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">alert_notifier</span>
-  <span class="ruby-identifier">response</span> = <span class="ruby-identifier">content_tag</span>(<span class="ruby-value">:div</span>, <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">class</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;clear&quot;</span>)
+  <span class="ruby-identifier">response</span> = <span class="ruby-identifier">content_tag</span>(<span class="ruby-value">:div</span>, <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">class</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;clear-legacy&quot;</span>)
   <span class="ruby-identifier">response</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">content_tag</span>(<span class="ruby-value">:div</span>, <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>], <span class="ruby-identifier">class</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;notice&quot;</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>].<span class="ruby-identifier">present?</span>
   <span class="ruby-identifier">response</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">content_tag</span>(<span class="ruby-value">:div</span>, <span class="ruby-identifier">flash</span>[<span class="ruby-value">:alert</span>], <span class="ruby-identifier">class</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;alert&quot;</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">flash</span>[<span class="ruby-value">:alert</span>].<span class="ruby-identifier">present?</span>
   <span class="ruby-identifier">response</span>
@@ -236,6 +242,51 @@
 
         
       </div><!-- sort_only_by-method -->
+
+    
+      <div id="method-i-tag_cloud" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">tag_cloud</span><span
+            class="method-args">(tags, classes) { |tag, classes| ... }</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <h3 id="method-i-tag_cloud-label-Attributes">Attributes</h3>
+<ul><li>
+<p><code>tags</code> array of Tags objects</p>
+</li><li>
+<p><code>classes</code> array of strings</p>
+</li></ul>
+
+<h3 id="method-i-tag_cloud-label-Yields">Yields</h3>
+
+<p>yield recieve tag element and class element, that couting by count of tag
+usages</p>
+          
+
+          
+          <div class="method-source-code" id="tag_cloud-source">
+            <pre><span class="ruby-comment"># File app/helpers/application_helper.rb, line 26</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">tag_cloud</span>(<span class="ruby-identifier">tags</span>, <span class="ruby-identifier">classes</span>)
+  <span class="ruby-identifier">max</span> = <span class="ruby-identifier">tags</span>.<span class="ruby-identifier">sort_by</span>(&amp;<span class="ruby-value">:count</span>).<span class="ruby-identifier">last</span>.<span class="ruby-identifier">count</span>
+  <span class="ruby-identifier">max</span> = <span class="ruby-value">1</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">max</span>.<span class="ruby-identifier">zero?</span>
+  <span class="ruby-identifier">tags</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">tag</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">index</span> = <span class="ruby-identifier">tag</span>.<span class="ruby-identifier">count</span>.<span class="ruby-identifier">to_f</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">max</span> * (<span class="ruby-identifier">classes</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>)
+    <span class="ruby-keyword">yield</span> <span class="ruby-identifier">tag</span>, <span class="ruby-identifier">classes</span>[<span class="ruby-identifier">index</span>.<span class="ruby-identifier">round</span>]
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- tag_cloud-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- tag_cloud-method -->
 
     
     </section><!-- public-instance-method-details -->

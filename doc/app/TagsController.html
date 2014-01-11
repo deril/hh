@@ -70,7 +70,11 @@
 
   <ul class="link-list">
     
+    <li><a href="#method-i-autocomplete_search">#autocomplete_search</a>
+    
     <li><a href="#method-i-index">#index</a>
+    
+    <li><a href="#method-i-search">#search</a>
     
     <li><a href="#method-i-show">#show</a>
     
@@ -95,6 +99,8 @@
 
   <ul class="link-list">
   
+    <li><a href="./Admin.html">Admin</a>
+  
     <li><a href="./ApplicationController.html">ApplicationController</a>
   
     <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
@@ -116,6 +122,8 @@
     <li><a href="./Tag.html">Tag</a>
   
     <li><a href="./TagsController.html">TagsController</a>
+  
+    <li><a href="./Warn.html">Warn</a>
   
   </ul>
 </nav>
@@ -148,6 +156,41 @@
       <h3 class="section-header">Public Instance Methods</h3>
 
     
+      <div id="method-i-autocomplete_search" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">autocomplete_search</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="autocomplete_search-source">
+            <pre><span class="ruby-comment"># File app/controllers/tags_controller.rb, line 17</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">autocomplete_search</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">render</span> <span class="ruby-operator">:</span><span class="ruby-identifier">json</span> =<span class="ruby-operator">&gt;</span> [] <span class="ruby-keyword">unless</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:term</span>].<span class="ruby-identifier">present?</span>
+
+  <span class="ruby-identifier">all_terms</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:term</span>].<span class="ruby-identifier">split</span>(<span class="ruby-regexp">/,\s*/</span>) 
+  <span class="ruby-identifier">last_term</span> = <span class="ruby-identifier">all_terms</span>.<span class="ruby-identifier">pop</span>.<span class="ruby-identifier">strip</span>
+  <span class="ruby-identifier">tag_names</span> = <span class="ruby-constant">Tag</span>.<span class="ruby-identifier">where</span>(<span class="ruby-string">&quot;name REGEXP ?&quot;</span>, <span class="ruby-identifier">last_term</span>).<span class="ruby-identifier">select</span>(<span class="ruby-value">:name</span>).<span class="ruby-identifier">map</span>(&amp;<span class="ruby-value">:name</span>)
+  <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">tag_names</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">all_terms</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- autocomplete_search-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- autocomplete_search-method -->
+
+    
       <div id="method-i-index" class="method-detail ">
         
         <div class="method-heading">
@@ -164,9 +207,9 @@
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/tags_controller.rb, line 5</span>
+            <pre><span class="ruby-comment"># File app/controllers/tags_controller.rb, line 7</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
-  <span class="ruby-ivar">@tags</span> = <span class="ruby-constant">Tag</span>.<span class="ruby-identifier">page</span>(<span class="ruby-identifier">current_page</span>)
+  <span class="ruby-ivar">@tags</span> = <span class="ruby-constant">Tag</span>.<span class="ruby-identifier">all</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- index-source -->
           
@@ -176,6 +219,42 @@
 
         
       </div><!-- index-method -->
+
+    
+      <div id="method-i-search" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">search</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="search-source">
+            <pre><span class="ruby-comment"># File app/controllers/tags_controller.rb, line 26</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">search</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">images_path</span>, { <span class="ruby-identifier">alert</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;Searching error.&quot;</span> } <span class="ruby-keyword">unless</span> <span class="ruby-identifier">params</span>[<span class="ruby-string">&quot;search_query&quot;</span>]
+
+  <span class="ruby-ivar">@search_tags</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:search_query</span>].<span class="ruby-identifier">strip</span>.<span class="ruby-identifier">chomp</span>(<span class="ruby-string">&quot;,&quot;</span>).<span class="ruby-identifier">split</span>(<span class="ruby-regexp">/,\s*/</span>)
+  <span class="ruby-ivar">@cur_tags</span> = <span class="ruby-constant">Tag</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@search_tags</span>)
+  <span class="ruby-ivar">@imgs</span> = <span class="ruby-constant">Image</span>.<span class="ruby-identifier">includes</span>(<span class="ruby-value">:tags</span>).<span class="ruby-identifier">where</span>(<span class="ruby-identifier">tags</span><span class="ruby-operator">:</span> { <span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@search_tags</span> }).<span class="ruby-identifier">page</span>(<span class="ruby-identifier">current_page</span>)
+  <span class="ruby-ivar">@tags</span> = <span class="ruby-identifier">get_uniq_tags_from</span>(<span class="ruby-ivar">@imgs</span>)
+  <span class="ruby-ivar">@warns</span> = <span class="ruby-constant">Warn</span>.<span class="ruby-identifier">all</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- search-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- search-method -->
 
     
       <div id="method-i-show" class="method-detail ">
@@ -194,11 +273,11 @@
 
           
           <div class="method-source-code" id="show-source">
-            <pre><span class="ruby-comment"># File app/controllers/tags_controller.rb, line 9</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span> 
-  <span class="ruby-ivar">@cur_tag</span> = <span class="ruby-constant">Tag</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+            <pre><span class="ruby-comment"># File app/controllers/tags_controller.rb, line 11</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
   <span class="ruby-ivar">@imgs</span> = <span class="ruby-ivar">@cur_tag</span>.<span class="ruby-identifier">images</span>.<span class="ruby-identifier">includes</span>(<span class="ruby-value">:tags</span>).<span class="ruby-identifier">page</span>(<span class="ruby-identifier">current_page</span>)
   <span class="ruby-ivar">@tags</span> = <span class="ruby-identifier">get_uniq_tags_from</span>(<span class="ruby-ivar">@imgs</span>, <span class="ruby-ivar">@cur_tag</span>) <span class="ruby-keyword">if</span> <span class="ruby-ivar">@imgs</span>.<span class="ruby-identifier">present?</span>
+  <span class="ruby-ivar">@warns</span> = <span class="ruby-constant">Warn</span>.<span class="ruby-identifier">all</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- show-source -->
           

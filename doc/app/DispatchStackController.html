@@ -95,6 +95,8 @@
 
   <ul class="link-list">
   
+    <li><a href="./Admin.html">Admin</a>
+  
     <li><a href="./ApplicationController.html">ApplicationController</a>
   
     <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
@@ -116,6 +118,8 @@
     <li><a href="./Tag.html">Tag</a>
   
     <li><a href="./TagsController.html">TagsController</a>
+  
+    <li><a href="./Warn.html">Warn</a>
   
   </ul>
 </nav>
@@ -197,7 +201,7 @@
 
         <div class="method-description">
           
-          <p>TODO: !!!! can&#39;t add tags TODO: !!!! tags: [tags]</p>
+          
           
 
           
@@ -207,7 +211,7 @@
   <span class="ruby-identifier">response</span> = {}
   <span class="ruby-identifier">file_path</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:image</span>] <span class="ruby-operator">?</span> <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">root</span>.<span class="ruby-identifier">join</span>(<span class="ruby-node">&quot;#{IMG_TMP_DIR}&quot;</span>, <span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:image</span>])) <span class="ruby-operator">:</span> <span class="ruby-keyword">nil</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:button</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;accept&quot;</span>
-    <span class="ruby-ivar">@img</span> = <span class="ruby-constant">Image</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">image</span><span class="ruby-operator">:</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">file_path</span>), <span class="ruby-identifier">tag_ids</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:tag_ids</span>])
+    <span class="ruby-ivar">@img</span> = <span class="ruby-constant">Image</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">image</span><span class="ruby-operator">:</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">file_path</span>), <span class="ruby-identifier">tag_ids</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:tag_ids</span>], <span class="ruby-identifier">warn_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:warn_id</span>])
     <span class="ruby-identifier">response</span> = <span class="ruby-ivar">@img</span>.<span class="ruby-identifier">save_with_response</span>
   <span class="ruby-keyword">end</span>
   <span class="ruby-constant">File</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">file_path</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">response</span>.<span class="ruby-identifier">has_key?</span> <span class="ruby-value">:alert</span>
@@ -234,18 +238,22 @@
 
         <div class="method-description">
           
-          <p>TODO: !!!! can&#39;t add tags TODO: rename actions !!!!</p>
+          <p>TODO: may_be new fake model or something for <a
+href="DispatchStackController.html">DispatchStackController</a> ???</p>
           
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/dispatch_stack_controller.rb, line 17</span>
+            <pre><span class="ruby-comment"># File app/controllers/dispatch_stack_controller.rb, line 16</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
   <span class="ruby-keyword">if</span> <span class="ruby-constant">IMG_TMP_DIR</span>.<span class="ruby-identifier">exist?</span>
     <span class="ruby-identifier">images</span> = <span class="ruby-constant">Dir</span>[<span class="ruby-node">&quot;#{IMG_TMP_DIR}/*&quot;</span>].<span class="ruby-identifier">select</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">check_img?</span>(<span class="ruby-identifier">e</span>) }
-    <span class="ruby-ivar">@img</span> = <span class="ruby-node">&quot;#{IMG_LAST_DIR}/#{File.basename(images.first)}&quot;</span>
-    <span class="ruby-ivar">@tags</span> = <span class="ruby-constant">Tag</span>.<span class="ruby-identifier">order</span>(<span class="ruby-string">&quot;name ASC&quot;</span>).<span class="ruby-identifier">all</span>
-  <span class="ruby-keyword">else</span> 
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">images</span>.<span class="ruby-identifier">empty?</span>
+      <span class="ruby-ivar">@img</span> = <span class="ruby-node">&quot;#{IMG_LAST_DIR}/#{File.basename(images.first)}&quot;</span>
+      <span class="ruby-ivar">@tags</span> = <span class="ruby-constant">Tag</span>.<span class="ruby-identifier">order</span>(<span class="ruby-string">&quot;name ASC&quot;</span>).<span class="ruby-identifier">all</span>
+      <span class="ruby-ivar">@warns</span> = <span class="ruby-constant">Warn</span>.<span class="ruby-identifier">all</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
     <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">dispatch_imgs_path</span>, { <span class="ruby-identifier">alert</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;Dir not found or empty&quot;</span> }
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>

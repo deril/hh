@@ -1,13 +1,15 @@
-Fri, 18 Oct 2013 21:03:08 +0300
+Sun, 12 Jan 2014 00:58:44 +0200
 doc/README_FOR_APP	Mon, 30 Sep 2013 20:25:15 +0300
-app/controllers/application_controller.rb	Fri, 18 Oct 2013 21:01:49 +0300
-app/controllers/dispatch_imgs_controller.rb	Fri, 18 Oct 2013 21:00:14 +0300
-app/controllers/dispatch_stack_controller.rb	Fri, 18 Oct 2013 21:00:14 +0300
-app/controllers/dispatch_tags_controller.rb	Fri, 18 Oct 2013 21:00:14 +0300
-app/controllers/images_controller.rb	Fri, 18 Oct 2013 21:00:14 +0300
-app/controllers/tags_controller.rb	Sat, 05 Oct 2013 20:08:58 +0300
-app/helpers/application_helper.rb	Sat, 05 Oct 2013 20:08:58 +0300
-app/models/group.rb	Sat, 05 Oct 2013 20:08:58 +0300
-app/models/image.rb	Fri, 18 Oct 2013 21:00:14 +0300
-app/models/images_tag.rb	Fri, 18 Oct 2013 21:00:14 +0300
-app/models/tag.rb	Fri, 18 Oct 2013 21:00:14 +0300
+app/controllers/application_controller.rb	Sat, 11 Jan 2014 23:58:49 +0200
+app/controllers/dispatch_imgs_controller.rb	Sat, 11 Jan 2014 23:58:49 +0200
+app/controllers/dispatch_stack_controller.rb	Sat, 11 Jan 2014 23:58:49 +0200
+app/controllers/dispatch_tags_controller.rb	Sat, 11 Jan 2014 23:58:49 +0200
+app/controllers/images_controller.rb	Sat, 11 Jan 2014 23:58:49 +0200
+app/controllers/tags_controller.rb	Sat, 11 Jan 2014 23:58:49 +0200
+app/helpers/application_helper.rb	Sun, 12 Jan 2014 00:40:29 +0200
+app/models/admin.rb	Sat, 11 Jan 2014 23:58:49 +0200
+app/models/group.rb	Sat, 11 Jan 2014 23:58:49 +0200
+app/models/image.rb	Sat, 11 Jan 2014 23:58:49 +0200
+app/models/images_tag.rb	Sat, 11 Jan 2014 23:58:49 +0200
+app/models/tag.rb	Sat, 11 Jan 2014 23:58:49 +0200
+app/models/warn.rb	Sat, 11 Jan 2014 23:58:49 +0200

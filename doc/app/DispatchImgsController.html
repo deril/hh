@@ -103,6 +103,8 @@
 
   <ul class="link-list">
   
+    <li><a href="./Admin.html">Admin</a>
+  
     <li><a href="./ApplicationController.html">ApplicationController</a>
   
     <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
@@ -124,6 +126,8 @@
     <li><a href="./Tag.html">Tag</a>
   
     <li><a href="./TagsController.html">TagsController</a>
+  
+    <li><a href="./Warn.html">Warn</a>
   
   </ul>
 </nav>
@@ -175,7 +179,7 @@
             <pre><span class="ruby-comment"># File app/controllers/dispatch_imgs_controller.rb, line 18</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
   <span class="ruby-ivar">@img</span> = <span class="ruby-constant">Image</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:image</span>])
-  <span class="ruby-ivar">@img</span>.<span class="ruby-identifier">tag_ids</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:tag_ids</span>] <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:tag_ids</span>]
+  <span class="ruby-ivar">@img</span>.<span class="ruby-identifier">assign_attributes</span>(<span class="ruby-identifier">tag_ids</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:tag_ids</span>], <span class="ruby-identifier">warn_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:warn_id</span>])
   <span class="ruby-identifier">response</span> = <span class="ruby-ivar">@img</span>.<span class="ruby-identifier">save_with_response</span>
   <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">dispatch_imgs_path</span>, <span class="ruby-identifier">response</span>
 <span class="ruby-keyword">end</span></pre>
@@ -205,7 +209,7 @@
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File app/controllers/dispatch_imgs_controller.rb, line 37</span>
+            <pre><span class="ruby-comment"># File app/controllers/dispatch_imgs_controller.rb, line 38</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-identifier">response</span> = <span class="ruby-ivar">@img</span>.<span class="ruby-identifier">destroy_with_response</span>
   <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">dispatch_imgs_path</span>, <span class="ruby-identifier">response</span>
@@ -239,6 +243,7 @@
             <pre><span class="ruby-comment"># File app/controllers/dispatch_imgs_controller.rb, line 26</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
   <span class="ruby-ivar">@tags</span> = <span class="ruby-constant">Tag</span>.<span class="ruby-identifier">order</span>(<span class="ruby-string">&quot;name ASC&quot;</span>).<span class="ruby-identifier">all</span>
+  <span class="ruby-ivar">@warns</span> = <span class="ruby-constant">Warn</span>.<span class="ruby-identifier">all</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- edit-source -->
           
@@ -266,7 +271,7 @@
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/dispatch_imgs_controller.rb, line 8</span>
+            <pre><span class="ruby-comment"># File app/controllers/dispatch_imgs_controller.rb, line 7</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
   <span class="ruby-identifier">page</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>] <span class="ruby-operator">?</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>] <span class="ruby-operator">:</span> <span class="ruby-value">1</span>
   <span class="ruby-ivar">@imgs</span> = <span class="ruby-constant">Image</span>.<span class="ruby-identifier">desc</span>.<span class="ruby-identifier">page</span>(<span class="ruby-identifier">page</span>)
@@ -297,10 +302,11 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File app/controllers/dispatch_imgs_controller.rb, line 13</span>
+            <pre><span class="ruby-comment"># File app/controllers/dispatch_imgs_controller.rb, line 12</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
   <span class="ruby-ivar">@img</span> = <span class="ruby-constant">Image</span>.<span class="ruby-identifier">new</span>
   <span class="ruby-ivar">@tags</span> = <span class="ruby-constant">Tag</span>.<span class="ruby-identifier">order</span>(<span class="ruby-string">&quot;name ASC&quot;</span>).<span class="ruby-identifier">all</span>
+  <span class="ruby-ivar">@warns</span> = <span class="ruby-constant">Warn</span>.<span class="ruby-identifier">all</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- new-source -->
           
@@ -328,10 +334,10 @@
 
           
           <div class="method-source-code" id="update-source">
-            <pre><span class="ruby-comment"># File app/controllers/dispatch_imgs_controller.rb, line 30</span>
+            <pre><span class="ruby-comment"># File app/controllers/dispatch_imgs_controller.rb, line 31</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
   <span class="ruby-ivar">@img</span>.<span class="ruby-identifier">assign_attributes</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:image</span>])
-  <span class="ruby-ivar">@img</span>.<span class="ruby-identifier">tag_ids</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:tag_ids</span>]
+  <span class="ruby-ivar">@img</span>.<span class="ruby-identifier">assign_attributes</span>(<span class="ruby-identifier">tag_ids</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:tag_ids</span>], <span class="ruby-identifier">warn_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:warn_id</span>])
   <span class="ruby-identifier">response</span> = <span class="ruby-ivar">@img</span>.<span class="ruby-identifier">save_with_response</span>
   <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">dispatch_imgs_path</span>, <span class="ruby-identifier">response</span>
 <span class="ruby-keyword">end</span></pre>

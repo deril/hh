@@ -103,6 +103,8 @@
 
   <ul class="link-list">
   
+    <li><a href="./Admin.html">Admin</a>
+  
     <li><a href="./ApplicationController.html">ApplicationController</a>
   
     <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
@@ -124,6 +126,8 @@
     <li><a href="./Tag.html">Tag</a>
   
     <li><a href="./TagsController.html">TagsController</a>
+  
+    <li><a href="./Warn.html">Warn</a>
   
   </ul>
 </nav>
@@ -172,9 +176,9 @@
 
           
           <div class="method-source-code" id="not_found-source">
-            <pre><span class="ruby-comment"># File app/models/image.rb, line 38</span>
+            <pre><span class="ruby-comment"># File app/models/image.rb, line 36</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">not_found</span>
-  { <span class="ruby-identifier">alert</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;Can&#39;t find such Image.&quot;</span> }
+  { <span class="ruby-identifier">alert</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;Can't find such Image.&quot;</span> }
 <span class="ruby-keyword">end</span></pre>
           </div><!-- not_found-source -->
           
@@ -208,7 +212,7 @@
 
           
           <div class="method-source-code" id="destroy_with_response-source">
-            <pre><span class="ruby-comment"># File app/models/image.rb, line 50</span>
+            <pre><span class="ruby-comment"># File app/models/image.rb, line 48</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy_with_response</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">destroy</span>
     { <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;Image deleted successfully.&quot;</span> }
@@ -242,7 +246,7 @@
 
           
           <div class="method-source-code" id="get_adapted_size-source">
-            <pre><span class="ruby-comment"># File app/models/image.rb, line 62</span>
+            <pre><span class="ruby-comment"># File app/models/image.rb, line 60</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">get_adapted_size</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">image_file_size</span><span class="ruby-operator">/</span><span class="ruby-value">1024</span><span class="ruby-operator">/</span><span class="ruby-value">1024</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
     <span class="ruby-node">&quot;#{image_file_size/1024/1024} Mb&quot;</span>
@@ -276,7 +280,7 @@
 
           
           <div class="method-source-code" id="get_dimensions-source">
-            <pre><span class="ruby-comment"># File app/models/image.rb, line 58</span>
+            <pre><span class="ruby-comment"># File app/models/image.rb, line 56</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">get_dimensions</span>
   <span class="ruby-constant">Paperclip</span><span class="ruby-operator">::</span><span class="ruby-constant">Geometry</span>.<span class="ruby-identifier">from_file</span>(<span class="ruby-constant">Paperclip</span>.<span class="ruby-identifier">io_adapters</span>.<span class="ruby-identifier">for</span>(<span class="ruby-identifier">image</span>))
 <span class="ruby-keyword">end</span></pre>
@@ -306,12 +310,12 @@
 
           
           <div class="method-source-code" id="rename_image-21-source">
-            <pre><span class="ruby-comment"># File app/models/image.rb, line 31</span>
+            <pre><span class="ruby-comment"># File app/models/image.rb, line 29</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">rename_image!</span>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">image_file_name</span>.<span class="ruby-identifier">blank?</span>
   <span class="ruby-identifier">extension</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">extname</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">image_file_name</span>).<span class="ruby-identifier">downcase</span>
   <span class="ruby-identifier">name</span> = <span class="ruby-identifier">image_updated_at</span>.<span class="ruby-identifier">to_i</span>.<span class="ruby-identifier">to_s</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">image_file_name</span> = <span class="ruby-string">&#39;HH_&#39;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">name</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">extension</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">image_file_name</span> = <span class="ruby-string">'hentaria_'</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">name</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">extension</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- rename_image-21-source -->
           
@@ -339,7 +343,7 @@
 
           
           <div class="method-source-code" id="save_with_response-source">
-            <pre><span class="ruby-comment"># File app/models/image.rb, line 42</span>
+            <pre><span class="ruby-comment"># File app/models/image.rb, line 40</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">save_with_response</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">save</span>
     { <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;Image saved successfully.&quot;</span> }
