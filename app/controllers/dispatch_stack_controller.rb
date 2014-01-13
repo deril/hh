@@ -10,6 +10,7 @@ class DispatchStackController < ApplicationController
   PNG = "\x89\x50\x4e\x47"
 
   before_filter :authenticate_admin!
+  before_filter :add_warns, only: [:index]
 
   # TODO: may_be new fake model or something for DispatchStackController ???
 
@@ -19,7 +20,6 @@ class DispatchStackController < ApplicationController
       unless images.empty?
         @img = "#{IMG_LAST_DIR}/#{File.basename(images.first)}"
         @tags = Tag.order("name ASC").all
-        @warns = Warn.all
       end
     else
       redirect_to dispatch_imgs_path, { alert: "Dir not found or empty" }
