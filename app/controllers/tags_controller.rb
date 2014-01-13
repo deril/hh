@@ -1,23 +1,21 @@
 class TagsController < ApplicationController
 
   before_filter :find_tag, only: [:show]
-
-  # TODO: image search also by list of tags
+  before_filter :add_warns, only: [:show, :search]
 
   def index
     @tags = Tag.all
   end
 
   def show
-    @imgs = @cur_tag.images.includes(:tags).page(current_page)
+    @imgs = @cur_tag.images.page(current_page)
     @tags = get_uniq_tags_from(@imgs, @cur_tag) if @imgs.present?
-    @warns = Warn.all
   end
 
   def autocomplete_search
     return render :json => [] unless params[:term].present?
 
-    all_terms = params[:term].split(/,\s*/) 
+    all_terms = params[:term].split(/,\s*/)
     last_term = all_terms.pop.strip
     tag_names = Tag.where("name REGEXP ?", last_term).select(:name).map(&:name)
     render :json => tag_names - all_terms
@@ -28,9 +26,8 @@ class TagsController < ApplicationController
 
     @search_tags = params[:search_query].strip.chomp(",").split(/,\s*/)
     @cur_tags = Tag.where(name: @search_tags)
-    @imgs = Image.includes(:tags).where(tags: { name: @search_tags }).page(current_page)
+    @imgs = Image.joins(:tags).where(tags: { name: @search_tags }).page(current_page)
     @tags = get_uniq_tags_from(@imgs)
-    @warns = Warn.all
   end
 
   private
