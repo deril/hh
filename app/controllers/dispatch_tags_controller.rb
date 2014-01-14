@@ -2,9 +2,10 @@ class DispatchTagsController < ApplicationController
   layout "back_end"
   before_filter :authenticate_admin!
   before_filter :find_tag, only: [:update, :destroy, :edit] 
+  helper_method :sort_column, :sort_direction
 
   def index
-    @tags = Tag.order("name ASC").page(current_page)
+    @tags = Tag.order(sort_column + " " + sort_direction).page(current_page)
   end
 
   def new
@@ -39,5 +40,13 @@ class DispatchTagsController < ApplicationController
     def find_tag  
       @tag = Tag.find_by_id(params[:id])
       redirect_to dispatch_tags_path, Tag.not_found unless @tag
+    end
+
+    def sort_column
+      Tag.column_names.include?(params[:sort]) ? params[:sort] : "name"
+    end
+
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
     end
 end

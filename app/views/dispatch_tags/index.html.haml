@@ -5,9 +5,9 @@
 - if !@tags.blank?
   %table.tag-table
     %tr
-      %td{ width: "50px" } 
-      %td{ width: "200px" } 
-      %td
+      %th{ width: "50px" }=sortable "id"
+      %th{ width: "200px" }=sortable "name"
+      %th Action
     - @tags.each do |tag|
       %tr
         %td #{tag.id}
