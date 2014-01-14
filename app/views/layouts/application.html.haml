@@ -21,7 +21,7 @@
           Hentaria
           %span .beta
         .clear-legacy
-        
+
         - header = Rails.env.development? ? 'header_background_dev' : 'header_background_2'
         .header__slider{ class: "#{ header }" }  
           = form_tag search_tags_path, {class: "header-search"} do
