@@ -1,8 +1,10 @@
 class DispatchImgsController < ApplicationController
   layout "back_end"
 
-  before_filter :find_image, only: [:update, :destroy, :edit]
   before_filter :authenticate_admin!
+  before_filter :find_image, only: [:update, :destroy, :edit]
+  before_filter :add_warns, only: [:new, :edit]
+
 
   def index
     page = params[:page] ? params[:page] : 1
@@ -12,7 +14,6 @@ class DispatchImgsController < ApplicationController
   def new
     @img = Image.new
     @tags = Tag.order("name ASC").all
-    @warns = Warn.all
   end
 
   def create
@@ -25,7 +26,6 @@ class DispatchImgsController < ApplicationController
   # TODO: id was shown ??
   def edit
     @tags = Tag.order("name ASC").all
-    @warns = Warn.all
   end
 
   def update

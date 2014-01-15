@@ -6,4 +6,4 @@
     .accordion
       = render partial: "dispatch_imgs/children_tags_for_form", 
                collection: Group.parents_only.includes(:tags, :children), as: :group,
-               locals: { image: image }
+               locals: { image: image, image_tag_ids: image_tag_ids }
