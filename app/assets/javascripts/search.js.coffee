@@ -23,6 +23,12 @@ $(document).ready ->
       terms = split(@value)
       terms.pop()
       terms.push(ui.item.value)
-      terms.push("")
-      @value = terms.join(", ")
+      if ui.item.value != ''
+        terms.push("")
+        @value = terms.join(", ")
+      false
+    response: (event, ui) ->
+      unless ui.content.length
+        noResult = { value: "", label: "No results found" }
+        ui.content.push noResult
       false
