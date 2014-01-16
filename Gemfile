@@ -7,14 +7,20 @@ gem 'haml', '~> 3.1.4'
 gem "quick_magick"
 gem 'execjs'
 gem "paperclip", "~> 3.0"
-gem 'acts-as-taggable-on', '~> 2.3.1'
 gem 'metamagic'
+gem 'devise'
+gem 'timecop'
+gem 'jquery-rails'
+gem 'jquery-ui-rails'
+gem 'sass-rails',   '~> 3.2.3'
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
+  gem 'compass', '>= 0.12.2'
+  gem 'compass-rails', '>= 1.0.3'
+  gem 'susy'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
@@ -22,13 +28,12 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'jquery-rails'
-
 group :development, :test do
   gem 'thin', require: false
   gem 'simplecov', require: false
-  gem 'rspec-rails'#, '~> 2.7.0'
-  gem 'shoulda-matchers', '1.1.0', require: false
+  gem 'rspec-rails'
+  gem 'shoulda-matchers'
+  gem 'rspec-rails-mocha', '~> 0.3.1', :require => false
   gem 'factory_girl_rails', '>= 3.3.0'
   gem 'cucumber-rails', '>= 1.3.0', :require => false
   gem 'escape_utils', '0.2.4', require: false

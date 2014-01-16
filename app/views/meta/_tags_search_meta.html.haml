@@ -1,0 +1,5 @@
+- tags_name = local_assigns[:tags_name].present? ? local_assigns[:tags_name] : ['No tags']
+
+- meta title: APP_CONFIG['default_pre_title'] + " | " + "Tags: #{tags_name.join(', ')}",
+       keywords: APP_CONFIG['default_pre_keys'] + ", " + join_by(sort_only_by(keywords, :count), :name, 8),
+       description: "All hentai form the private collection tagged by #{tags_name.join(', ')}"

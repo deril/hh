@@ -1,0 +1,19 @@
+%h2 Next image from list:
+
+%article
+  - if @img.presence
+    = form_for Image.new, url: dispatch_stack_index_path, html: { multipart: true } do |f|
+      .sidebar-l
+        = render partial: "dispatch_imgs/warns_for_form", locals: { all_warns: @warns, f: f, image: @img }
+        = render partial: "dispatch_imgs/tags_for_form", locals: { all_tags: @tags, f: f, image: @img }
+
+      .view_img
+        = f.button 'Accept', value: 'accept'
+        = f.button 'Deny', value: 'deny'
+      .view_img
+        = image_tag("/#{@img}")
+      .view_img.tags_selected{ data: { type: 'tags_selected'} }
+
+      = hidden_field_tag :image, @img
+  - else
+    No images...

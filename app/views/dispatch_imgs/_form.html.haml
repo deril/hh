@@ -1,12 +1,20 @@
-%article{ class: "image_list_wrap" }
-
-  = form_for(img, url: img.new_record? ? dispatch_imgs_path : dispatch_img_path(img.id), 
+%article
+  = form_for(img, url: img.new_record? ? dispatch_imgs_path : dispatch_img_path(img.id),
                   html: {multipart: true} ) do |f|
-    = f.file_field :image, data: { type: 'file_field' }
-    = f.submit "Save"
-    .clear
-    = render partial: "dispatch_imgs/tags_for_form", locals: { all_tags: @tags, image_tag_list: img.tag_list }
+    .sidebar-l
+      = render partial: "dispatch_imgs/warns_for_form", locals: { all_warns: @warns, f: f, image: img }
+      = render partial: "dispatch_imgs/tags_for_form", locals: { all_tags: @tags, f: f, image: img }
 
-    .images_preview{ data: { type: 'upload_images' } }
-      - image = img.new_record? ? 'imgs/no_image.jpg' : img.image.url(:medium) 
-      = image_tag(image, data: { type: "select_image" }, class: "view_img" ) 
+    .view_img
+      = f.submit "Save"
+
+    = f.file_field :image, data: { type: 'file_field' }
+
+    .view_img.images_preview{ data: { type: 'upload_images' } }
+      - image = img.new_record? ? 'imgs/no_image.gif' : img.image.url(:medium)
+      = image_tag(image, data: { type: "select_image" } )
+
+    .view_img.tags_selected{ data: { type: 'tags_selected'} }
+
+
+

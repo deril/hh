@@ -1,0 +1,7 @@
+- warn_id = selected_warn if local_assigns[:selected_warn]
+%h2 Warns:
+- if warns.presence
+  - warns.each do |warn|
+    = link_to warn.name, "#", class: "tag_link block#{" active" if warn_id == warn.id}", title: warn.name
+- else
+  Nothing to show

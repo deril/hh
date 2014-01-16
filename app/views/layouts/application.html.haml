@@ -1,28 +1,38 @@
 !!! 5
 %html#document{html_attrs, :lang => 'en'}
   %head
-    = metamagic title: APP_CONFIG['default_pre_title'] + ' | ' + APP_CONFIG['default_title'],
-                keywords:  APP_CONFIG['default_keywords'],
-                description: APP_CONFIG['default_description']
-
+    = render partial: "meta/default_meta"
     = stylesheet_link_tag "application", :media => "all"
     = javascript_include_tag "application"
+    = render :partial => 'analytics/analytics' if Rails.env == 'production'
+    = render :partial => 'analytics/metrica' if Rails.env == 'production'
     = yield :javascript_includes
     = csrf_meta_tags
   %body
     #wrapper
-      #menu
-        %ul
-          %li= link_to_unless_current('Images', {controller: "images", action: "index"})
-          %li= link_to_unless_current('Tags', {controller: "tags", action: "index"})
-          %li= link_to_unless_current('About', {controller: "images", action: "about"}) 
-          %li.logo HH
-      .head_slider
-        = image_tag("imgs/front.png")
+      %header
+        = render partial: "layouts/for_login"
+        %nav#menu
+          %ul
+            %li= link_to_unless_current('Images', images_path)
+            %li= link_to_unless_current('Tags', tags_path)
+            %li= link_to_unless_current('About', about_path)
+        .header__logo
+          Hentaria
+          %span .beta
+        .clear-legacy
+
+        - header = Rails.env.development? ? 'header_background_dev' : 'header_background_2'
+        .header__slider{ class: "#{ header }" }  
+          = form_tag search_tags_path, {class: "header-search"} do
+            = text_field_tag "search_query", nil, class: "header-search__input", data: { type: "autocomplete" }
+            = hidden_field_tag "autocomplete_path", autocomplete_search_tags_path, data: { type: "autocomplete_path" }
+            = submit_tag "", class: "header-search__submit icon-search"
 
       = alert_notifier
 
       = yield
-      
+
       .clear
       .footer
+        Hentaria.com &copy; 2013-2014 Licensed CC-BY
