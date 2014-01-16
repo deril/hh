@@ -13,8 +13,8 @@
         %td #{tag.id}
         %td #{tag.name.capitalize} (#{tag.count})
         %td
-          = link_to "Edit", edit_dispatch_tag_path(id: tag.id)
-          = link_to "Delete", dispatch_tag_path(id: tag.id), method: :delete
+          = link_to "Edit", edit_dispatch_tag_path(id: tag.id), class: "action"
+          = link_to "Delete", dispatch_tag_path(id: tag.id), method: :delete, class: "action"
 
   = paginate @tags
   %br

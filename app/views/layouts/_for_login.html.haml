@@ -1,4 +1,5 @@
 - if admin_signed_in?
   #logined
+    = link_to "Dispatch Image", dispatch_imgs_path
     Logined as #{@current_admin.email.capitalize},
     = link_to "Log_out", destroy_admin_session_path, method: :delete
