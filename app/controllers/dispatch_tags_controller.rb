@@ -10,19 +10,23 @@ class DispatchTagsController < ApplicationController
 
   def new
     @tag = Tag.new()
+    @groups = Group.all
   end
 
   def create
-    @tag = Tag.new(name: trim_n_underscore(params[:tag]))
+    @tag = Tag.new(name: trim_n_underscore(params[:tag].try(:[], :name)), 
+                   group_id: params[:tag].try(:[], :group_id))
     response = @tag.save_with_response
     redirect_to dispatch_tags_path, response
   end 
-  
+
   def edit
+    @groups = Group.all
   end
 
   def update 
-    @tag.name = trim_n_underscore(params[:tag])
+    @tag.assign_attributes(name: trim_n_underscore(params[:tag].try(:[], :name)),
+                           group_id: params[:tag].try(:[], :group_id))
     response = @tag.save_with_response
     redirect_to dispatch_tags_path, response
   end

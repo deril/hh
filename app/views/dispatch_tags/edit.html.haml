@@ -1,11 +1,12 @@
 %h2 Edit this tag...
 
-= form_for(@tag, url: dispatch_tag_path(@tag.id)) do
+= form_for(@tag, url: dispatch_tag_path(@tag.id)) do |f|
   %h2
-    = label_tag :tag, "Tag name:"
+    = f.label :name, "Tag name:"
 
-  = text_field_tag(:tag, @tag.name.to_s)
-  = submit_tag "Submit it"
+  = f.text_field(:name)
+  = f.select :group_id, @groups.collect{|g| [g.name, g.id] }
+  = f.submit "Submit it"
 
 %br
 = link_to "< Back", :back, class: "tag_link"
