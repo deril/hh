@@ -1,7 +1,7 @@
 class ImagesController < ApplicationController
 
-  before_filter :find_image, only: [:show]
-  before_filter :add_warns, only: [:index, :show]
+  before_action :find_image, only: [:show]
+  before_action :add_warns, only: [:index, :show]
 
   def index
     @imgs = Image.includes(:tags).desc.page(current_page)

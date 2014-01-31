@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.2'
 
 gem 'mysql2'
-gem 'kaminari', ">0.13.0"
+gem 'kaminari'
 gem 'haml', '~> 4.0.5'
 gem "quick_magick"
 gem 'execjs'
@@ -24,7 +24,7 @@ gem 'compass-rails', '>= 1.0.3'
 gem 'susy'
 gem 'uglifier', '>= 1.3.0'
 
-gem 'protected_attributes' # FIXME: !!!
+gem 'protected_attributes'  # FIXME: replace attrs_assessors !!!
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', :platforms => :ruby

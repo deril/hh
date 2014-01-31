@@ -1,9 +1,9 @@
 class DispatchImgsController < ApplicationController
   layout "back_end"
 
-  before_filter :authenticate_admin!
-  before_filter :find_image, only: [:update, :destroy, :edit]
-  before_filter :add_warns, only: [:new, :edit]
+  before_action :authenticate_admin!
+  before_action :find_image, only: [:update, :destroy, :edit]
+  before_action :add_warns, only: [:new, :edit]
 
 
   def index
@@ -44,5 +44,9 @@ class DispatchImgsController < ApplicationController
     def find_image
       @img = Image.find_by(id: params[:id])
       redirect_to dispatch_imgs_path, Image.not_found unless @img
+    end
+
+    def image_params
+      params.require(:episode).premit(:image,:images_tags, :tag_ids, :warn_id)
     end
 end

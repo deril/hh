@@ -9,8 +9,8 @@ class DispatchStackController < ApplicationController
   JPEG = "\xff\xd8\xff\xe0"
   PNG = "\x89\x50\x4e\x47"
 
-  before_filter :authenticate_admin!
-  before_filter :add_warns, only: [:index]
+  before_action :authenticate_admin!
+  before_action :add_warns, only: [:index]
 
   # TODO: may_be new fake model or something for DispatchStackController ???
 
