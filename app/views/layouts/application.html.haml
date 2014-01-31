@@ -8,6 +8,7 @@
     = render :partial => 'analytics/analytics' if Rails.env == 'production'
     = render :partial => 'analytics/metrica' if Rails.env == 'production'
     = yield :javascript_includes
+    = yield :head
     = csrf_meta_tags
   %body
     #wrapper
