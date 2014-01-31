@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   end
 
   def add_warns
-    @warns = Warn.all
+    @warns = Warn.all.load
   end
 
   def get_uniq_tags_from(image_list = [], except_tag = nil)

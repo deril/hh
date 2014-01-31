@@ -38,7 +38,7 @@ class DispatchTagsController < ApplicationController
     end
 
     def find_tag  
-      @tag = Tag.find_by_id(params[:id])
+      @tag = Tag.find_by(id: params[:id])
       redirect_to dispatch_tags_path, Tag.not_found unless @tag
     end
 

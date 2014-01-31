@@ -13,7 +13,7 @@ class DispatchImgsController < ApplicationController
 
   def new
     @img = Image.new
-    @tags = Tag.order("name ASC").all
+    @tags = Tag.order("name ASC")
   end
 
   def create
@@ -25,7 +25,7 @@ class DispatchImgsController < ApplicationController
 
   # TODO: id was shown ??
   def edit
-    @tags = Tag.order("name ASC").all
+    @tags = Tag.order("name ASC")
   end
 
   def update
@@ -42,7 +42,7 @@ class DispatchImgsController < ApplicationController
 
   private
     def find_image
-      @img = Image.find_by_id(params[:id])
+      @img = Image.find_by(id: params[:id])
       redirect_to dispatch_imgs_path, Image.not_found unless @img
     end
 end

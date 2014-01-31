@@ -19,7 +19,7 @@ class DispatchStackController < ApplicationController
       images = Dir["#{IMG_TMP_DIR}/*"].select { |e| check_img?(e) }
       unless images.empty?
         @img = "#{IMG_LAST_DIR}/#{File.basename(images.first)}"
-        @tags = Tag.order("name ASC").all
+        @tags = Tag.order("name ASC")
       end
     else
       redirect_to dispatch_imgs_path, { alert: "Dir not found or empty" }

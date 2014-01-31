@@ -16,7 +16,7 @@ class ImagesController < ApplicationController
 
   private
     def find_image
-      @img = Image.find_by_id(params[:id])
+      @img = Image.find_by(id: params[:id])
       redirect_to images_path, Image.not_found unless @img
     end
 

@@ -32,7 +32,7 @@ class TagsController < ApplicationController
 
   private
     def find_tag
-      @cur_tag = Tag.find_by_id(params[:id])
+      @cur_tag = Tag.find_by(id: params[:id])
       redirect_to tags_path, Tag.not_found unless @cur_tag
     end
 
