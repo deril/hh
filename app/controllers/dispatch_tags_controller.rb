@@ -1,7 +1,7 @@
 class DispatchTagsController < ApplicationController
   layout "back_end"
-  before_filter :authenticate_admin!
-  before_filter :find_tag, only: [:update, :destroy, :edit] 
+  before_action :authenticate_admin!
+  before_action :find_tag, only: [:update, :destroy, :edit] 
   helper_method :sort_column, :sort_direction
 
   def index
@@ -38,7 +38,7 @@ class DispatchTagsController < ApplicationController
     end
 
     def find_tag  
-      @tag = Tag.find_by_id(params[:id])
+      @tag = Tag.find_by(id: params[:id])
       redirect_to dispatch_tags_path, Tag.not_found unless @tag
     end
 

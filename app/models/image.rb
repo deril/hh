@@ -1,8 +1,6 @@
 class Image < ActiveRecord::Base
 
-  # TODO: FOREIFN KEYS
   # TODO: make constants of saving/deleting responses !!!! and may be new class for them
-
   attr_accessible :image_updated_at, :image, :tags, :image_file_size, :images_tags, :tag_ids, :warn_id
 
   has_attached_file :image,
