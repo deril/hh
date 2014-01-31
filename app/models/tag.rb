@@ -1,9 +1,11 @@
 class Tag < ActiveRecord::Base
-  attr_accessible :name, :count
+  attr_accessible :name, :count, :group_id
 
   has_many :images_tags, dependent: :destroy
   has_many :images, through: :images_tags
   belongs_to :group
+
+  # TODO: if group was deleted do we need to clear field group_id???
 
   validates :name,  presence: true, 
                     uniqueness: true
