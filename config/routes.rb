@@ -7,7 +7,7 @@ Hh::Application.routes.draw do
   devise_for :admins, path: "auth", skip: :registrations
 
   resources :images, only: [:index, :show] do
-    get ':page', action: :index, on: :collection
+    get 'page/:page', action: :index, on: :collection
   end
   get 'about' => 'images#about'
 
