@@ -31,8 +31,8 @@ describe DispatchImgsController do
     it 'has assigns' do
       get :new
       assigns(:img).should be_a_new(Image)
-      assigns(:tags).should == Tag.order("name ASC").all
-      assigns(:warns).should == Warn.all
+      assigns(:tags).should == Tag.order("name ASC")
+      assigns(:warns).should == Warn.all.load()
     end
   end
 
@@ -72,8 +72,8 @@ describe DispatchImgsController do
     it 'has assigns' do
       get :edit, { id: image.id }
       assigns(:img).should == image
-      assigns(:tags).should == Tag.order("name ASC").all
-      assigns(:warns).should == Warn.all
+      assigns(:tags).should == Tag.order("name ASC")
+      assigns(:warns).should == Warn.all.load()
     end
 
     it "redirects on index if tag not found" do

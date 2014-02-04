@@ -1,7 +1,7 @@
 class ImagesController < ApplicationController
 
-  before_filter :find_image, only: [:show]
-  before_filter :add_warns, only: [:index, :show]
+  before_action :find_image, only: [:show]
+  before_action :add_warns, only: [:index, :show]
 
   def index
     @imgs = Image.includes(:tags).desc.page(current_page)
@@ -16,7 +16,7 @@ class ImagesController < ApplicationController
 
   private
     def find_image
-      @img = Image.find_by_id(params[:id])
+      @img = Image.find_by(id: params[:id])
       redirect_to images_path, Image.not_found unless @img
     end
 

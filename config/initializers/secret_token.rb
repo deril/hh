@@ -19,5 +19,5 @@ def secure_token
   end
 end
 
-Hh::Application.config.secret_token = secure_token
+Hh::Application.config.secret_key_base = secure_token
 Devise.secret_key = secure_token
