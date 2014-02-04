@@ -40,10 +40,13 @@ describe ApplicationHelper, type: :helper do
 
   describe '#sort_only_by' do
     it 'sorts array of objects by current field' do
-      helper.sort_only_by(tags, :count).should == [tag1, tag2, tag3]
+      helper.sort_only_by(tags, :count).should == [tag3, tag2, tag1]
     end
     it 'fails if current field does not exist' do
       expect { helper.sort_only_by(tags, :invalid) }.to raise_error 
+    end
+    it 'returns what we pulled in if it\'s not array' do
+      helper.sort_only_by('', :count).should == ''
     end
   end
 
@@ -58,6 +61,9 @@ describe ApplicationHelper, type: :helper do
     end
     it 'fails if current field does not exist' do
       expect { helper.join_by(tags, :invalid) }.to raise_error 
+    end
+    it "returns empty string if give inside not array" do
+      helper.join_by('', :count).should == ''
     end
   end
 end

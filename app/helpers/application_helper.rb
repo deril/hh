@@ -8,14 +8,14 @@ module ApplicationHelper
   end
 
   def sort_only_by(array, title)
-    array.sort_by!{ |e| e.send(title.to_sym) }.reverse if array.present?
+    array.sort_by!{ |e| e.send(title.to_sym) }.reverse if array.present? && array.kind_of?(Array)
     array
   end
 
   def join_by(array, title, amount = nil)
-    return '' unless array.present?
-    rezult = array[0...amount] if amount
-    rezult.collect{  |t| t.send(title.to_sym) }.join(", ")
+    return '' unless array.present? || array.kind_of?(Array)
+    rezult = amount.present? ? array[0...amount] : array 
+    rezult.collect{ |t| t.send(title.to_sym) }.join(", ")
   end
 
   # === Attributes
