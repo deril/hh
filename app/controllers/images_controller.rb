@@ -6,6 +6,7 @@ class ImagesController < ApplicationController
   def index
     @imgs = Image.includes(:tags).desc.page(current_page)
     @tags = get_uniq_tags_from(@imgs)
+    @cur_page_num = params[:page] ? params[:page] : "1"
   end
 
   # TODO: may be not id
