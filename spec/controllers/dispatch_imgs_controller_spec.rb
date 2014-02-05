@@ -45,8 +45,8 @@ describe DispatchImgsController do
 
     it "response redirect if fail" do
       post :create
-      response.should redirect_to dispatch_imgs_path
-      flash[:alert].should == "Image saving failed."
+      response.should redirect_to new_dispatch_img_url
+      flash[:alert].should == "No image selected"
     end
 
     it "adds new image into db" do

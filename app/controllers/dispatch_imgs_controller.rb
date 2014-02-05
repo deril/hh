@@ -5,7 +5,6 @@ class DispatchImgsController < ApplicationController
   before_action :find_image, only: [:update, :destroy, :edit]
   before_action :add_warns, only: [:new, :edit]
 
-
   def index
     page = params[:page] ? params[:page] : 1
     @imgs = Image.desc.page(page)
@@ -17,7 +16,8 @@ class DispatchImgsController < ApplicationController
   end
 
   def create
-    @img = Image.new(params[:image])
+    return redirect_to new_dispatch_img_url, alert: "No image selected" if params[:image].nil?
+    @img = Image.new(image_params)
     @img.assign_attributes(tag_ids: params[:tag_ids], warn_id: params[:warn_id])
     response = @img.save_with_response
     redirect_to dispatch_imgs_path, response
@@ -29,7 +29,8 @@ class DispatchImgsController < ApplicationController
   end
 
   def update
-    @img.assign_attributes(params[:image])
+    fail params.inspect
+    @img.assign_attributes(image_params)
     @img.assign_attributes(tag_ids: params[:tag_ids], warn_id: params[:warn_id])
     response = @img.save_with_response
     redirect_to dispatch_imgs_path, response
@@ -47,6 +48,8 @@ class DispatchImgsController < ApplicationController
     end
 
     def image_params
-      params.require(:episode).premit(:image,:images_tags, :tag_ids, :warn_id)
+      params.require(:image).permit(:image)
+      # params.require(:image).premit(:image,:images_tags, :tag_ids, :warn_id)
     end
+
 end
