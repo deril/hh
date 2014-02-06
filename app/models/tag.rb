@@ -1,5 +1,6 @@
 class Tag < ActiveRecord::Base
-  attr_accessible :name, :count, :group_id
+  # FIXME remove mass assign
+  # attr_accessible :name, :count, :group_id
 
   has_many :images_tags, dependent: :destroy
   has_many :images, through: :images_tags

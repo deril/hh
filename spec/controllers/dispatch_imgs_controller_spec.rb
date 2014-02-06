@@ -45,8 +45,8 @@ describe DispatchImgsController do
 
     it "response redirect if fail" do
       post :create
-      response.should redirect_to new_dispatch_img_url
-      flash[:alert].should == "No image selected"
+      response.should redirect_to dispatch_imgs_path
+      flash[:alert].should == "Image saving failed."
     end
 
     it "adds new image into db" do
@@ -84,6 +84,9 @@ describe DispatchImgsController do
   end
 
   describe 'PUT update' do 
+
+    let(:file_uploaded) { fixture_file_upload('/images/uploaded.jpeg', 'image/jpeg') } 
+
     it "response redirects if all good" do
       put :update, { id: image.id }
       response.should redirect_to dispatch_imgs_path
@@ -96,14 +99,14 @@ describe DispatchImgsController do
     end
 
     it "has assign" do
-      put :update, { id: image.id, image: { image_file_size: 10 } }
+      put :update, { id: image.id, image: { image: file_uploaded } }
       assigns(:img).should == image
     end
 
     it "changes image" do 
       expect {
-        put :update, { id: image.id, image: { image_file_size: 10 } }
-      }.to change{ image.reload.image_file_size }.to(10)
+        put :update, { id: image.id, image: { image: file_uploaded } }
+      }.to change{ image.reload.image_file_size }.to(62858)
     end
 
     it "changes tags of image" do

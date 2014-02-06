@@ -16,7 +16,6 @@ class DispatchImgsController < ApplicationController
   end
 
   def create
-    return redirect_to new_dispatch_img_url, alert: "No image selected" if params[:image].nil?
     @img = Image.new(image_params)
     @img.assign_attributes(tag_ids: params[:tag_ids], warn_id: params[:warn_id])
     response = @img.save_with_response
@@ -29,7 +28,6 @@ class DispatchImgsController < ApplicationController
   end
 
   def update
-    fail params.inspect
     @img.assign_attributes(image_params)
     @img.assign_attributes(tag_ids: params[:tag_ids], warn_id: params[:warn_id])
     response = @img.save_with_response
@@ -48,7 +46,7 @@ class DispatchImgsController < ApplicationController
     end
 
     def image_params
-      params.require(:image).permit(:image)
+      params.fetch(:image, {}).permit(:image)
       # params.require(:image).premit(:image,:images_tags, :tag_ids, :warn_id)
     end
 
