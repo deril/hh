@@ -1,12 +1,14 @@
 Hh::Application.routes.draw do
-  
+
   # TODO: ruby 2.0 -> ruby 2.1
   # TODO: rails 4.0 -> rails 4.1
   # TODO: notification
-  
+
   devise_for :admins, path: "auth", skip: :registrations
 
-  resources :images, only: [:index, :show]
+  resources :images, only: [:index, :show] do
+    get 'page/:page', action: :index, on: :collection
+  end
   get 'about' => 'images#about'
 
   resources :tags, only: [:index, :show] do
@@ -16,7 +18,7 @@ Hh::Application.routes.draw do
     end
   end
 
-  resources :dispatch_tags 
+  resources :dispatch_tags
 
   resources :dispatch_imgs, except: [:show]
 
