@@ -8,6 +8,7 @@
     = render :partial => 'analytics/analytics' if Rails.env == 'production'
     = render :partial => 'analytics/metrica' if Rails.env == 'production'
     = yield :javascript_includes
+    = yield :head
     = csrf_meta_tags
   %body
     #wrapper
@@ -15,7 +16,7 @@
         = render partial: "layouts/for_login"
         %nav#menu
           %ul
-            %li= link_to_unless_current('Images', images_path)
+            %li= link_to_unless_current('Images', root_path)
             %li= link_to_unless_current('Tags', tags_path)
             %li= link_to_unless_current('About', about_path)
         .header__logo

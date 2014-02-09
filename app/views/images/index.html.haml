@@ -1,4 +1,4 @@
-= render partial: 'meta/images_index_meta', locals: { keywords: @tags }
+= render partial: 'meta/images_index_meta', locals: { keywords: @tags, cur_page_num: @cur_page_num }
 %aside.r-sidebar
   = render partial: "warns_list", locals: {warns: @warns }
   = render partial: "tags/tags_list", locals: { tags: @tags, all_tags: true }
