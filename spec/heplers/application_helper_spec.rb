@@ -14,6 +14,10 @@ describe ApplicationHelper, type: :helper do
     it "creates valid css class" do
       expect { |b| helper.tag_cloud(tags, classes, &b) }.to yield_successive_args([tag3, "s"], [tag2, "m"], [tag1, "l"])
     end
+    it "returns empty array if no tags" do
+      tags = []
+      helper.tag_cloud(tags, classes).should == []
+    end
   end
 
   describe "#alert_notifier" do

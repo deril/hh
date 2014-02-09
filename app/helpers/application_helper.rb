@@ -25,11 +25,13 @@ module ApplicationHelper
   # yield recieve tag element and class element, that couting by count of tag usages
 
   def tag_cloud(tags, classes)
-    max = tags.sort_by(&:count).last.count
-    max = 1 if max.zero?
+    return [] if tags.empty?
+
+    max_count = tags.sort_by(&:count).last.count.to_f
+
     tags.each do |tag|
-      index = tag.count.to_f / max * (classes.size - 1)
-      yield tag, classes[index.round]
+      index = ((tag.count / max_count) * (classes.size - 1))
+      yield tag, classes[index.nan? 0 : index.round]
     end
   end
 
