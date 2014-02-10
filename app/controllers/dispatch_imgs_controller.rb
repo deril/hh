@@ -28,10 +28,18 @@ class DispatchImgsController < ApplicationController
   end
 
   def update
-    @img.assign_attributes(image_params)
-    @img.assign_attributes(tag_ids: params[:tag_ids], warn_id: params[:warn_id])
-    response = @img.save_with_response
-    redirect_to dispatch_imgs_path, response
+    if @img.update(image_params)
+      redirect_to dispatch_imgs_path, notice: 'Image was successfully updated'
+    else
+      render action: 'edit'
+    end
+    # fail params.inspect
+    # fail image_params.inspect
+    # @img.assign_attributes(image_params)
+    # @img.assign_attributes(tag_ids: params[:tag_ids], warn_id: params[:warn_id])
+    # fail image_params.inspect
+    # response = @img.save_with_response
+    # redirect_to dispatch_imgs_path, response
   end
 
   def destroy
@@ -46,7 +54,7 @@ class DispatchImgsController < ApplicationController
     end
 
     def image_params
-      params.fetch(:image, {}).permit(:image)
+      params.fetch(:image, {}).permit(:image, warns_attributes: [:id])
       # params.require(:image).premit(:image,:images_tags, :tag_ids, :warn_id)
     end
 

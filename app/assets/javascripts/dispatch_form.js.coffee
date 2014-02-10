@@ -1,6 +1,6 @@
-$(document).ready -> 
+$(document).ready ->
 
-  $(".accordion").accordion 
+  $(".accordion").accordion
     active: false,
     heightStyle: "content",
     # event: "mouseover",
@@ -12,10 +12,10 @@ $(document).ready ->
     tags = $("[data-type = tags_selected]").text()
 
     if $(this).is(':checked')
-      tags = tags + ', '  if tags.length > 0 
+      tags = tags + ', '  if tags.length > 0
       tags = tags + label
     else
       expr = new RegExp("[,\\s]+" + label + "|^" + label + "[,\\s]*", "gi")
       tags = tags.replace(expr, '')
-    
+
     $("[data-type = tags_selected]").html( tags )
