@@ -2,10 +2,9 @@
   .form_warns
     %h3 Warns: 
 
-    = f.fields_for :warns do
+    = f.fields_for :warns do |warn_field|
       %ul.warns_part
         - all_warns.reverse.each do |warn|
           %li
-            = radio_button_tag 'warn_id', warn.id, image.instance_of?(Image) ? image.warn_id == warn.id : true,
-                                          { id: "#{warn.name}_#{warn.id}" }
-            = label_tag "#{warn.name}_#{warn.id}", warn.name
+            = warn_field.radio_button :id, warn.id, checked: image.instance_of?(Image) ? image.warn_id == warn.id : true
+            = warn_field.label "id_#{warn.id}", warn.name
