@@ -12,7 +12,6 @@ class Image < ActiveRecord::Base
   belongs_to :warn
 
   accepts_nested_attributes_for :images_tags
-  accepts_nested_attributes_for :warn
 
   paginates_per 32
 

@@ -6,10 +6,9 @@
           %h3 Warns:
           %ul.warns_part
             - @warns.each do |warn|
-              = f.fields_for warn do |warn_field|
-                %li
-                  = warn_field.radio_button :id, warn.id, checked: @img.warn_id == warn.id
-                  = warn_field.label "id_#{warn.id}", warn.name
+              %li
+                = f.radio_button :warn_id, warn.id, checked: @img.warn_id == warn.id
+                = f.label "warn_id_#{warn.id}", warn.name
     .view_img=f.submit "Save"
     = f.file_field :image, data: { type: 'file_field' }
     .view_img.images_preview{ data: { type: 'upload_images' } }
