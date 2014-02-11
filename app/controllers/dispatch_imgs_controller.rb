@@ -28,6 +28,7 @@ class DispatchImgsController < ApplicationController
   end
 
   def update
+    fail params.inspect
     if @img.update(image_params)
       redirect_to dispatch_imgs_path, notice: 'Image was successfully updated'
     else
@@ -54,7 +55,7 @@ class DispatchImgsController < ApplicationController
     end
 
     def image_params
-      params.fetch(:image, {}).permit(:image, :warn_id)
+      params.fetch(:image, {}).permit(:image, :warn_id, images_tags_attributes: [:id])
       # params.require(:image).premit(:image,:images_tags, :tag_ids, :warn_id)
     end
 

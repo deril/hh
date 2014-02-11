@@ -8,10 +8,15 @@
         .accordion
           = render partial: "dispatch_imgs/children_tags_for_form", 
                    collection: children.includes(:tags, :children), as: :group,
-                   locals: { image: image, image_tag_ids: image_tag_ids }
+                   locals: { image_tag_ids: image_tag_ids }
 
-    - group.tags.each do |tag|
-      %li
-        = check_box_tag 'tag_ids[]', tag.id, image.instance_of?(Image) ? image_tag_ids.include?(tag.id) : false, 
-                                     { id: "#{tag.name}_#{tag.id}" }
-        = label_tag "#{tag.name}_#{tag.id}", tag.name
+    = f.fields_for :images_tags, include_id: false do |images_tags_field|
+      - tag = images_tags_field.object.tag
+      = images_tags_field.hidden_field :id
+      = images_tags_field.fields_for :tag do |tag_field|
+        %li
+          = tag_field.check_box :tag_id, {checked: image_tag_ids.include?(tag.id)}
+          = tag_field.label :id, tag.name
+        -# - group.tags.each do |tag|
+        -# = check_box_tag 'tag_ids[]', tag.id, @img.instance_of?(Image) ? image_tag_ids.include?(tag.id) : false, { id: "#{tag.name}_#{tag.id}" }
+        -# = label_tag "#{tag.name}_#{tag.id}", tag.name

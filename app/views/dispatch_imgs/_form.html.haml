@@ -9,6 +9,12 @@
               %li
                 = f.radio_button :warn_id, warn.id, checked: @img.warn_id == warn.id
                 = f.label "warn_id_#{warn.id}", warn.name
+      .form_tags
+        %h3 Tags:
+        .accordion
+          = render partial: "dispatch_imgs/children_tags_for_form", 
+                   collection: Group.parents_only.includes(:tags, :children), as: :group,
+                   locals: { image_tag_ids: @img.tag_ids, f: f }
     .view_img=f.submit "Save"
     = f.file_field :image, data: { type: 'file_field' }
     .view_img.images_preview{ data: { type: 'upload_images' } }
