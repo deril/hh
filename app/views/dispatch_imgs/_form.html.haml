@@ -11,10 +11,15 @@
                 = f.label "warn_id_#{warn.id}", warn.name
       .form_tags
         %h3 Tags:
-        .accordion
-          = render partial: "dispatch_imgs/children_tags_for_form", 
-                   collection: Group.parents_only.includes(:tags, :children), as: :group,
-                   locals: { image_tag_ids: @img.tag_ids, f: f }
+        = f.fields_for :images_tags do |it_field|
+          - @tags.each do |tag|
+            = it_field.fields_for :tag, tag do |tag_field|
+              = tag_field.check_box :id, { checked: @img.tags.include?(tag.id) }
+              = tag_field.label :id, tag.name
+        -# .accordion
+        -#   = render partial: "dispatch_imgs/children_tags_for_form", 
+        -#            collection: Group.parents_only.includes(:tags, :children), as: :group,
+        -#            locals: { image_tag_ids: @img.tag_ids, f: f }
     .view_img=f.submit "Save"
     = f.file_field :image, data: { type: 'file_field' }
     .view_img.images_preview{ data: { type: 'upload_images' } }

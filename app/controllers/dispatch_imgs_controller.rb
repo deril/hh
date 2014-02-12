@@ -55,7 +55,7 @@ class DispatchImgsController < ApplicationController
     end
 
     def image_params
-      params.fetch(:image, {}).permit(:image, :warn_id, images_tags_attributes: [:id])
+      params.fetch(:image, {}).permit(:image, :warn_id, images_tags_attributes: [:tags_ids => []])
       # params.require(:image).premit(:image,:images_tags, :tag_ids, :warn_id)
     end
 

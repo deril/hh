@@ -8,11 +8,11 @@ class Tag < ActiveRecord::Base
 
   # TODO: if group was deleted do we need to clear field group_id???
 
-  validates :name,  presence: true, 
+  validates :name,  presence: true,
                     uniqueness: true
 
   # TODO: maybe group_id  get default val!
-  
+
   def save_with_response
     if save
       { notice: "Tag successfully Saved." }
