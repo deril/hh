@@ -1,12 +1,4 @@
+= link_to "< Back", :back, class: "tag_link"
 %h2 Create a new tag...
 
-= form_for(@tag, url: {action: :create}) do |f|
-  %h2
-    = f.label :name, "Tag name:"
-
-  = f.text_field(:name)
-  = f.select :group_id, @groups.collect{|g| [g.name, g.id] }
-  = f.submit "Submit it"
-
-%br
-= link_to "< Back", :back, class: "tag_link"
+= render 'form'
