@@ -23,6 +23,7 @@ gem 'compass', '>= 0.12.2'
 gem 'compass-rails', '>= 1.0.3'
 gem 'susy'
 gem 'uglifier', '>= 1.3.0'
+gem 'formtastic'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', :platforms => :ruby

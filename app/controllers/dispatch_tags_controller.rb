@@ -25,10 +25,15 @@ class DispatchTagsController < ApplicationController
   end
 
   def update 
-    @tag.assign_attributes(name: trim_n_underscore(params[:tag].try(:[], :name)),
-                           group_id: params[:tag].try(:[], :group_id))
-    response = @tag.save_with_response
-    redirect_to dispatch_tags_path, response
+    if @tag.update(tag_params)
+      redirect_to dispatch_tags_path, notice: 'Tag was successfully updated'
+    else
+      render action: 'edit'
+    end
+    # @tag.assign_attributes(name: trim_n_underscore(params[:tag].try(:[], :name)),
+    #                        group_id: params[:tag].try(:[], :group_id))
+    # response = @tag.save_with_response
+    # redirect_to dispatch_tags_path, response
   end
 
   def destroy
@@ -52,5 +57,9 @@ class DispatchTagsController < ApplicationController
 
     def sort_direction
       %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+    end
+
+    def tag_params
+      params.require(:tag).permit(:name, :tag_id)
     end
 end
