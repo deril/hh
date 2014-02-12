@@ -1,0 +1,7 @@
+- image_tag_ids = @img.instance_of?(Image) ? @img.tag_ids : []
+.form_tags
+  %h3 Tags:
+  .accordion
+    = render partial: "dispatch_imgs/children_tags_for_form",
+             collection: Group.parents_only.includes(:tags, :children), as: :group,
+             locals: { image_tag_ids: image_tag_ids, f: f }

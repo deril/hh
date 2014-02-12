@@ -1,20 +1,8 @@
 %article
   = form_for @img, url: @img.new_record? ? dispatch_imgs_path : dispatch_img_path(@img), html: {multipart: true} do |f|
     .sidebar-l
-      - if @warns.present?
-        .form_warns
-          %h3 Warns:
-          %ul.warns_part
-            - @warns.each do |warn|
-              %li
-                = f.radio_button :warn_id, warn.id, checked: @img.warn_id == warn.id
-                = f.label "warn_id_#{warn.id}", warn.name
-      .form_tags
-        %h3 Tags:
-        .accordion
-          = render partial: "dispatch_imgs/children_tags_for_form",
-                   collection: Group.parents_only.includes(:tags, :children), as: :group,
-                   locals: { image_tag_ids: @img.tag_ids, f: f }
+      = render partial: "shared/warns_for_form", locals: { f: f }
+      = render partial: "shared/tags_for_form", locals: { f: f, }
     .view_img=f.submit "Save"
     = f.file_field :image, data: { type: 'file_field' }
     .view_img.images_preview{ data: { type: 'upload_images' } }
