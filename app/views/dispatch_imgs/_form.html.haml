@@ -11,34 +11,13 @@
                 = f.label "warn_id_#{warn.id}", warn.name
       .form_tags
         %h3 Tags:
-        = f.fields_for :images_tags do |it_field|
-          - @tags.each do |tag|
-            = it_field.fields_for :tag, tag do |tag_field|
-              = tag_field.check_box :id, { checked: @img.tags.include?(tag.id) }
-              = tag_field.label :id, tag.name
-        -# .accordion
-        -#   = render partial: "dispatch_imgs/children_tags_for_form", 
-        -#            collection: Group.parents_only.includes(:tags, :children), as: :group,
-        -#            locals: { image_tag_ids: @img.tag_ids, f: f }
+        .accordion
+          = render partial: "dispatch_imgs/children_tags_for_form",
+                   collection: Group.parents_only.includes(:tags, :children), as: :group,
+                   locals: { image_tag_ids: @img.tag_ids, f: f }
     .view_img=f.submit "Save"
     = f.file_field :image, data: { type: 'file_field' }
     .view_img.images_preview{ data: { type: 'upload_images' } }
       - image = @img.new_record? ? 'imgs/no_image.gif' : @img.image.url(:medium)
       = image_tag image, data: { type: 'selected_image' }
     .view_img.tags_selected{ data: { type: 'tags_selected' } }
-  -# = form_for(img, url: img.new_record? ? dispatch_imgs_path : dispatch_img_path(img.id),
-                  html: {multipart: true} ) do |f|
-    -# .sidebar-l
-    -#   = render partial: "dispatch_imgs/warns_for_form", locals: { all_warns: @warns, f: f, image: img }
-    -#   = render partial: "dispatch_imgs/tags_for_form", locals: { all_tags: @tags, f: f, image: img }
-
-    -# .view_img
-    -#   = f.submit "Save"
-
-    -# = f.file_field :image, data: { type: 'file_field' }
-
-    -# .view_img.images_preview{ data: { type: 'upload_images' } }
-    -#   - image = img.new_record? ? 'imgs/no_image.gif' : img.image.url(:medium)
-    -#   = image_tag(image, data: { type: "select_image" } )
-
-    -# .view_img.tags_selected{ data: { type: 'tags_selected'} }

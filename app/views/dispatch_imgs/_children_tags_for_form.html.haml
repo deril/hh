@@ -10,13 +10,7 @@
                    collection: children.includes(:tags, :children), as: :group,
                    locals: { image_tag_ids: image_tag_ids }
 
-    = f.fields_for :images_tags, include_id: false do |images_tags_field|
-      - tag = images_tags_field.object.tag
-      = images_tags_field.hidden_field :id
-      = images_tags_field.fields_for :tag do |tag_field|
-        %li
-          = tag_field.check_box :tag_id, {checked: image_tag_ids.include?(tag.id)}
-          = tag_field.label :id, tag.name
-        -# - group.tags.each do |tag|
-        -# = check_box_tag 'tag_ids[]', tag.id, @img.instance_of?(Image) ? image_tag_ids.include?(tag.id) : false, { id: "#{tag.name}_#{tag.id}" }
-        -# = label_tag "#{tag.name}_#{tag.id}", tag.name
+    - group.tags.each do |tag|
+      %li
+        = check_box_tag 'image[tag_ids][]', tag.id, @img.instance_of?(Image) ? image_tag_ids.include?(tag.id) : false, { id: "image_tag_ids_#{tag.id}" }
+        = label_tag "image_tag_ids_#{tag.id}", tag.name
