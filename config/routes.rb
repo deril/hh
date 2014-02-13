@@ -18,7 +18,7 @@ Hh::Application.routes.draw do
     end
   end
 
-  resources :dispatch_tags
+  resources :dispatch_tags, except: [:show]
 
   resources :dispatch_imgs, except: [:show]
 

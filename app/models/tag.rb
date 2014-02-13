@@ -14,10 +14,6 @@ class Tag < ActiveRecord::Base
                     uniqueness: true
 
   # TODO: maybe group_id  get default val!
-  
-
-  def trim_n_underscore
-  end
 
   def save_with_response
     if save
