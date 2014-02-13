@@ -1,5 +1,13 @@
 %article
   = form_for img, url: img.new_record? ? dispatch_imgs_path : dispatch_img_path(img.id), html: {multipart: true} do |f|
+    - if img.errors.any?
+      #error_explanation
+        %h2
+          = pluralize(img.errors.count, "error")
+          prohibited this user from being saved:
+        %ul
+          - img.errors.full_messages.each do |msg|
+            %li= msg
     .sidebar-l
       = render partial: "shared/warns_for_form", locals: { f: f, warns: warns, img: img }
       = render partial: "shared/tags_for_form", locals: { f: f, img: img }
