@@ -38,15 +38,14 @@ describe DispatchImgsController do
 
   describe 'POST "create"' do
     it "response redirect if all good" do
-      post :create, { image: { image: file_fixture } }
+      post :create, image: { image: file_fixture }
       response.should redirect_to dispatch_imgs_path
-      flash[:notice].should == "Image saved successfully."
+      flash[:notice].should == "Image was successfully created"
     end
 
-    it "response redirect if fail" do
+    it "response renders new if fail" do
       post :create
-      response.should redirect_to dispatch_imgs_path
-      flash[:alert].should == "Image saving failed."
+      response.should render_template "new"
     end
 
     it "adds new image into db" do
@@ -96,7 +95,6 @@ describe DispatchImgsController do
       put :update, { id: image.id, image: { image: nil } }
       response.should be_successful
       response.should render_template "edit"
-      flash[:alert].should == "Image saving failed."
     end
 
     it "has assign" do

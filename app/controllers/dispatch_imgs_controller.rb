@@ -17,9 +17,11 @@ class DispatchImgsController < ApplicationController
 
   def create
     @img = Image.new(image_params)
-    @img.assign_attributes(tag_ids: params[:tag_ids], warn_id: params[:warn_id])
-    response = @img.save_with_response
-    redirect_to dispatch_imgs_path, response
+    if @img.save
+      redirect_to dispatch_imgs_path, notice: 'Image was successfully created'
+    else
+      render :new
+    end
   end
 
   # TODO: id was shown ??
