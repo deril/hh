@@ -13,10 +13,12 @@ class DispatchTagsController < ApplicationController
   end
 
   def create
-    @tag = Tag.new(name: trim_n_underscore(params[:tag].try(:[], :name)),
-                   group_id: params[:tag].try(:[], :group_id))
-    response = @tag.save_with_response
-    redirect_to dispatch_tags_path, response
+    @tag = Tag.new(tag_params)
+    if @tag.save
+      redirect_to dispatch_tags_path, notice: 'Tag was successfully created'
+    else
+      render :new
+    end
   end
 
   def edit
@@ -37,10 +39,6 @@ class DispatchTagsController < ApplicationController
   end
 
   private
-    def trim_n_underscore str
-      str.blank? ? nil : str.strip.downcase.gsub(/\s+/,'_')
-    end
-
     def find_tag
       @tag = Tag.find_by(id: params[:id])
       redirect_to dispatch_tags_path, Tag.not_found unless @tag
@@ -55,6 +53,6 @@ class DispatchTagsController < ApplicationController
     end
 
     def tag_params
-      params.require(:tag).permit(:name, :tag_id)
+      params.fetch(:tag, {}).permit(:name, :tag_id, :group_id)
     end
 end

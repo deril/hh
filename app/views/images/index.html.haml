@@ -2,4 +2,4 @@
 %aside.r-sidebar
   = render 'warns_list', warns: @warns
   = render 'tags/tags_list', tags: @tags, all_tags: true
-= render 'images_list', imgs: @imgs
+= render 'images_list', imgs: @imgs, cur_tag: @cur_tag, search_tags: @search_tags

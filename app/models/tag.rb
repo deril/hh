@@ -6,12 +6,18 @@ class Tag < ActiveRecord::Base
   has_many :images, through: :images_tags
   belongs_to :group
 
+  before_save { self.name = name.strip.downcase.gsub(/\s+/,'_') }
+
   # TODO: if group was deleted do we need to clear field group_id???
 
   validates :name,  presence: true,
                     uniqueness: true
 
   # TODO: maybe group_id  get default val!
+  
+
+  def trim_n_underscore
+  end
 
   def save_with_response
     if save

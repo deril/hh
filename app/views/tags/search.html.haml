@@ -4,4 +4,4 @@
   = render partial: "images/warns_list", locals: { warns: @warns }
   = render 'tags_list', tags: @tags
 
-= render partial: "images/images_list", locals: { imgs: @imgs, cur_tag: @cur_tag, search_tags: @search_tags }
+= render "images/images_list", imgs: @imgs, cur_tag: @cur_tag, search_tags: @search_tags
