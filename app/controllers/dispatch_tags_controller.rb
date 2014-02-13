@@ -1,7 +1,7 @@
 class DispatchTagsController < ApplicationController
   layout "back_end"
   before_action :authenticate_admin!
-  before_action :find_tag, only: [:update, :destroy, :edit] 
+  before_action :find_tag, only: [:update, :destroy, :edit]
   helper_method :sort_column, :sort_direction
 
   def index
@@ -9,31 +9,26 @@ class DispatchTagsController < ApplicationController
   end
 
   def new
-    @tag = Tag.new()
-    @groups = Group.all
+    @tag = Tag.new
   end
 
   def create
-    @tag = Tag.new(name: trim_n_underscore(params[:tag].try(:[], :name)), 
+    @tag = Tag.new(name: trim_n_underscore(params[:tag].try(:[], :name)),
                    group_id: params[:tag].try(:[], :group_id))
     response = @tag.save_with_response
     redirect_to dispatch_tags_path, response
-  end 
+  end
 
   def edit
     @groups = Group.all
   end
 
-  def update 
+  def update
     if @tag.update(tag_params)
       redirect_to dispatch_tags_path, notice: 'Tag was successfully updated'
     else
-      render action: 'edit'
+      render :edit
     end
-    # @tag.assign_attributes(name: trim_n_underscore(params[:tag].try(:[], :name)),
-    #                        group_id: params[:tag].try(:[], :group_id))
-    # response = @tag.save_with_response
-    # redirect_to dispatch_tags_path, response
   end
 
   def destroy
@@ -43,10 +38,10 @@ class DispatchTagsController < ApplicationController
 
   private
     def trim_n_underscore str
-      str.blank? ? nil : str.strip.downcase.gsub(/\s+/,'_') 
+      str.blank? ? nil : str.strip.downcase.gsub(/\s+/,'_')
     end
 
-    def find_tag  
+    def find_tag
       @tag = Tag.find_by(id: params[:id])
       redirect_to dispatch_tags_path, Tag.not_found unless @tag
     end

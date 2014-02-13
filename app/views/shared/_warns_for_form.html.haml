@@ -1,8 +1,8 @@
-- if @warns.present?
+- if warns.present?
   .form_warns
     %h3 Warns:
     %ul.warns_part
-      - @warns.each do |warn|
+      - warns.each do |warn|
         %li
-          = f.radio_button :warn_id, warn.id, checked: @img.instance_of?(Image) ? @img.warn_id == warn.id : true
+          = f.radio_button :warn_id, warn.id, checked: img.instance_of?(Image) ? img.warn_id == warn.id : true
           = f.label "warn_id_#{warn.id}", warn.name

@@ -14,7 +14,7 @@ module ApplicationHelper
 
   def join_by(array, title, amount = nil)
     return '' unless array.present? || array.kind_of?(Array)
-    rezult = amount.present? ? array[0...amount] : array 
+    rezult = amount.present? ? array[0...amount] : array
     rezult.collect{ |t| t.send(title.to_sym) }.join(", ")
   end
 

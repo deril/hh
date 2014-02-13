@@ -31,7 +31,7 @@ class DispatchImgsController < ApplicationController
     if @img.update(image_params)
       redirect_to dispatch_imgs_path, notice: 'Image was successfully updated'
     else
-      render action: 'edit'
+      render :edit
     end
   end
 

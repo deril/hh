@@ -1,11 +1,11 @@
 %article
-  = form_for @img, url: @img.new_record? ? dispatch_imgs_path : dispatch_img_path(@img), html: {multipart: true} do |f|
+  = form_for img, url: img.new_record? ? dispatch_imgs_path : dispatch_img_path(img.id), html: {multipart: true} do |f|
     .sidebar-l
-      = render partial: "shared/warns_for_form", locals: { f: f }
-      = render partial: "shared/tags_for_form", locals: { f: f, }
+      = render partial: "shared/warns_for_form", locals: { f: f, warns: warns, img: img }
+      = render partial: "shared/tags_for_form", locals: { f: f, img: img }
     .view_img=f.submit "Save"
     = f.file_field :image, data: { type: 'file_field' }
     .view_img.images_preview{ data: { type: 'upload_images' } }
-      - image = @img.new_record? ? 'imgs/no_image.gif' : @img.image.url(:medium)
+      - image = img.new_record? ? 'imgs/no_image.gif' : img.image.url(:medium)
       = image_tag image, data: { type: 'selected_image' }
     .view_img.tags_selected{ data: { type: 'tags_selected' } }

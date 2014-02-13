@@ -7,7 +7,7 @@ class Image < ActiveRecord::Base
     styles: { thumb: "180x180#", medium: "600x600>" },
     default_url: "/images/:style/missing.png"
 
-  has_many :images_tags, dependent: :destroy, inverse_of: :tag
+  has_many :images_tags, dependent: :destroy
   has_many :tags, through: :images_tags
   belongs_to :warn
 
@@ -49,7 +49,7 @@ class Image < ActiveRecord::Base
       { alert: "Image deleting failed." }
     end
   end
-  
+
   def get_dimensions
     Paperclip::Geometry.from_file(Paperclip.io_adapters.for(image))
   end

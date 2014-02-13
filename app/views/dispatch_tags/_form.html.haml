@@ -1,4 +1,4 @@
-= semantic_form_for @tag, url: @tag.new_record? ? dispatch_tags_path : dispatch_tag_path(@tag.id) do |f|
+= semantic_form_for tag, url: tag.new_record? ? dispatch_tags_path : dispatch_tag_path(tag.id) do |f|
   = f.input :name
-  = f.input :group, as: :select, collection: @groups
+  = f.input :group, as: :select, collection: Group.all
   = f.actions

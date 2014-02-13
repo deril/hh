@@ -4,8 +4,8 @@
   - if @img.presence
     = form_for Image.new, url: dispatch_stack_index_path, html: { multipart: true } do |f|
       .sidebar-l
-        = render partial: "shared/warns_for_form", locals: { f: f }
-        = render partial: "shared/tags_for_form", locals: { f: f }
+        = render partial: "shared/warns_for_form", locals: { f: f, warns: @warns, img: @img }
+        = render partial: "shared/tags_for_form", locals: { f: f, img: @img }
 
       .view_img
         = f.button 'Accept', value: 'accept'

@@ -2,7 +2,6 @@
 
 %aside.r-sidebar
   = render partial: "images/warns_list", locals: { warns: @warns }
-  = render partial: "tags_list", locals: { tags: @tags }
+  = render 'tags_list', tags: @tags
 
-- # FIXME: @cur_tag & @search_tags does not giving in partial
-= render partial: "images/images_list", locals: { imgs: @imgs }
+= render partial: "images/images_list", locals: { imgs: @imgs, cur_tag: @cur_tag, search_tags: @search_tags }

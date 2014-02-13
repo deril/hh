@@ -90,11 +90,12 @@ describe DispatchImgsController do
     it "response redirects if all good" do
       put :update, { id: image.id }
       response.should redirect_to dispatch_imgs_path
-      flash[:notice].should == "Image saved successfully."
+      flash[:notice].should == "Image was successfully updated"
     end
-    it "response redirects if fail" do
+    it "response renders edit if fail" do
       put :update, { id: image.id, image: { image: nil } }
-      response.should redirect_to dispatch_imgs_path
+      response.should be_successful
+      response.should render_template "edit"
       flash[:alert].should == "Image saving failed."
     end
 
@@ -114,7 +115,7 @@ describe DispatchImgsController do
       tid << FactoryGirl.create(:orphan_tag).id.to_s
       tid << FactoryGirl.create(:orphan_tag).id.to_s
       expect {
-        put :update, { id: image.id, tag_ids: tid }
+        put :update, id: image.id, image: { tag_ids: tid }
       }.to change { image.reload.tags.count }.to(2)
     end
 

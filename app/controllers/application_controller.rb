@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
     @current_admin = current_admin if admin_signed_in?
   end
 
-  def current_page 
+  def current_page
     page = (params[:page].to_i > 1) ? params[:page].to_i : 1
   end
 

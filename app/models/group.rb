@@ -10,6 +10,6 @@ class Group < ActiveRecord::Base
   validates :name,  presence: true,
                     uniqueness: true
 
-  scope :parents_only, -> { where(group_id: nil) }                    
+  scope :parents_only, -> { where(group_id: nil) }
 
 end
