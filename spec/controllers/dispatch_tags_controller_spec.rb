@@ -84,6 +84,12 @@ describe DispatchTagsController do
       flash[:notice].should == "Tag was successfully updated"
     end
 
+    it "response renders edit if fail" do
+      put :update, { id: tag1.id, tag: { name: nil } }
+      response.should be_successful
+      response.should render_template "edit"
+    end
+
     it "redirects on index if tag not found" do
       put :update, { id: 0 }
       response.should redirect_to dispatch_tags_path
