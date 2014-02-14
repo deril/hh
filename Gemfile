@@ -25,6 +25,8 @@ gem 'susy'
 gem 'uglifier', '>= 1.3.0'
 
 gem 'protected_attributes'  # FIXME: replace attrs_assessors !!!
+gem 'sitemap_generator'
+gem 'whenever', :require => false
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', :platforms => :ruby
