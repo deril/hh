@@ -11,6 +11,7 @@ class DispatchTagsController < ApplicationController
   def new
     @tag = Tag.new
     @groups = Group.all
+    @tag.group_id = @groups.first.id
   end
 
   def create
