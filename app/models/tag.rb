@@ -4,6 +4,7 @@ class Tag < ActiveRecord::Base
   has_many :images, through: :images_tags
   belongs_to :group
 
+  after_initialize { self.group_id = Group.first.id }
   before_save { self.name = name.strip.downcase.gsub(/\s+/,'_') }
 
   # TODO: if group was deleted do we need to clear field group_id???

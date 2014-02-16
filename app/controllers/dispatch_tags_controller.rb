@@ -10,6 +10,7 @@ class DispatchTagsController < ApplicationController
 
   def new
     @tag = Tag.new
+    @groups = Group.all
   end
 
   def create
