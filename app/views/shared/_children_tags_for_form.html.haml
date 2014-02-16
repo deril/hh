@@ -6,9 +6,9 @@
     - if children.present?
       %li
         .accordion
-          = render partial: "dispatch_imgs/children_tags_for_form",
+          = render partial: "shared/children_tags_for_form",
                    collection: children.includes(:tags, :children), as: :group,
-                   locals: { image_tag_ids: image_tag_ids }
+                   locals: { image: image, image_tag_ids: image_tag_ids }
 
     - group.tags.each do |tag|
       %li
