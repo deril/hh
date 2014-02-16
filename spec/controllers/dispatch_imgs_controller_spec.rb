@@ -57,7 +57,7 @@ describe DispatchImgsController do
     it "adds new images_tags into db" do
       tid = Tag.last.id.to_s
       expect {
-        post :create, { image: { image: file_fixture }, tag_ids: [tid] }
+        post :create, { image: { image: file_fixture, tag_ids: [tid] } }
       }.to change(ImagesTag, :count).by(1)
     end
   end
