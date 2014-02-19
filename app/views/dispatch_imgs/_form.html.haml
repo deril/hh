@@ -1,20 +1,19 @@
 %article
-  = form_for(img, url: img.new_record? ? dispatch_imgs_path : dispatch_img_path(img.id),
-                  html: {multipart: true} ) do |f|
+  = form_for img, url: img.new_record? ? dispatch_imgs_path : dispatch_img_path(img.id), html: {multipart: true} do |f|
+    - if img.errors.any?
+      #error_explanation
+        %h2
+          = pluralize(img.errors.count, "error")
+          prohibited this user from being saved:
+        %ul
+          - img.errors.full_messages.each do |msg|
+            %li= msg
     .sidebar-l
-      = render partial: "dispatch_imgs/warns_for_form", locals: { all_warns: @warns, f: f, image: img }
-      = render partial: "dispatch_imgs/tags_for_form", locals: { all_tags: @tags, f: f, image: img }
-
-    .view_img
-      = f.submit "Save"
-
+      = render partial: "shared/warns_for_form", locals: { f: f, warns: warns, img: img }
+      = render partial: "shared/tags_for_form", locals: { f: f, img: img }
+    .view_img=f.submit "Save"
     = f.file_field :image, data: { type: 'file_field' }
-
     .view_img.images_preview{ data: { type: 'upload_images' } }
       - image = img.new_record? ? 'imgs/no_image.gif' : img.image.url(:medium)
-      = image_tag(image, data: { type: "select_image" } )
-
-    .view_img.tags_selected{ data: { type: 'tags_selected'} }
-
-
-
+      = image_tag image, data: { type: 'select_image' }
+    .view_img.tags_selected{ data: { type: 'tags_selected' } }

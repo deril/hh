@@ -10,6 +10,15 @@ describe Tag do
 
   let!(:tag) { FactoryGirl.build(:tag) }
 
+  describe "tag with speces" do
+    let(:bad_name) { " some New  Action " }
+    it "saves all in downcase, stripped and with underscores" do
+      tag.name = bad_name
+      tag.save
+      expect(tag.reload.name).to eq bad_name.strip.downcase.gsub(/\s+/, '_')
+    end
+  end
+
   describe "#save_with_response" do
     it "gets message if saving fail" do
       tag.name = nil

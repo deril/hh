@@ -2,6 +2,6 @@
 
 %aside.r-sidebar
   = render partial: "images/warns_list", locals: {warns: @warns }
-  = render partial: "tags_list", locals: { tags: @tags }
+  = render 'tags_list', tags: @tags
 
 = render partial: "images/images_list", locals: { imgs: @imgs }
