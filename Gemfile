@@ -26,7 +26,7 @@ gem 'uglifier', '>= 1.3.0'
 
 gem 'protected_attributes'  # FIXME: replace attrs_assessors !!!
 gem 'sitemap_generator'
-gem 'whenever', :require => false
+# gem 'whenever', :require => false TODO: when we'll deploy rare, can generate sitemap
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', :platforms => :ruby
