@@ -3,9 +3,11 @@ SitemapGenerator::Sitemap.default_host = "http://hentaria.com"
 
 SitemapGenerator::Sitemap.create do
   add '/about'
+  add images_path, priority: 0.7, changefreq: 'daily'
   Image.find_each do |image|
-    add image_path(image), lastmod: image.image_updated_at
+    add image_path(image)
   end
+  add tags_path, priority: 0.7, changefreq: 'daily'
   Tag.find_each do |tag|
     add tag_path(tag)
   end
