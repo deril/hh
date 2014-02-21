@@ -1,5 +1,4 @@
 class Group < ActiveRecord::Base
-  attr_accessible :name, :parent, :parent_id
 
   has_many :tags
   belongs_to :parent, class_name: "Group", foreign_key: "group_id"
@@ -9,6 +8,6 @@ class Group < ActiveRecord::Base
   validates :name,  presence: true,
                     uniqueness: true
 
-  scope :parents_only, -> { where(group_id: nil) }                    
+  scope :parents_only, -> { where(group_id: nil) }
 
 end

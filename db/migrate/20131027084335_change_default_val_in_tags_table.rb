@@ -1,5 +1,5 @@
 class ChangeDefaultValInTagsTable < ActiveRecord::Migration
-  def up 
+  def up
     change_column :tags, :group_id, :integer, default: nil
   end
 

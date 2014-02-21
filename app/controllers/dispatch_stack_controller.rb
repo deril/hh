@@ -18,7 +18,8 @@ class DispatchStackController < ApplicationController
     if IMG_TMP_DIR.exist?
       images = Dir["#{IMG_TMP_DIR}/*"].select { |e| check_img?(e) }
       unless images.empty?
-        @img = "#{IMG_LAST_DIR}/#{File.basename(images.first)}"
+        @img = Image.new
+        @img_f = "#{IMG_LAST_DIR}/#{File.basename(images.first)}"
         @tags = Tag.order("name ASC")
       end
     else
@@ -28,9 +29,10 @@ class DispatchStackController < ApplicationController
 
   def create
     response = {}
-    file_path = params[:image] ? Rails.root.join("#{IMG_TMP_DIR}", File.basename(params[:image])) : nil
+    permited_params = image_params
+    file_path = permited_params[:image] ? Rails.root.join("#{IMG_TMP_DIR}", File.basename(permited_params[:image])) : nil
     if params[:button] == "accept"
-      @img = Image.new(image: File.new(file_path), tag_ids: params[:tag_ids], warn_id: params[:warn_id])
+      @img = Image.new(image: File.new(file_path), tag_ids: permited_params[:tag_ids], warn_id: permited_params[:warn_id])
       response = @img.save_with_response
     end
     File.delete(file_path) unless response.has_key? :alert
@@ -45,5 +47,9 @@ class DispatchStackController < ApplicationController
       file.close
       head = data[0,4].downcase
       return head.casecmp(GIF).to_i.zero? || head.casecmp(JPEG).to_i.zero? || head.casecmp(PNG).to_i.zero?
+    end
+
+    def image_params
+      params.fetch(:image, {}).permit(:image, :warn_id, tag_ids: [])
     end
 end

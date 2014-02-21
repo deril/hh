@@ -23,8 +23,7 @@ gem 'compass', '>= 0.12.2'
 gem 'compass-rails', '>= 1.0.3'
 gem 'susy'
 gem 'uglifier', '>= 1.3.0'
-
-gem 'protected_attributes'  # FIXME: replace attrs_assessors !!!
+gem 'formtastic'
 gem 'sitemap_generator'
 # gem 'whenever', :require => false TODO: when we'll deploy rare, can generate sitemap
 

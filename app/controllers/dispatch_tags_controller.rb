@@ -1,7 +1,7 @@
 class DispatchTagsController < ApplicationController
   layout "back_end"
   before_action :authenticate_admin!
-  before_action :find_tag, only: [:update, :destroy, :edit] 
+  before_action :find_tag, only: [:update, :destroy, :edit]
   helper_method :sort_column, :sort_direction
 
   def index
@@ -9,26 +9,30 @@ class DispatchTagsController < ApplicationController
   end
 
   def new
-    @tag = Tag.new()
+    @tag = Tag.new
     @groups = Group.all
+    @tag.group_id = @groups.first.id
   end
 
   def create
-    @tag = Tag.new(name: trim_n_underscore(params[:tag].try(:[], :name)), 
-                   group_id: params[:tag].try(:[], :group_id))
-    response = @tag.save_with_response
-    redirect_to dispatch_tags_path, response
-  end 
+    @tag = Tag.new(tag_params)
+    if @tag.save
+      redirect_to dispatch_tags_path, notice: 'Tag was successfully created'
+    else
+      render :new
+    end
+  end
 
   def edit
     @groups = Group.all
   end
 
-  def update 
-    @tag.assign_attributes(name: trim_n_underscore(params[:tag].try(:[], :name)),
-                           group_id: params[:tag].try(:[], :group_id))
-    response = @tag.save_with_response
-    redirect_to dispatch_tags_path, response
+  def update
+    if @tag.update(tag_params)
+      redirect_to dispatch_tags_path, notice: 'Tag was successfully updated'
+    else
+      render :edit
+    end
   end
 
   def destroy
@@ -37,11 +41,7 @@ class DispatchTagsController < ApplicationController
   end
 
   private
-    def trim_n_underscore str
-      str.blank? ? nil : str.strip.downcase.gsub(/\s+/,'_') 
-    end
-
-    def find_tag  
+    def find_tag
       @tag = Tag.find_by(id: params[:id])
       redirect_to dispatch_tags_path, Tag.not_found unless @tag
     end
@@ -52,5 +52,9 @@ class DispatchTagsController < ApplicationController
 
     def sort_direction
       %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+    end
+
+    def tag_params
+      params.fetch(:tag, {}).permit(:name, :tag_id, :group_id)
     end
 end

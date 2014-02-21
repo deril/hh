@@ -6,12 +6,11 @@
     - if children.present?
       %li
         .accordion
-          = render partial: "dispatch_imgs/children_tags_for_form", 
+          = render partial: "shared/children_tags_for_form",
                    collection: children.includes(:tags, :children), as: :group,
                    locals: { image: image, image_tag_ids: image_tag_ids }
 
     - group.tags.each do |tag|
       %li
-        = check_box_tag 'tag_ids[]', tag.id, image.instance_of?(Image) ? image_tag_ids.include?(tag.id) : false, 
-                                     { id: "#{tag.name}_#{tag.id}" }
-        = label_tag "#{tag.name}_#{tag.id}", tag.name
+        = check_box_tag 'image[tag_ids][]', tag.id, image.instance_of?(Image) ? image_tag_ids.include?(tag.id) : false, { id: "image_tag_ids_#{tag.id}" }
+        = label_tag "image_tag_ids_#{tag.id}", tag.name

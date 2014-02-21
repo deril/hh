@@ -37,7 +37,7 @@ describe DispatchStackController do
     end
     it "gets assigns" do
       get :index
-      assigns(:img).should == "#{DispatchStackController::IMG_LAST_DIR}/valid.jpeg"
+      assigns(:img_f).should == "#{DispatchStackController::IMG_LAST_DIR}/valid.jpeg"
       assigns(:tags).should == Tag.order("name ASC")
       assigns(:warns).should == Warn.all.load()
     end
@@ -58,24 +58,24 @@ describe DispatchStackController do
     context "if image accepted" do
       it "creates new image row" do
         expect {
-          post :create, { image: "valid.jpeg", button: "accept" }
+          post :create, { image: { image: "valid.jpeg" }, button: "accept" }
         }.to change(Image, :count).by(1)
       end
       it "gets good response" do
-        post :create, { image: "valid.jpeg", button: "accept" }
+        post :create, { image: { image: "valid.jpeg" }, button: "accept" }
         flash[:notice].should == "Image saved successfully."
       end
       it "adds images_tags" do
         tids = [tag.id.to_s]
         expect {
-          post :create, { image: "valid.jpeg", tag_ids: tids, button: "accept" }
+          post :create, { image: { image: "valid.jpeg", tag_ids: tids }, button: "accept" }
         }.to change(ImagesTag, :count).by(1)
       end
     end
     context "if image not accepted" do
       it "does not create new image row" do
         expect {
-          post :create, { image: "valid.jpeg", button: "deny" }
+          post :create, { image: { image: "valid.jpeg" }, button: "deny" }
         }.to change(Image, :count).by(0)
       end
     end
