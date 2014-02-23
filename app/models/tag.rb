@@ -4,7 +4,9 @@ class Tag < ActiveRecord::Base
   has_many :images, through: :images_tags
   belongs_to :group
 
-  before_save { self.name = name.strip.downcase.gsub(/\s+/,'_') }
+  # TODO: check it make tests!
+  before_save { self.name = name.strip.downcase.gsub(/\s+|_+/,' ').capitalize }
+
 
   # TODO: if group was deleted do we need to clear field group_id???
 

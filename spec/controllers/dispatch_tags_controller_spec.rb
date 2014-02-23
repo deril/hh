@@ -32,7 +32,7 @@ describe DispatchTagsController do
 
   describe "#create" do
     it 'response redirect if all good' do
-      post :create, { tag: { name: " some Action " }  }
+      post :create, { tag: { name: " some_Action " }  }
       response.should redirect_to dispatch_tags_path
       flash[:notice].should == "Tag was successfully created"
     end
@@ -43,14 +43,14 @@ describe DispatchTagsController do
     end
 
     it 'has correct tag name & group' do
-      post :create, { tag: { name: " some Action ", group_id: group.id } }
-      assigns(:tag).name.should == "some_action"
+      post :create, { tag: { name: " some_Action ", group_id: group.id } }
+      assigns(:tag).name.should == "Some action"
       assigns(:tag).group_id.should == group.id
     end
 
     it 'adds new tag into db' do
       expect {
-        post :create, { tag: { name: " some Action " } }
+        post :create, { tag: { name: " some_Action " } }
       }.to change(Tag, :count).by(1)
     end
   end
@@ -76,9 +76,9 @@ describe DispatchTagsController do
 
   describe "#update" do
     it "response redirect if all good" do
-      put :update, { id: tag1.id, tag: { name: " some New  Action ", group_id: group.id } }
+      put :update, { id: tag1.id, tag: { name: " some_New  Action ", group_id: group.id } }
       assigns(:tag).should == tag1
-      assigns(:tag).name.should == "some_new_action"
+      assigns(:tag).name.should == "Some new action"
       assigns(:tag).group_id.should == group.id
       response.should redirect_to dispatch_tags_path
       flash[:notice].should == "Tag was successfully updated"
