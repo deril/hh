@@ -1,9 +1,10 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.11'
+gem 'rails', '4.0.2'
+
 gem 'mysql2'
-gem 'kaminari', ">0.13.0"
-gem 'haml', '~> 3.1.4'
+gem 'kaminari'
+gem 'haml', '~> 4.0.5'
 gem "quick_magick"
 gem 'execjs'
 gem "paperclip", "~> 3.0"
@@ -12,21 +13,22 @@ gem 'devise'
 gem 'timecop'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'sass-rails',   '~> 3.2.3'
+gem 'sass-rails', '~> 4.0.0'
 
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'coffee-rails', '~> 3.2.1'
-  gem 'compass', '>= 0.12.2'
-  gem 'compass-rails', '>= 1.0.3'
-  gem 'susy'
+# gem 'turbolinks'          # TODO: think about it
+# gem 'jbuilder', '~> 1.2'  # TODO: think about it
 
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer', :platforms => :ruby
+gem 'coffee-rails', '~> 4.0.0'
+gem 'compass', '>= 0.12.2'
+gem 'compass-rails', '>= 1.0.3'
+gem 'susy'
+gem 'uglifier', '>= 1.3.0'
+gem 'formtastic'
+gem 'sitemap_generator'
+# gem 'whenever', :require => false TODO: when we'll deploy rare, can generate sitemap
 
-  gem 'uglifier', '>= 1.0.3'
-end
+# See https://github.com/sstephenson/execjs#readme for more supported runtimes
+# gem 'therubyracer', :platforms => :ruby
 
 group :development, :test do
   gem 'thin', require: false
@@ -37,13 +39,13 @@ group :development, :test do
   gem 'factory_girl_rails', '>= 3.3.0'
   gem 'cucumber-rails', '>= 1.3.0', :require => false
   gem 'escape_utils', '0.2.4', require: false
-  gem 'capybara', '1.1.2' #, require: false
+  gem 'capybara', '2.2.1' #, require: false
   gem 'database_cleaner', '>= 0.7.2', require: false
   gem 'email_spec', '>= 1.2.1'
   gem 'launchy', '>= 2.1.0'
   gem 'spork', '0.9.2', require: false
   gem "parallel_tests", "0.6.17"
-  gem "ffaker", '~> 1.4.0'
+  gem "ffaker", '~> 1.23.0'
 end
 
 

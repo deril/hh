@@ -1,9 +1,6 @@
 class Image < ActiveRecord::Base
 
-  # TODO: FOREIFN KEYS
   # TODO: make constants of saving/deleting responses !!!! and may be new class for them
-
-  attr_accessible :image_updated_at, :image, :tags, :image_file_size, :images_tags, :tag_ids, :warn_id
 
   has_attached_file :image,
     styles: { thumb: "180x180#", medium: "600x600>" },
@@ -13,8 +10,7 @@ class Image < ActiveRecord::Base
   has_many :tags, through: :images_tags
   belongs_to :warn
 
-  accepts_nested_attributes_for :images_tags
-  accepts_nested_attributes_for :warn
+  accepts_nested_attributes_for :tags
 
   paginates_per 32
 
@@ -52,7 +48,7 @@ class Image < ActiveRecord::Base
       { alert: "Image deleting failed." }
     end
   end
-  
+
   def get_dimensions
     Paperclip::Geometry.from_file(Paperclip.io_adapters.for(image))
   end

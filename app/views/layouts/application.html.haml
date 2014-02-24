@@ -2,19 +2,21 @@
 %html#document{html_attrs, :lang => 'en'}
   %head
     = render partial: "meta/default_meta"
+    = stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Gudea:400,400italic,700', :media => "all"
     = stylesheet_link_tag "application", :media => "all"
     = javascript_include_tag "application"
     = render :partial => 'analytics/analytics' if Rails.env == 'production'
     = render :partial => 'analytics/metrica' if Rails.env == 'production'
     = yield :javascript_includes
+    = yield :head
     = csrf_meta_tags
   %body
     #wrapper
       %header
-        = render partial: "layouts/for_login"
+        = render 'layouts/for_login', current_admin: @current_admin
         %nav#menu
           %ul
-            %li= link_to_unless_current('Images', images_path)
+            %li= link_to_unless_current('Images', root_path)
             %li= link_to_unless_current('Tags', tags_path)
             %li= link_to_unless_current('About', about_path)
         .header__logo
@@ -23,7 +25,7 @@
         .clear-legacy
 
         - header = Rails.env.development? ? 'header_background_dev' : 'header_background_2'
-        .header__slider{ class: "#{ header }" }  
+        .header__slider{ class: "#{ header }" }
           = form_tag search_tags_path, {class: "header-search"} do
             = text_field_tag "search_query", nil, class: "header-search__input", data: { type: "autocomplete" }
             = hidden_field_tag "autocomplete_path", autocomplete_search_tags_path, data: { type: "autocomplete_path" }

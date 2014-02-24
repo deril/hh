@@ -2,7 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
-$(document).ready -> 
+$(document).ready ->
 
   seeking_file = $('[data-type = file_field]')
 
@@ -17,9 +17,9 @@ $(document).ready ->
         i++
         if f.type.match('image.*')
           reader = new FileReader()
-          reader.onload = ((theFile)-> 
+          reader.onload = ((theFile)->
             (e)->
-              img = ['<img class="view_img" data-type="select_image"', 
+              img = ['<img class="view_img" data-type="select_image"',
                           'src="' + e.target.result + '"',
                           'title="' + escape(theFile.name) + '"',
                           'width=250"/>'].join('')

@@ -1,7 +1,7 @@
 @import blueprint/form
 
 #menu
-  font: 20px/12px Vernada, sans-serif
+  font: 24px/12px 'Gudea', sans-serif
   margin-top: 40px
   color: #ff6600
   ul li
@@ -22,7 +22,7 @@
       -o-transition: 1s
 .header__logo
   color: #ff6600
-  font-size: 2em
+  font-size: 2.3em
   margin-top: 40px
   text-align: right
   span
@@ -30,7 +30,7 @@
     font-size: 0.8em
 
 .header_background_2
-  background: url("imgs/header_2.jpg") no-repeat
+  background: image-url("imgs/header_2.jpg") no-repeat
 
 .header_background_dev
   background: url("imgs/front.png") no-repeat
@@ -43,9 +43,8 @@
     +blueprint-inline-form
     +blueprint-form-layout
     +blueprint-form-borders
-    +blueprint-form-sizes(400px)
-    margin-top: 55px
-    margin-right: 10px
+    +blueprint-form-sizes(97%)
+    margin: 55px 10px 0 10px
     position: absolute
     right: 0
 

@@ -31,22 +31,21 @@ describe DispatchImgsController do
     it 'has assigns' do
       get :new
       assigns(:img).should be_a_new(Image)
-      assigns(:tags).should == Tag.order("name ASC").all
-      assigns(:warns).should == Warn.all
+      assigns(:tags).should == Tag.order("name ASC")
+      assigns(:warns).should == Warn.all.load()
     end
   end
 
   describe 'POST "create"' do
     it "response redirect if all good" do
-      post :create, { image: { image: file_fixture } }
+      post :create, image: { image: file_fixture }
       response.should redirect_to dispatch_imgs_path
-      flash[:notice].should == "Image saved successfully."
+      flash[:notice].should == "Image was successfully created"
     end
 
-    it "response redirect if fail" do
+    it "response renders new if fail" do
       post :create
-      response.should redirect_to dispatch_imgs_path
-      flash[:alert].should == "Image saving failed."
+      response.should render_template "new"
     end
 
     it "adds new image into db" do
@@ -58,7 +57,7 @@ describe DispatchImgsController do
     it "adds new images_tags into db" do
       tid = Tag.last.id.to_s
       expect {
-        post :create, { image: { image: file_fixture }, tag_ids: [tid] }
+        post :create, { image: { image: file_fixture, tag_ids: [tid] } }
       }.to change(ImagesTag, :count).by(1)
     end
   end
@@ -72,8 +71,8 @@ describe DispatchImgsController do
     it 'has assigns' do
       get :edit, { id: image.id }
       assigns(:img).should == image
-      assigns(:tags).should == Tag.order("name ASC").all
-      assigns(:warns).should == Warn.all
+      assigns(:tags).should == Tag.order("name ASC")
+      assigns(:warns).should == Warn.all.load()
     end
 
     it "redirects on index if tag not found" do
@@ -84,26 +83,29 @@ describe DispatchImgsController do
   end
 
   describe 'PUT update' do 
+
+    let(:file_uploaded) { fixture_file_upload('/images/uploaded.jpeg', 'image/jpeg') } 
+
     it "response redirects if all good" do
       put :update, { id: image.id }
       response.should redirect_to dispatch_imgs_path
-      flash[:notice].should == "Image saved successfully."
+      flash[:notice].should == "Image was successfully updated"
     end
-    it "response redirects if fail" do
+    it "response renders edit if fail" do
       put :update, { id: image.id, image: { image: nil } }
-      response.should redirect_to dispatch_imgs_path
-      flash[:alert].should == "Image saving failed."
+      response.should be_successful
+      response.should render_template "edit"
     end
 
     it "has assign" do
-      put :update, { id: image.id, image: { image_file_size: 10 } }
+      put :update, { id: image.id, image: { image: file_uploaded } }
       assigns(:img).should == image
     end
 
     it "changes image" do 
       expect {
-        put :update, { id: image.id, image: { image_file_size: 10 } }
-      }.to change{ image.reload.image_file_size }.to(10)
+        put :update, { id: image.id, image: { image: file_uploaded } }
+      }.to change{ image.reload.image_file_size }.to(62858)
     end
 
     it "changes tags of image" do
@@ -111,7 +113,7 @@ describe DispatchImgsController do
       tid << FactoryGirl.create(:orphan_tag).id.to_s
       tid << FactoryGirl.create(:orphan_tag).id.to_s
       expect {
-        put :update, { id: image.id, tag_ids: tid }
+        put :update, id: image.id, image: { tag_ids: tid }
       }.to change { image.reload.tags.count }.to(2)
     end
 
