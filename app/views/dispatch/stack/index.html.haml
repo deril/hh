@@ -5,7 +5,7 @@
     = semantic_form_for @img, url: dispatch_stack_index_path, html: { multipart: true } do |f|
       .sidebar-l
         = render partial: "shared/warns_for_form", locals: { f: f, warns: @warns, img: @img }
-        = render partial: "shared/tags_for_form", locals: { f: f, img: @img }
+        = render partial: "shared/tags_for_form", locals: { f: f, tags_for: @img }
 
       .view_img
         = f.button 'Accept', value: 'accept'
