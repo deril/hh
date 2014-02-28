@@ -1,0 +1,19 @@
+%h2 New group:
+= link_to "Create a new group...", new_dispatch_group_path
+
+%h2 Groups:
+- if !@groups.blank?
+  %table.group-table
+    %tr
+      %th{ width: "50px" } id
+      %th{ width: "200px" } name
+      %th Action
+    - @groups.each do |group|
+      %tr
+        %td= group.id
+        %td= group.name.capitalize
+        %td
+          = link_to "Edit", edit_dispatch_group_path(id: group.id), class: "action"
+          = link_to "Delete", dispatch_group_path(id: group.id), method: :delete, class: "action"
+- else
+  No groups to show...

@@ -15,9 +15,10 @@
         %nav#menu
           %ul
             %li= link_to 'Home', root_path
-            %li= link_to_unless_current('E_Images', dispatch_imgs_path())
-            %li= link_to_unless_current('E_Tags', dispatch_tags_path())
-            %li= link_to_unless_current('E_Stack', dispatch_stack_index_path())
+            %li= link_to_unless_current 'E_Images', dispatch_imgs_path
+            %li= link_to_unless_current 'E_Tags', dispatch_tags_path
+            %li= link_to_unless_current 'E_Groups', dispatch_groups_path
+            %li= link_to_unless_current 'E_Stack', dispatch_stack_index_path
         .header__logo
           Hentaria
           %span .beta
