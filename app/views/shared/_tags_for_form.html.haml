@@ -1,7 +1,17 @@
-- image_tag_ids = img.instance_of?(Image) ? img.tag_ids : []
+- tags_for_tag_ids = tags_for.tag_ids
+-# - image_tag_ids = img.instance_of?(Image) ? img.tag_ids : []
 .form_tags
   %h3 Tags:
   .accordion
     = render partial: "shared/children_tags_for_form",
              collection: Group.parents_only.includes(:tags, :children), as: :group,
-             locals: { image: img, image_tag_ids: image_tag_ids, f: f }
+             locals: { tags_for: tags_for, tags_for_tag_ids: tags_for_tag_ids, f: f }
+    - if tags_for.instance_of?(Group)
+      %h3.tag_part No group
+      %div
+        %ul.tag_part
+          - unless Tag.null_group.empty?
+            - Tag.null_group.each do |tag|
+              %li
+                = check_box_tag 'group[tag_ids][]', tag.id, tags_for_tag_ids.include?(tag.id), { id: "group_tag_ids_#{tag.id}" }
+                = label_tag "group_tag_ids_#{tag.id}", tag.name

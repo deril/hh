@@ -8,9 +8,15 @@
         .accordion
           = render partial: "shared/children_tags_for_form",
                    collection: children.includes(:tags, :children), as: :group,
-                   locals: { image: image, image_tag_ids: image_tag_ids }
+                   locals: { tags_for: tags_for, tags_for_tag_ids: tags_for_tag_ids }
 
-    - group.tags.each do |tag|
-      %li
-        = check_box_tag 'image[tag_ids][]', tag.id, image.instance_of?(Image) ? image_tag_ids.include?(tag.id) : false, { id: "image_tag_ids_#{tag.id}" }
-        = label_tag "image_tag_ids_#{tag.id}", tag.name
+    - if tags_for.instance_of?(Image)
+      - group.tags.each do |tag|
+        %li
+          = check_box_tag 'image[tag_ids][]', tag.id, tags_for_tag_ids.include?(tag.id), { id: "image_tag_ids_#{tag.id}" }
+          = label_tag "image_tag_ids_#{tag.id}", tag.name
+    - else
+      - group.tags.each do |tag|
+        %li
+          = check_box_tag 'group[tag_ids][]', tag.id, tags_for_tag_ids.include?(tag.id), { id: "group_tag_ids_#{tag.id}" }
+          = label_tag "group_tag_ids_#{tag.id}", tag.name

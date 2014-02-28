@@ -1,4 +1,4 @@
-class DispatchTagsController < ApplicationController
+class Dispatch::TagsController < ApplicationController
   layout "back_end"
   before_action :authenticate_admin!
   before_action :find_tag, only: [:update, :destroy, :edit]

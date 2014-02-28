@@ -1,4 +1,4 @@
-class DispatchImgsController < ApplicationController
+class Dispatch::ImgsController < ApplicationController
   layout "back_end"
 
   before_action :authenticate_admin!

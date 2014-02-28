@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe DispatchTagsController do
+describe Dispatch::TagsController do
 
   let!(:admin) { FactoryGirl.create(:admin) }
   let!(:tag1) { FactoryGirl.create(:orphan_tag, name: "A_first") }
