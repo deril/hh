@@ -1,5 +1,8 @@
+- cur_tag = nil if local_assigns[:cur_tag].blank?
+- search_tags = nil if local_assigns[:search_tags].blank?
 - content_for :head do
   = rel_next_prev_link_tags imgs
+
 %section{ class: "image_list_wrap#{' m-92-top' unless cur_tag.present? || search_tags.present? }" }
 
   - # TODO: BAD - may be yield
