@@ -17,12 +17,11 @@ Hh::Application.routes.draw do
       post :search, as: "search"
     end
   end
-
-  resources :dispatch_tags, except: [:show]
-
-  resources :dispatch_imgs, except: [:show]
-
-  resources :dispatch_stack, only: [:index, :create]
+  
+  namespace :dispatch do
+    resources :tags, :groups, :imgs, except: [:show]
+    resources :stack, only: [:index, :create]
+  end
 
   root to: "images#index"
 

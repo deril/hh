@@ -1,4 +1,4 @@
-class DispatchStackController < ApplicationController
+class Dispatch::StackController < ApplicationController
   layout "back_end"
 
   IMG_LAST_DIR = 'tmp'

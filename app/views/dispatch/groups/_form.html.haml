@@ -1,0 +1,4 @@
+= semantic_form_for group, url: group.new_record? ? dispatch_groups_path : dispatch_group_path(group.id) do |f|
+  = f.inputs
+  = render partial: "shared/tags_for_form", locals: { f: f, tags_for: group }
+  = f.actions

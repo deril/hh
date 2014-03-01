@@ -8,12 +8,10 @@ class Tag < ActiveRecord::Base
   before_save { self.name = name.strip.downcase.gsub(/\s+|_+/,' ').capitalize }
 
 
-  # TODO: if group was deleted do we need to clear field group_id???
+  scope :null_group, -> { where(group_id: nil) }
 
   validates :name,  presence: true,
                     uniqueness: true
-
-  # TODO: maybe group_id  get default val!
 
   def save_with_response
     if save
