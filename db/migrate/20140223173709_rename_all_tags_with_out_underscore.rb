@@ -1,15 +1,17 @@
 class RenameAllTagsWithOutUnderscore < ActiveRecord::Migration
   def up
+    p 'updating tags names'
     Tag.all.each do |tag|
-      tag.name = tag.name.humanize
-      tag.save!
+      p tag.update_columns(name: tag.name.humanize)
     end
+    p 'done...'
   end
 
   def down
+    p 'updating tags names back'
     Tag.all.each do |tag|
-      tag.name = tag.name.underscore
-      tag.save!
+      p tag.update_columns(name: tag.name.gsub(/\s+/, '_'))
     end
+    p 'done...'
   end
 end
