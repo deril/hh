@@ -2,14 +2,13 @@
 set -e
 oldrev=$1
 newrev=$2
-deploy_time = date +%Y%m%d%H%M%S
 
 run() {
   [ -x $1 ] && $1 $oldrev $newrev
 }
 
 echo files changed: $(git diff $oldrev $newrev --diff-filter=ACDMR --name-only | wc -l)
-if cp -prv /var/www/current /var/www/backup-`$deploy_time` then
+if cp -prv /var/www/current /var/www/backup-`date +%Y%m%d%H%M%S` then
   umask 002
   git submodule sync && git submodule update --init --recursive
   run deploy/before_restart
