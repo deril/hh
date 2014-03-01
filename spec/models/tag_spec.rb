@@ -11,11 +11,11 @@ describe Tag do
   let!(:tag) { FactoryGirl.build(:tag) }
 
   describe "tag with speces" do
-    let(:bad_name) { " some New  Action " }
+    let(:bad_name) { " some_New  Action " }
     it "saves all in downcase, stripped and with underscores" do
       tag.name = bad_name
       tag.save
-      expect(tag.reload.name).to eq bad_name.strip.downcase.gsub(/\s+/, '_')
+      expect(tag.reload.name).to eq bad_name.strip.downcase.gsub(/\s+|_+/, ' ').capitalize
     end
   end
 

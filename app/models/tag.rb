@@ -4,7 +4,9 @@ class Tag < ActiveRecord::Base
   has_many :images, through: :images_tags
   belongs_to :group
 
-  before_save { self.name = name.strip.downcase.gsub(/\s+/,'_') }
+  # TODO: check it make tests!
+  before_save { self.name = name.strip.downcase.gsub(/\s+|_+/,' ').capitalize }
+
 
   scope :null_group, -> { where(group_id: nil) }
 

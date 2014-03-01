@@ -46,7 +46,7 @@ describe TagsController do
     end
     it "gets good response if something found" do
       get :autocomplete_search, { term: tag.name[0,3] }
-       JSON.parse(response.body).should == ["current_name"]
+       JSON.parse(response.body).should == ["Current name"]
     end
     it "gets [] if nothing was found" do
       get :autocomplete_search, { term: '' }
