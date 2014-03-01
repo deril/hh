@@ -8,7 +8,7 @@ run() {
 }
 
 echo files changed: $(git diff $oldrev $newrev --diff-filter=ACDMR --name-only | wc -l)
-if cp -prv /var/www/current /var/www/backup-`date +%Y%m%d%H%M%S`
+if cp -pr /var/www/current /var/www/backup-`date +%Y%m%d%H%M%S`
 then
   umask 002
   git submodule sync && git submodule update --init --recursive
