@@ -9,5 +9,6 @@ class Group < ActiveRecord::Base
                     uniqueness: true
 
   scope :parents_only, -> { where(group_id: nil) }
+  default_scope { order(name: :asc) }
 
 end

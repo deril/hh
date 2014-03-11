@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :warn, class: Tag do
+  factory :warn do
     name Faker::Lorem.word
   end
 end
