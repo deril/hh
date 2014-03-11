@@ -8,7 +8,7 @@ namespace :db do
     puts "Creating groups..."
     groups = []
     %w(Group_1 Group_2 Group_3).each do |cat|
-      groups << Group.find_or_create_by_name!(cat)
+      groups << Group.find_or_create_by!(name: cat)
     end
 
     puts "Creating tags..."
