@@ -4,12 +4,10 @@ class Tag < ActiveRecord::Base
   has_many :images, through: :images_tags
   belongs_to :group
 
-  # TODO group form put button higher !!!
   before_save { self.name = name.strip.downcase.gsub(/\s+|_+/,' ').capitalize }
 
-
-  scope :null_group, -> { where(group_id: nil) }
   default_scope { order(name: :asc) }
+  scope :null_group, -> { where(group_id: nil) }
 
   validates :name,  presence: true,
                     uniqueness: true

@@ -8,4 +8,13 @@ describe Group do
   it { should validate_presence_of(:name) }
   it { should validate_uniqueness_of(:name) }
 
+  describe "before callback #capitalize_name" do
+    let(:group) { FactoryGirl.build(:group, name: "some") }
+    it "make name capitalized" do
+      group.name.should == 'some'
+      group.save!
+      group.name.should == 'Some'
+    end
+  end
+
 end
