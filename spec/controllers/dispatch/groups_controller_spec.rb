@@ -44,7 +44,7 @@ describe Dispatch::GroupsController do
 
     it 'has correct group' do
       post :create, { group: { name: "some Action", group_id: group1.id } }
-      assigns(:group).name.should == "some Action"
+      assigns(:group).name.should == "Some action"
       assigns(:group).group_id.should == group1.id
     end
 
@@ -78,7 +78,7 @@ describe Dispatch::GroupsController do
     it "response redirect if all good" do
       put :update, { id: group1.id, group: { name: "some New Action", group_id: group2.id } }
       assigns(:group).should == group1
-      assigns(:group).name.should == "some New Action"
+      assigns(:group).name.should == "Some new action"
       assigns(:group).group_id.should == group2.id
       response.should redirect_to dispatch_groups_path
       flash[:notice].should == "Group was successfully updated"

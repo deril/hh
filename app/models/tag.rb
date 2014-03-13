@@ -4,10 +4,9 @@ class Tag < ActiveRecord::Base
   has_many :images, through: :images_tags
   belongs_to :group
 
-  # TODO: check it make tests!
   before_save { self.name = name.strip.downcase.gsub(/\s+|_+/,' ').capitalize }
 
-
+  default_scope { order(name: :asc) }
   scope :null_group, -> { where(group_id: nil) }
 
   validates :name,  presence: true,

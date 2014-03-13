@@ -8,6 +8,15 @@ class Group < ActiveRecord::Base
   validates :name,  presence: true,
                     uniqueness: true
 
+  default_scope { order(name: :asc) }
   scope :parents_only, -> { where(group_id: nil) }
+
+  before_save :capitalize_name
+
+
+  private
+    def capitalize_name
+      self.name.capitalize!
+    end
 
 end

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe TagsController do
 
-  let!(:custom_tag) { FactoryGirl.create(:tag) }
+  let!(:custom_tag) { FactoryGirl.create(:tag, name: 'A_name') }
   let(:tag) { FactoryGirl.create(:tag, name: "current_name") }
   let!(:image) { FactoryGirl.create(:image, tags: [custom_tag, tag]) }
 
@@ -68,7 +68,7 @@ describe TagsController do
       assigns(:search_tags).should == [tag.name, "some"]
       assigns(:cur_tags).should == [tag]
       assigns(:imgs).should == [image]
-      assigns(:tags).should == [tag, custom_tag]
+      assigns(:tags).sort.should == [custom_tag, tag]
       assigns(:warns).should == Warn.all
     end
   end
