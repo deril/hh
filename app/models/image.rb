@@ -15,9 +15,12 @@ class Image < ActiveRecord::Base
   paginates_per 32
 
   before_create :rename_image!
+  before_create :make_hash!
 
   scope :desc, -> { order("id DESC") }
 
+  # TODO: test, allow_blank????
+  #validates_uniqueness_of :hash, allow_blank: true
   validates_attachment :image, presence: true,
                                content_type: { content_type: %w(image/jpeg image/png image/gif) },
                                size: { in: 0.5..50.megabytes }
@@ -27,6 +30,12 @@ class Image < ActiveRecord::Base
     extension = File.extname(self.image_file_name).downcase
     name = image_updated_at.to_i.to_s
     self.image_file_name = 'hentaria_' + name + extension
+  end
+
+  def make_hash!
+
+    # TODO: implement
+    # TODO: tests
   end
 
   def self.not_found
