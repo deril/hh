@@ -14,8 +14,8 @@ class Image < ActiveRecord::Base
 
   paginates_per 32
 
-  before_create :rename_image!  # TODO: test
-  before_create :make_hash!     # TODO: test
+  before_create :rename_image!
+  before_create :make_hash!
 
   scope :desc, -> { order("id DESC") }
 
