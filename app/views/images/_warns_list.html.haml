@@ -2,6 +2,6 @@
 %h2 Warns:
 - if warns.presence
   - warns.each do |warn|
-    = link_to warn.name, "#", class: "tag_link block#{" active" if warn_id == warn.id}", title: warn.name
+    = link_to warn.name, warn_path(warn.id), class: "tag_link block#{" active" if warn_id == warn.id}", title: warn.name
 - else
   Nothing to show
