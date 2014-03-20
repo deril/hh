@@ -76,4 +76,16 @@ describe Image do
     end
   end
 
+  describe "#make_hash!" do
+    it 'fill up image_hash if it is not filled' do
+      image.image_hash.should == nil
+      image.make_hash!
+      image.image_hash.should_not == nil
+    end
+    it 'returns false if image_hash already filled' do
+      image.update_column(:image_hash, 'test_hash')
+      image.image_hash.should == 'test_hash'
+    end
+  end
+
 end

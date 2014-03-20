@@ -4,7 +4,7 @@ module ImageToHash
   class HashMaker
     class << self
       def make_hash(image_path)
-        # TODO: image or path
+        # TODO: image  or path
         return unless File.exist?(image_path)
 
         begin

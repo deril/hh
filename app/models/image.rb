@@ -14,8 +14,8 @@ class Image < ActiveRecord::Base
 
   paginates_per 32
 
-  before_create :rename_image!
-  before_create :make_hash!
+  before_create :rename_image!  # TODO: test
+  before_create :make_hash!     # TODO: test
 
   scope :desc, -> { order("id DESC") }
 
@@ -33,9 +33,8 @@ class Image < ActiveRecord::Base
   end
 
   def make_hash!
-
-    # TODO: implement
-    # TODO: tests
+    return unless self.image_hash.blank?
+    self.image_hash = ImageToHash::HashMaker.make_hash(self.image.path)
   end
 
   def self.not_found

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140318202218) do
+ActiveRecord::Schema.define(version: 20140318203135) do
 
   create_table "admins", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -24,8 +24,8 @@ ActiveRecord::Schema.define(version: 20140318202218) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
   end
 
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true, using: :btree
@@ -34,8 +34,8 @@ ActiveRecord::Schema.define(version: 20140318202218) do
   create_table "groups", force: true do |t|
     t.string   "name",       null: false
     t.integer  "group_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "images", force: true do |t|
@@ -47,23 +47,25 @@ ActiveRecord::Schema.define(version: 20140318202218) do
     t.string   "image_hash",         limit: 1024
   end
 
-  create_table "images_tags", id: false, force: true do |t|
-    t.integer "tag_id"
-    t.integer "image_id"
+  create_table "images_tags", force: true do |t|
+    t.integer  "image_id",   null: false
+    t.integer  "tag_id",     null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tags", force: true do |t|
-    t.string   "name",       limit: 40
-    t.integer  "count",                 default: 0
-    t.integer  "group_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string  "name",                 null: false
+    t.integer "count",    default: 0
+    t.integer "group_id"
   end
+
+  add_index "tags", ["group_id"], name: "index_tags_on_group_id", using: :btree
 
   create_table "warns", force: true do |t|
     t.string   "name",       null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
