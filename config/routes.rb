@@ -17,6 +17,8 @@ Hh::Application.routes.draw do
       post :search, as: "search"
     end
   end
+
+  get "warns/:id", to: 'warns#show', as: 'warn'
   
   namespace :dispatch do
     resources :tags, :groups, :imgs, except: [:show]
