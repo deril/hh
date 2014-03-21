@@ -16,4 +16,4 @@
     .view_img.images_preview{ data: { type: 'upload_images' } }
       - image = img.new_record? ? 'imgs/no_image.gif' : img.image.url(:medium)
       = image_tag image, data: { type: 'select_image' }
-    .view_img.tags_selected{ data: { type: 'tags_selected' } }
+    .view_img.tags_selected{ data: { type: 'tags_selected' } }= img.tags.map(&:name).join(', ')
