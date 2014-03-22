@@ -5,7 +5,8 @@ gem 'rails', '4.0.2'
 gem 'mysql2'
 gem 'kaminari'
 gem 'haml', '~> 4.0.5'
-gem "quick_magick"
+#gem "quick_magick"
+gem 'rmagick', '2.13.2'
 gem 'execjs'
 gem "paperclip", "~> 3.0"
 gem 'metamagic'

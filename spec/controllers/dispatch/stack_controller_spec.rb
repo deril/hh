@@ -37,7 +37,7 @@ describe Dispatch::StackController do
     end
     it "gets assigns" do
       get :index
-      assigns(:img_f).should == "#{Dispatch::StackController::IMG_LAST_DIR}/valid.jpeg"
+      assigns(:img_f).should == "#{Dispatch::StackController::IMG_LAST_DIR}/similar_valid.jpeg"
       assigns(:tags).should == Tag.order("name ASC")
       assigns(:warns).should == Warn.all.load()
     end
