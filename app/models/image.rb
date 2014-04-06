@@ -69,7 +69,7 @@ class Image < ActiveRecord::Base
   end
 
   def add_alt!
-    self.alt = self.tags.sample(5).map(&:name).join(', ')
+    self.alt = self.tags.sample.try(:name)
   end
 
 end
