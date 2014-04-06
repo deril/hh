@@ -1,6 +1,6 @@
 class Dispatch::GroupsController < ApplicationController
   layout "back_end"
-  before_action :authenticate_admin!
+  before_action :hh_authenticate_admin!
   before_action :set_group, only: [:update, :destroy, :edit]
   helper_method :sort_column, :sort_direction
 

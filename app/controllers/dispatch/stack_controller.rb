@@ -9,14 +9,15 @@ class Dispatch::StackController < ApplicationController
   JPEG = "\xff\xd8\xff\xe0"
   PNG = "\x89\x50\x4e\x47"
 
-  before_action :authenticate_admin!
+  before_action :hh_authenticate_admin!
   before_action :add_warns, only: [:index]
 
   # TODO: may_be new fake model or something for DispatchStackController ???
 
   def index
     if IMG_TMP_DIR.exist?
-      images = Dir["#{IMG_TMP_DIR}/*"].select { |e| check_img?(e) }
+      images = Dir["#{IMG_TMP_DIR}/*"].select { |e| check_img?(e) }.
+        sort_by { |f| File.basename(f) }
       unless images.empty?
         @img = Image.new
         @img_f = "#{IMG_LAST_DIR}/#{File.basename(images.first)}"

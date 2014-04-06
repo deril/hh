@@ -25,4 +25,12 @@ describe ApplicationController do
     end
   end
 
+  describe 'hh_authenticate_admin!' do
+    it 'raises error if admin is not logged in' do
+      lambda {
+        visit '/dispatch/imgs/'
+      }.should raise_error(ActionController::RoutingError)
+    end
+  end
+
 end

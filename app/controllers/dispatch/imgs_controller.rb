@@ -1,7 +1,7 @@
 class Dispatch::ImgsController < ApplicationController
   layout "back_end"
 
-  before_action :authenticate_admin!
+  before_action :hh_authenticate_admin!
   before_action :find_image, only: [:update, :destroy, :edit]
   before_action :add_warns, only: [:new, :edit]
 
