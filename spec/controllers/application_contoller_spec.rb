@@ -27,9 +27,7 @@ describe ApplicationController do
 
   describe 'hh_authenticate_admin!' do
     it 'raises error if admin is not logged in' do
-      lambda {
-        visit '/dispatch/imgs/'
-      }.should raise_error(ActionController::RoutingError)
+      expect { visit '/dispatch/imgs/' }.to raise_error(ActionController::RoutingError)
     end
   end
 
