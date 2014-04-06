@@ -1,0 +1,5 @@
+- warn_name = local_assigns[:warn_name].present? ? local_assigns[:warn_name].capitalize : 'No warns'
+
+- meta title: APP_CONFIG['default_pre_title'] + " | " + "Warn: #{warn_name}",
+       keywords: APP_CONFIG['default_pre_keys'] + ", " + join_by(sort_only_by(keywords, :count), :name, 8),
+       description: "All hentai form the private collection tagged by #{warn_name}"
