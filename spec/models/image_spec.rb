@@ -94,7 +94,7 @@ describe Image do
       image = FactoryGirl.build(:image_with_tags)
       expect(image.alt).to be_nil
       image.save!
-      expect(image.alt).to eq(image.tags.sample.name)
+      expect(image.alt).to eq(image.tags.map(&:name).join(', '))
     end
   end
 
