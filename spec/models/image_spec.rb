@@ -90,11 +90,17 @@ describe Image do
   end
 
   describe '#add_alt' do
-    it 'fills in alt field' do
-      image = FactoryGirl.build(:image_with_tags)
-      expect(image.alt).to be_nil
-      image.save!
-      expect(image.alt).to eq(image.tags.map(&:name).join(', '))
+    context 'with tags' do
+      it 'fills in alt field' do
+        image = FactoryGirl.create(:image_with_tags)
+        expect(image.alt).to eq(image.tags.map(&:name).join(', '))
+      end
+    end
+    context 'without tags' do
+      it 'returns empty string' do
+        image = FactoryGirl.create(:image)
+        expect(image.alt).to eq ''
+      end
     end
   end
 
