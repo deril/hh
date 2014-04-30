@@ -25,4 +25,10 @@ describe ApplicationController do
     end
   end
 
+  describe 'hh_authenticate_admin!' do
+    it 'raises error if admin is not logged in' do
+      expect { visit '/dispatch/imgs/' }.to raise_error(ActionController::RoutingError)
+    end
+  end
+
 end

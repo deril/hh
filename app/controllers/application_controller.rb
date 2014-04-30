@@ -21,4 +21,8 @@ class ApplicationController < ActionController::Base
     all_tags.sort_by!{ |tag| tag.name } if all_tags.present?
     all_tags
   end
+
+  def hh_authenticate_admin!
+    raise ActionController::RoutingError.new('Not Found') unless admin_signed_in?
+  end
 end
