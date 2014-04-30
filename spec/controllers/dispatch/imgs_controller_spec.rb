@@ -143,7 +143,7 @@ describe Dispatch::ImgsController do
     end
 
     it "deletes taggings" do
-      count = image.tags.size
+      count = image.images_tags.size
       expect {
         delete :destroy, { id: image.id }
         }.to change(ImagesTag, :count).by(-count)
