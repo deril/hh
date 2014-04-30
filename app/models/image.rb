@@ -14,8 +14,7 @@ class Image < ActiveRecord::Base
 
   paginates_per 32
 
-  before_create :rename_image!
-  before_create :make_hash!
+  before_create :rename_image!, :make_hash!, :add_alt!
 
   scope :desc, -> { order("id DESC") }
 
@@ -67,6 +66,10 @@ class Image < ActiveRecord::Base
     else
       "#{image_file_size/1024} Kb"
     end
+  end
+
+  def add_alt!
+    self.alt = self.tags.sample(5).map(&:name).join(', ')
   end
 
 end

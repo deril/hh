@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20140407072545) do
     t.datetime "image_updated_at"
     t.integer  "warn_id"
     t.string   "image_hash",         limit: 1024
+    t.string   "alt"
   end
 
   create_table "images_tags", force: true do |t|

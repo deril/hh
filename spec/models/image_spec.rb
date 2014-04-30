@@ -15,6 +15,7 @@ describe Image do
   it { should have_many(:tags).through(:images_tags) }
   it { should have_many(:images_tags).dependent(:destroy) }
   it { should belong_to(:warn) }
+  it { should respond_to(:alt) }
   
   it { should accept_nested_attributes_for(:tags) }
 
@@ -85,6 +86,21 @@ describe Image do
     it 'returns false if image_hash already filled' do
       image.update_column(:image_hash, 'test_hash')
       image.image_hash.should == 'test_hash'
+    end
+  end
+
+  describe '#add_alt' do
+    context 'with tags' do
+      it 'fills in alt field' do
+        image = FactoryGirl.create(:image_with_tags)
+        expect(image.alt).to eq(image.tags.map(&:name).join(', '))
+      end
+    end
+    context 'without tags' do
+      it 'returns empty string' do
+        image = FactoryGirl.create(:image)
+        expect(image.alt).to eq ''
+      end
     end
   end
 
