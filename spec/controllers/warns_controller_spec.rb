@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe WarnsController do
+describe WarnsController, :type => :controller do
 
   let(:tag) { FactoryGirl.create(:tag) }
   let(:image) { FactoryGirl.create(:image, tags: [tag]) }

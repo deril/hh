@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe ImagesController do
+describe ImagesController, :type => :controller do
 
   let(:tag_1) { FactoryGirl.create(:tag) }
   let(:tag_2) { FactoryGirl.create(:tag) }

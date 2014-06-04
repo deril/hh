@@ -1,7 +1,7 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe ApplicationController do
- # TODO
+describe ApplicationController, :type => :controller do
+
   let(:image_1) { FactoryGirl.create(:image) }
   let(:image_2) { FactoryGirl.create(:image) }
   let(:controller) { ApplicationController.new() }

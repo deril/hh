@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe Dispatch::GroupsController do
+describe Dispatch::GroupsController, :type => :controller do
 
   let!(:admin) { FactoryGirl.create(:admin) }
   let!(:group1) { FactoryGirl.create(:group, name: 'A-g') }

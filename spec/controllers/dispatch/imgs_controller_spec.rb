@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe Dispatch::ImgsController do
+describe Dispatch::ImgsController, :type => :controller do
 
   let!(:admin) { FactoryGirl.create(:admin) }  
   let!(:tagging) { FactoryGirl.create(:images_tag) }

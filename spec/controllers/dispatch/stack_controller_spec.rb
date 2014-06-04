@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe Dispatch::StackController do
+describe Dispatch::StackController, :type => :controller do
 
   let!(:admin) { FactoryGirl.create(:admin) } 
   let!(:tag) { FactoryGirl.create(:orphan_tag) }
