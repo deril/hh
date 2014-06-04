@@ -1,6 +1,5 @@
 Hh::Application.routes.draw do
 
-  # TODO: ruby 2.0 -> ruby 2.1
   # TODO: rails 4.0 -> rails 4.1
   # TODO: notification
 
