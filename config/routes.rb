@@ -1,6 +1,5 @@
-Hh::Application.routes.draw do
+Rails.application.routes.draw do
 
-  # TODO: rails 4.0 -> rails 4.1
   # TODO: notification
 
   devise_for :admins, path: "auth", skip: :registrations
