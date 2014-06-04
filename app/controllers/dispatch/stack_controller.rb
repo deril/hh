@@ -12,19 +12,16 @@ class Dispatch::StackController < ApplicationController
   before_action :hh_authenticate_admin!
   before_action :add_warns, only: [:index]
 
-  # TODO: may_be new fake model or something for DispatchStackController ???
-
   def index
     if IMG_TMP_DIR.exist?
-      images = Dir["#{IMG_TMP_DIR}/*"].select { |e| check_img?(e) }.
-        sort_by { |f| File.basename(f) }
+      images = Dir["#{IMG_TMP_DIR}/*"].sort.select { |e| check_img?(e) }
       unless images.empty?
         @img = Image.new
         @img_f = "#{IMG_LAST_DIR}/#{File.basename(images.first)}"
         @tags = Tag.order("name ASC")
       end
     else
-      redirect_to dispatch_imgs_path, { alert: "Dir not found or empty" }
+      redirect_to dispatch_imgs_path, { alert: "Dir not found" }
     end
   end
 
@@ -43,10 +40,7 @@ class Dispatch::StackController < ApplicationController
   private
     def check_img?(file_path)
       return false if file_path.scan(/.jpg$|.jpeg$|.gif$|.png$/).blank?
-      file = File.open(file_path.to_s)
-      data = file.read(9)
-      file.close
-      head = data[0,4].downcase
+      head = File.open(file_path.to_s) {|file| file.read(9)[0,4].downcase }
       return head.casecmp(GIF).to_i.zero? || head.casecmp(JPEG).to_i.zero? || head.casecmp(PNG).to_i.zero?
     end
 

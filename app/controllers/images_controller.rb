@@ -9,7 +9,6 @@ class ImagesController < ApplicationController
     @cur_page_num = current_page.to_s
   end
 
-  # TODO: may be not id
   def show
     @tags = @img.tags
     @selected_warn = @img.warn.try(:id)

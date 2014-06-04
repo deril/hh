@@ -29,7 +29,7 @@ describe Dispatch::StackController do
       reset_stack_const(:IMG_TMP_DIR, Rails.root.join("fake_path"))
       get :index
       response.should redirect_to dispatch_imgs_path
-      flash[:alert].should == "Dir not found or empty"
+      flash[:alert].should == "Dir not found"
     end
     it "has good response if all good" do
       get :index
