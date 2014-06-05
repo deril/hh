@@ -4,20 +4,20 @@
 # if you're sharing your code publicly, such as by adding
 # .secret to your .gitignore file.
 
-require 'securerandom'
+# require 'securerandom'
 
-def secure_token
-  token_file = Rails.root.join('.secret')
-  if File.exist?(token_file)
-    # Use the existing token.
-    File.read(token_file).chomp
-  else
-    # Generate a new token and store it in token_file.
-    token = SecureRandom.hex(64)
-    File.write(token_file, token)
-    token
-  end
-end
+# def secure_token
+#   token_file = Rails.root.join('.secret')
+#   if File.exist?(token_file)
+#     # Use the existing token.
+#     File.read(token_file).chomp
+#   else
+#     # Generate a new token and store it in token_file.
+#     token = SecureRandom.hex(64)
+#     File.write(token_file, token)
+#     token
+#   end
+# end
 
-Rails.application.config.secret_key_base = secure_token
-Devise.secret_key = secure_token
+# Rails.application.config.secret_key_base = secure_token
+# Devise.secret_key = secure_token

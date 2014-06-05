@@ -38,11 +38,10 @@ group :development, :test do
   gem 'simplecov', require: false
   gem 'rspec-rails'
   gem 'shoulda-matchers'
-  # gem 'rspec-rails-mocha', '~> 0.3.1', :require => false
   gem 'factory_girl_rails', '>= 3.3.0'
   gem 'cucumber-rails', '>= 1.3.0', :require => false
   gem 'escape_utils', '0.2.4', require: false
-  gem 'capybara', '2.2.1' #, require: false
+  gem 'capybara'
   gem 'database_cleaner', '>= 0.7.2', require: false
   gem 'email_spec', '>= 1.2.1'
   gem 'launchy', '>= 2.1.0'

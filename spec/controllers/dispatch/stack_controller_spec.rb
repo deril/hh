@@ -44,12 +44,13 @@ describe Dispatch::StackController, :type => :controller do
   end
 
   describe 'POST "create"' do
-    before :all do
+    before(:all) do
       reset_stack_const(:IMG_LAST_DIR, 'images')
       stack_path = Rails.root.join("spec", "fixtures", "#{Dispatch::StackController::IMG_LAST_DIR}")
       reset_stack_const(:IMG_TMP_DIR, stack_path)
-      File.stubs(:delete).returns(true)
     end
+
+    before { expect(File).to receive(:delete).and_return(true) }
     
     it "response redirects" do
       post :create
