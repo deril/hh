@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Tag do
   
@@ -31,7 +31,7 @@ describe Tag do
 
   describe "#destroy_with_response" do
     it "gets message if destroying fail" do
-      tag.stubs(:destroy).returns(false)
+      expect(tag).to receive(:destroy).and_return(false)
       tag.destroy_with_response.should == { alert: "Something bad with tag Deleting." }
     end
     it "gets message if destroying ok" do

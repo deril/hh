@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe TagsController do
+describe TagsController, :type => :controller do
 
   let!(:custom_tag) { FactoryGirl.create(:tag, name: 'A_name') }
   let(:tag) { FactoryGirl.create(:tag, name: "current_name") }

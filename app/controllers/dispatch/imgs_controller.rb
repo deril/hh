@@ -24,7 +24,6 @@ class Dispatch::ImgsController < ApplicationController
     end
   end
 
-  # TODO: id was shown ??
   def edit
     @tags = Tag.order("name ASC")
   end

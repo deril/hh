@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe Dispatch::TagsController do
+describe Dispatch::TagsController, :type => :controller do
 
   let!(:admin) { FactoryGirl.create(:admin) }
   let!(:tag1) { FactoryGirl.create(:orphan_tag, name: "A_first") }

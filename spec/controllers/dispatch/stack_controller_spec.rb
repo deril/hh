@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe Dispatch::StackController do
+describe Dispatch::StackController, :type => :controller do
 
   let!(:admin) { FactoryGirl.create(:admin) } 
   let!(:tag) { FactoryGirl.create(:orphan_tag) }
@@ -29,7 +29,7 @@ describe Dispatch::StackController do
       reset_stack_const(:IMG_TMP_DIR, Rails.root.join("fake_path"))
       get :index
       response.should redirect_to dispatch_imgs_path
-      flash[:alert].should == "Dir not found or empty"
+      flash[:alert].should == "Dir not found"
     end
     it "has good response if all good" do
       get :index
@@ -44,12 +44,13 @@ describe Dispatch::StackController do
   end
 
   describe 'POST "create"' do
-    before :all do
+    before(:all) do
       reset_stack_const(:IMG_LAST_DIR, 'images')
       stack_path = Rails.root.join("spec", "fixtures", "#{Dispatch::StackController::IMG_LAST_DIR}")
       reset_stack_const(:IMG_TMP_DIR, stack_path)
-      File.stubs(:delete).returns(true)
     end
+
+    before { expect(File).to receive(:delete).and_return(true) }
     
     it "response redirects" do
       post :create

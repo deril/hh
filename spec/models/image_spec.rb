@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Image do
   
@@ -52,7 +52,7 @@ describe Image do
       result.should == { notice: "Image deleted successfully." }
     end
     it "returns alert if bad destroying" do
-      image.expects(:destroy).returns(false)
+      expect(image).to receive(:destroy).and_return(false)
       result = image.destroy_with_response
       result.should == { alert: "Image deleting failed." } 
     end
