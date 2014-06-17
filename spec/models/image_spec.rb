@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Image do
-  
+
   let(:image) { FactoryGirl.create(:image) }
   let(:tag) { FactoryGirl.create(:tag) }
 
@@ -16,7 +16,7 @@ describe Image do
   it { should have_many(:images_tags).dependent(:destroy) }
   it { should belong_to(:warn) }
   it { should respond_to(:alt) }
-  
+
   it { should accept_nested_attributes_for(:tags) }
 
   before(:all) do
@@ -35,7 +35,7 @@ describe Image do
     end
   end
 
-  describe '#save_with_response' do 
+  describe '#save_with_response' do
     it "returns notice if good saving" do
       result = FactoryGirl.build(:image).save_with_response
       result.should == { notice: "Image saved successfully." }
@@ -46,7 +46,7 @@ describe Image do
     end
   end
 
-  describe '#destroy_with_response' do 
+  describe '#destroy_with_response' do
     it "returns notice if good destroying" do
       result = image.destroy_with_response
       result.should == { notice: "Image deleted successfully." }
@@ -54,26 +54,26 @@ describe Image do
     it "returns alert if bad destroying" do
       expect(image).to receive(:destroy).and_return(false)
       result = image.destroy_with_response
-      result.should == { alert: "Image deleting failed." } 
+      result.should == { alert: "Image deleting failed." }
     end
   end
 
   describe "#get_dimensions" do
     it 'returns images sizes' do
       sizes = Paperclip::Geometry.from_file(Paperclip.io_adapters.for(image.image))
-      image.get_dimensions.to_s.should == sizes.to_s 
+      image.get_dimensions.to_s.should == sizes.to_s
     end
   end
 
   describe "#get_adapted_size" do
     it "shows Kb's" do
-      image.get_adapted_size.should == "156 Kb" 
+      image.get_adapted_size.should == "156 Kb"
     end
 
     it "shows Mb's" do
       image.image_file_size = 52428800
       image.save!
-      image.get_adapted_size.should == "50 Mb" 
+      image.get_adapted_size.should == "50 Mb"
     end
   end
 

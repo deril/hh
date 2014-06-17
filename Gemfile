@@ -7,7 +7,7 @@ gem 'kaminari'
 gem 'haml', '~> 4.0.5'
 gem 'rmagick', '2.13.2'
 gem 'execjs'
-gem "paperclip", "~> 3.0"
+gem "paperclip", "~> 4.1"
 gem 'metamagic'
 gem 'devise'
 gem 'timecop'
