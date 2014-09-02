@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Group do
   
@@ -7,5 +7,14 @@ describe Group do
   it { should belong_to(:parent).class_name("Group").with_foreign_key("group_id") }
   it { should validate_presence_of(:name) }
   it { should validate_uniqueness_of(:name) }
+
+  describe "before callback #capitalize_name" do
+    let(:group) { FactoryGirl.build(:group, name: "some") }
+    it "make name capitalized" do
+      group.name.should == 'some'
+      group.save!
+      group.name.should == 'Some'
+    end
+  end
 
 end

@@ -1,4 +1,4 @@
-Hh::Application.configure do
+Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # The test environment is used exclusively to run your application's
@@ -24,7 +24,7 @@ Hh::Application.configure do
   config.action_dispatch.show_exceptions = false
 
   # Disable request forgery protection in test environment
-  config.action_controller.allow_forgery_protection    = false
+  config.action_controller.allow_forgery_protection = false
 
   # Tell Action Mailer not to deliver emails to the real world.
   # The :test delivery method accumulates sent emails in the
@@ -37,4 +37,6 @@ Hh::Application.configure do
 
   config.i18n.enforce_available_locales = false
 
+  # Raises error for missing translations
+  config.action_view.raise_on_missing_translations = true
 end

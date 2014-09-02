@@ -1,8 +1,8 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe TagsController do
+describe TagsController, :type => :controller do
 
-  let!(:custom_tag) { FactoryGirl.create(:tag) }
+  let!(:custom_tag) { FactoryGirl.create(:tag, name: 'A_name') }
   let(:tag) { FactoryGirl.create(:tag, name: "current_name") }
   let!(:image) { FactoryGirl.create(:image, tags: [custom_tag, tag]) }
 
@@ -46,7 +46,7 @@ describe TagsController do
     end
     it "gets good response if something found" do
       get :autocomplete_search, { term: tag.name[0,3] }
-       JSON.parse(response.body).should == ["current_name"]
+       JSON.parse(response.body).should == ["Current name"]
     end
     it "gets [] if nothing was found" do
       get :autocomplete_search, { term: '' }
@@ -68,7 +68,7 @@ describe TagsController do
       assigns(:search_tags).should == [tag.name, "some"]
       assigns(:cur_tags).should == [tag]
       assigns(:imgs).should == [image]
-      assigns(:tags).should == [tag, custom_tag]
+      assigns(:tags).sort.should == [custom_tag, tag]
       assigns(:warns).should == Warn.all
     end
   end

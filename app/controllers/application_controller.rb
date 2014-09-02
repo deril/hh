@@ -18,7 +18,11 @@ class ApplicationController < ActionController::Base
   def get_uniq_tags_from(image_list = [], except_tag = nil)
     all_tags = Tag.joins(:images).where(images: { id: image_list.map(&:id) }).uniq
     all_tags.to_a.delete(except_tag) if except_tag
-    all_tags.sort_by!{ |tag| tag.name } if all_tags.present?
+    all_tags = all_tags.sort_by{ |tag| tag.name } if all_tags.present?
     all_tags
+  end
+
+  def hh_authenticate_admin!
+    raise ActionController::RoutingError.new('Not Found') unless admin_signed_in?
   end
 end

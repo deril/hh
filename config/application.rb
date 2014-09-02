@@ -4,7 +4,7 @@ require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
-Bundler.require(:default, Rails.env)
+Bundler.require(*Rails.groups)
 
 module Hh
   class Application < Rails::Application
@@ -14,6 +14,7 @@ module Hh
 
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/lib/extensions)
+    config.autoload_paths += %W(#{config.root}/lib/extensions)    
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.

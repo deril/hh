@@ -1,7 +1,7 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe ApplicationController do
- # TODO
+describe ApplicationController, :type => :controller do
+
   let(:image_1) { FactoryGirl.create(:image) }
   let(:image_2) { FactoryGirl.create(:image) }
   let(:controller) { ApplicationController.new() }
@@ -22,6 +22,12 @@ describe ApplicationController do
         etalon.delete(image_1.tags.first)
         result.should == etalon 
       end
+    end
+  end
+
+  describe 'hh_authenticate_admin!' do
+    it 'raises error if admin is not logged in' do
+      expect { visit '/dispatch/imgs/' }.to raise_error(ActionController::RoutingError)
     end
   end
 

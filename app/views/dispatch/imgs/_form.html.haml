@@ -10,10 +10,10 @@
             %li= msg
     .sidebar-l
       = render partial: "shared/warns_for_form", locals: { f: f, warns: warns, img: img }
-      = render partial: "shared/tags_for_form", locals: { f: f, img: img }
+      = render partial: "shared/tags_for_form", locals: { f: f, tags_for: img }
     .view_img=f.submit "Save"
     = f.file_field :image, data: { type: 'file_field' }
     .view_img.images_preview{ data: { type: 'upload_images' } }
       - image = img.new_record? ? 'imgs/no_image.gif' : img.image.url(:medium)
       = image_tag image, data: { type: 'select_image' }
-    .view_img.tags_selected{ data: { type: 'tags_selected' } }
+    .view_img.tags_selected{ data: { type: 'tags_selected' } }= img.tags.map(&:name).join(', ')

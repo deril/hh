@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe DispatchStackController do
+describe Dispatch::StackController, :type => :controller do
 
   let!(:admin) { FactoryGirl.create(:admin) } 
   let!(:tag) { FactoryGirl.create(:orphan_tag) }
@@ -12,16 +12,16 @@ describe DispatchStackController do
   end
 
   def reset_stack_const(const_name, value)
-    if DispatchStackController.const_defined?(const_name)
-      DispatchStackController.send(:remove_const, const_name)
-      DispatchStackController.const_set(const_name, value)
+    if Dispatch::StackController.const_defined?(const_name)
+      Dispatch::StackController.send(:remove_const, const_name)
+      Dispatch::StackController.const_set(const_name, value)
     end
   end
 
   describe 'GET "index"' do
     before :each do
       reset_stack_const(:IMG_LAST_DIR, 'images')
-      stack_path = Rails.root.join("spec", "fixtures", "#{DispatchStackController::IMG_LAST_DIR}")
+      stack_path = Rails.root.join("spec", "fixtures", "#{Dispatch::StackController::IMG_LAST_DIR}")
       reset_stack_const(:IMG_TMP_DIR, stack_path)
     end
 
@@ -29,7 +29,7 @@ describe DispatchStackController do
       reset_stack_const(:IMG_TMP_DIR, Rails.root.join("fake_path"))
       get :index
       response.should redirect_to dispatch_imgs_path
-      flash[:alert].should == "Dir not found or empty"
+      flash[:alert].should == "Dir not found"
     end
     it "has good response if all good" do
       get :index
@@ -37,19 +37,20 @@ describe DispatchStackController do
     end
     it "gets assigns" do
       get :index
-      assigns(:img_f).should == "#{DispatchStackController::IMG_LAST_DIR}/valid.jpeg"
+      assigns(:img_f).should == "#{Dispatch::StackController::IMG_LAST_DIR}/similar_valid.jpeg"
       assigns(:tags).should == Tag.order("name ASC")
       assigns(:warns).should == Warn.all.load()
     end
   end
 
   describe 'POST "create"' do
-    before :all do
+    before(:all) do
       reset_stack_const(:IMG_LAST_DIR, 'images')
-      stack_path = Rails.root.join("spec", "fixtures", "#{DispatchStackController::IMG_LAST_DIR}")
+      stack_path = Rails.root.join("spec", "fixtures", "#{Dispatch::StackController::IMG_LAST_DIR}")
       reset_stack_const(:IMG_TMP_DIR, stack_path)
-      File.stubs(:delete).returns(true)
     end
+
+    before { expect(File).to receive(:delete).and_return(true) }
     
     it "response redirects" do
       post :create
@@ -84,7 +85,7 @@ describe DispatchStackController do
   describe "#check_img?" do
     let(:valid_file_path) { Rails.root.to_s + '/spec/fixtures/images/valid.jpeg' } 
     let(:invalid_file_path) { Rails.root.to_s + '/spec/fixtures/images/invalid.jpg' } 
-    let(:stack) { DispatchStackController.new }
+    let(:stack) { Dispatch::StackController.new }
 
     it "gets false if ext_name not of image" do
       stack.send(:check_img?, "invalid.rb").should == false

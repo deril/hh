@@ -1,7 +1,5 @@
-Hh::Application.routes.draw do
+Rails.application.routes.draw do
 
-  # TODO: ruby 2.0 -> ruby 2.1
-  # TODO: rails 4.0 -> rails 4.1
   # TODO: notification
 
   devise_for :admins, path: "auth", skip: :registrations
@@ -18,11 +16,12 @@ Hh::Application.routes.draw do
     end
   end
 
-  resources :dispatch_tags, except: [:show]
-
-  resources :dispatch_imgs, except: [:show]
-
-  resources :dispatch_stack, only: [:index, :create]
+  get "warns/:id", to: 'warns#show', as: 'warn'
+  
+  namespace :dispatch do
+    resources :tags, :groups, :imgs, except: [:show]
+    resources :stack, only: [:index, :create]
+  end
 
   root to: "images#index"
 

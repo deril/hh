@@ -14,10 +14,12 @@ class Image < ActiveRecord::Base
 
   paginates_per 32
 
-  before_create :rename_image!
+  before_create :rename_image!, :make_hash!, :add_alt!
 
   scope :desc, -> { order("id DESC") }
 
+  # TODO: test, allow_blank????
+  #validates_uniqueness_of :hash, allow_blank: true
   validates_attachment :image, presence: true,
                                content_type: { content_type: %w(image/jpeg image/png image/gif) },
                                size: { in: 0.5..50.megabytes }
@@ -27,6 +29,11 @@ class Image < ActiveRecord::Base
     extension = File.extname(self.image_file_name).downcase
     name = image_updated_at.to_i.to_s
     self.image_file_name = 'hentaria_' + name + extension
+  end
+
+  def make_hash!
+    return unless self.image_hash.blank?
+    self.image_hash = ImageToHash::HashMaker.make_hash(self.image.path)
   end
 
   def self.not_found
@@ -59,6 +66,10 @@ class Image < ActiveRecord::Base
     else
       "#{image_file_size/1024} Kb"
     end
+  end
+
+  def add_alt!
+    self.alt = self.tags.sample(5).map(&:name).join(', ')
   end
 
 end

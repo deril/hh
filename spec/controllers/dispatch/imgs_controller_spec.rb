@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe DispatchImgsController do
+describe Dispatch::ImgsController, :type => :controller do
 
   let!(:admin) { FactoryGirl.create(:admin) }  
   let!(:tagging) { FactoryGirl.create(:images_tag) }
@@ -143,7 +143,7 @@ describe DispatchImgsController do
     end
 
     it "deletes taggings" do
-      count = image.tags.size
+      count = image.images_tags.size
       expect {
         delete :destroy, { id: image.id }
         }.to change(ImagesTag, :count).by(-count)
