@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.1.1'
+gem 'rails', '4.1.5'
 
 gem 'mysql2'
 gem 'kaminari'
@@ -37,6 +37,7 @@ group :development, :test do
   gem 'thin', require: false
   gem 'simplecov', require: false
   gem 'rspec-rails'
+
   gem 'shoulda-matchers'
   gem 'factory_girl_rails', '>= 3.3.0'
   gem 'cucumber-rails', '>= 1.3.0', :require => false
