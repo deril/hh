@@ -61,8 +61,15 @@ end
 # Use unicorn as the app server
 # gem 'unicorn'
 
-# Deploy with Capistrano
-# gem 'capistrano'
+group :development do
+  gem 'capistrano', '~> 3.1.0'
+  # rails specific capistrano funcitons
+  gem 'capistrano-rails', '~> 1.1.0'
+  # integrate bundler with capistrano
+  gem 'capistrano-bundler'
+
+  gem 'capistrano-rvm', github: "capistrano/rvm"
+end
 
 # To use debugger
 # gem 'debugger'
