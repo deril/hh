@@ -1,3 +1,0 @@
-#!/bin/sh
-/opt/nginx/sbin/nginx -s reload
-echo "restarting Passenger app"
