@@ -59,7 +59,7 @@ end
 # gem 'jbuilder'
 
 # Use unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn-rails'
 
 group :development do
   gem 'capistrano', '~> 3.1.0'
@@ -69,6 +69,7 @@ group :development do
   gem 'capistrano-bundler'
 
   gem 'capistrano-rvm', github: "capistrano/rvm"
+  # gem 'capistrano-rbenv', github: "capistrano/rbenv"
 end
 
 # To use debugger

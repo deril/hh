@@ -32,7 +32,7 @@ set :deploy_via, :copy
 # set :linked_files, %w{config/database.yml}
 
 # Default value for linked_dirs is []
-set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets public/system}
+set :linked_dirs, %w{bin log  public}
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -51,32 +51,18 @@ namespace :deploy do
     end
   end
 
-  desc 'Restart application'
+  desc 'work with server'
   task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
-      execute 'reloadnginx'
+    on roles(:app) do
+      execute "/opt/nginx/sbin/nginx -s reload"
     end
   end
 
   before :deploy, "deploy:check"
-  # before :deploy, "deploy:compile_assets"
-
-  after :finishing, :generate_secret
-
-  # after :finishing, "bundler:install"
   after :finishing, "deploy:migrate"
+  after :finishing, 'deploy:cleanup'
+  after :finishing, :generate_secret
+  after :finishing, 'deploy:restart'
 
-  after :publishing, :restart
-  after :publishing, 'deploy:restart'
-
-  # after :finishing, 'deploy:cleanup'
-  # after :finishing, "deploy:log_revision"
-
-  # TODO: deploy:cleanup
-  # TODO: rollback
-
-  # DEBUG[e5e9d1f2]   rake aborted!
-  # DEBUG[e5e9d1f2]   Errno::ENOENT: No such file or directory @ rb_sysopen - /var/www/hh/releases/20140903145750/.secret
-  # may be other dir
-
+  after :finishing, "deploy:log_revision"
 end
