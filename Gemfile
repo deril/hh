@@ -69,6 +69,7 @@ group :development do
   gem 'capistrano-bundler'
 
   gem 'capistrano-rvm', github: "capistrano/rvm"
+  # gem 'capistrano-rbenv', github: "capistrano/rbenv"
 end
 
 # To use debugger
