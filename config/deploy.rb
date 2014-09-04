@@ -54,7 +54,8 @@ namespace :deploy do
   desc 'work with server'
   task :restart do
     on roles(:app) do
-      execute "/opt/nginx/sbin/nginx -s reload"
+      # execute "/opt/nginx/sbin/nginx -s reload"
+      execute 'service nginx restart'
     end
   end
 
@@ -62,7 +63,7 @@ namespace :deploy do
   after :finishing, "deploy:migrate"
   after :finishing, 'deploy:cleanup'
   after :finishing, :generate_secret
-  after :finishing, 'deploy:restart'
 
   after :finishing, "deploy:log_revision"
+  after :publishing, 'deploy:restart'
 end
