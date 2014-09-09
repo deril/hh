@@ -59,7 +59,7 @@ end
 # gem 'jbuilder'
 
 # Use unicorn as the app server
-gem 'unicorn'
+# gem 'unicorn'
 
 group :development do
   gem 'capistrano', '~> 3.1.0'
