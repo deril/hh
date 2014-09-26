@@ -3,8 +3,16 @@ class Image < ActiveRecord::Base
   # TODO: make constants of saving/deleting responses !!!! and may be new class for them
 
   has_attached_file :image,
-    styles: { thumb: "180x180#", medium: "600x600>" },
+    styles: {
+      thumb: "180x180#",
+      medium: "600x600>"
+    },
+    convert_options: {
+      :medium => "-quality 90 -interlace Plane",
+      :thumb => "-quality 60 -interlace Plane"
+    },
     default_url: "/images/:style/missing.png"
+
 
   has_many :images_tags, dependent: :destroy
   has_many :tags, through: :images_tags
