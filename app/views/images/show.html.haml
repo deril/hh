@@ -7,4 +7,4 @@
 %article{ class: "image-show__wrap" }
   = link_to "< Back", :back, class: "tag_link tag-link__block"
   = link_to @img.image.url(:original), target: "_blank" do
-    = image_tag(@img.image.url(:original), class: "image-show-wrap__img", alt: @img.alt)
+    = image_tag(@img.image.url(:medium), class: "image-show-wrap__img", alt: @img.alt)
