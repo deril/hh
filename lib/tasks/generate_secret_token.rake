@@ -12,4 +12,3 @@ namespace :secret_token do
 
   end
 end
-
