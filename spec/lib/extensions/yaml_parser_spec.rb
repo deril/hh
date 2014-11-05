@@ -137,7 +137,6 @@ describe "YAMLParser" do
       end
     end
   end
-end
 
 private
   def reset_constant(const_name, const_val)
@@ -146,3 +145,5 @@ private
       const_set(const_name, const_val)
     end
   end
+
+end

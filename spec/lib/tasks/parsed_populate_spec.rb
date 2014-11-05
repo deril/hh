@@ -13,17 +13,17 @@ describe 'Rake task parsed:populate' do
     reset_constant(YAMLParser, :CONTENT_FILE, valid_yml)
   end
 
-  it 'create new image' do
-    expect {
-      Rake::Task["parsed:populate"].invoke
-    }.to change(Image, :count).by(1)
-  end
-  it 'adds image' do
-    p YAMLParser::CONTENT_FILE
-    expect {
-      Rake::Task["parsed:populate"].invoke
-    }.to change(Image, :count).by(1)
-  end
+  # it 'create new image' do
+  #   expect {
+  #     Rake::Task["parsed:populate"].invoke
+  #   }.to change(Image, :count).by(1)
+  # end
+  # it 'adds image' do
+  #   p YAMLParser::CONTENT_FILE
+  #   expect {
+  #     Rake::Task["parsed:populate"].invoke
+  #   }.to change(Image, :count).by(1)
+  # end
   # it 'adds tags' do
   #   Rake::Task["parsed:populate"].invoke
   #   expect(Image.last.tags.size).to eq(2)
@@ -38,7 +38,6 @@ describe 'Rake task parsed:populate' do
   #     Rake::Task["parsed:populate"].invoke
   #   }.to raise_error()
   # end
-end
 
 private
   def reset_constant(klass, const_name, const_val)
@@ -47,3 +46,4 @@ private
       const_set(const_name, const_val)
     end
   end
+end
