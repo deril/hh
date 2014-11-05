@@ -4,7 +4,7 @@ class YAMLParser
 
   def call()
     load_yaml_file().each do |sample|
-      image = Image.new()               # FIXME: cannot find Image class...
+      image = Image.new()               # FIXME: cannot find Image class as rake...
       add_content(image, sample)
       image.save!
     end
@@ -24,6 +24,10 @@ class YAMLParser
     def add_tags(image, tags_str)
       tag_names = tags_str.split(/\s+/)
       tags = tag_names.inject([]) do |res, tag_name|
+
+        # FIXME:
+        # tag_name.strip.downcase.gsub(/\s+|_+/,' ').capitalize
+
         res << Tag.find_or_create_by!(name: tag_name)
       end
       image.tags = tags
