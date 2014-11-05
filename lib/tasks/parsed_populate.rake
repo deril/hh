@@ -1,9 +1,11 @@
 # IN TEST PURPOUSES
+load File.join(Rails.root, 'lib', 'extensions', 'yaml_parser.rb')
+
 namespace :parsed do
   desc 'Fill up db with parsed content.'
   task :populate do
-    return false unless content_folder_exist?(YAMLParser::DATA_PATH)
-    return false if content_folder_empty?(YAMLParser::DATA_PATH)
+    # return false unless content_folder_exist?(YAMLParser::DATA_PATH)
+    # return false if content_folder_empty?(YAMLParser::DATA_PATH)
 
     YAMLParser.new().call()
     p 'Done.'

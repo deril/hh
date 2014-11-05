@@ -1,10 +1,10 @@
 class YAMLParser
   DATA_PATH = Rails.root + "public/content"
-  CONTENT_FILE = DATA_PATH + '/result.yml'
+  CONTENT_FILE = DATA_PATH + 'result.yml'
 
   def call()
     load_yaml_file().each do |sample|
-      image = Image.new()
+      image = Image.new()               # FIXME: cannot find Image class...
       add_content(image, sample)
       image.save!
     end
