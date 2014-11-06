@@ -1,6 +1,7 @@
 class YAMLParser
   DATA_PATH = Rails.root + "public/content"
   CONTENT_FILE = DATA_PATH + 'result.yml'
+  REJECT_SIZE = 40
 
   def call()
     load_yaml_file().each do |sample|
@@ -22,7 +23,7 @@ class YAMLParser
     end
 
     def add_tags(image, tags_str)
-      tag_names = tags_str.split(/\s+/)
+      tag_names = make_array(tags_str)
       tags = tag_names.inject([]) do |res, tag_name|
         prepared_tag_name = Tag.prepare_name(tag_name)
         res << Tag.find_or_create_by!(name: prepared_tag_name)
@@ -43,4 +44,18 @@ class YAMLParser
       add_warn(image, sample[:warn])
       image
     end
+
+    # TODO: may be rebase it into parse script
+    # TODO: tests
+    def prepare(str)
+      str.gsub(/[^\w\s]|_/, '').strip()
+    end
+
+    # TODO: tests
+    def make_array(str)
+      prepared_str = prepare(str)
+      array = prepared_str.strip.split(/\s+/)
+      array.reject{|el| el.size > REJECT_SIZE || el == '' || el == ' '}
+    end
+
 end
