@@ -24,11 +24,8 @@ class YAMLParser
     def add_tags(image, tags_str)
       tag_names = tags_str.split(/\s+/)
       tags = tag_names.inject([]) do |res, tag_name|
-
-        # FIXME:
-        # tag_name.strip.downcase.gsub(/\s+|_+/,' ').capitalize
-
-        res << Tag.find_or_create_by!(name: tag_name)
+        prepared_tag_name = Tag.prepare_name(tag_name)
+        res << Tag.find_or_create_by!(name: prepared_tag_name)
       end
       image.tags = tags
       image
