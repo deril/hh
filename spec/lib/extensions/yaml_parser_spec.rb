@@ -136,6 +136,20 @@ describe "YAMLParser" do
         }.to raise_error()
       end
     end
+
+    describe '#prepare' do
+      it 'returns formated string' do
+        str = '%&^() me'
+        expect(parser.send(:prepare, str)).to eq('me')
+      end
+    end
+
+    describe '#make_array' do
+      it 'returns appropriate array' do
+        str = '   asd s  s sadddddddddddddddddddddddddddddddddddddddddddddddddddd'
+        expect(parser.send(:make_array, str)).to eq(['asd','s', 's'])
+      end
+    end
   end
 
 private

@@ -46,16 +46,13 @@ class YAMLParser
     end
 
     # TODO: may be rebase it into parse script
-    # TODO: tests
     def prepare(str)
-      str.gsub(/[^\w\s]|_/, '').strip()
+      str.gsub(/[^\w\s]/, '').strip()
     end
 
-    # TODO: tests
     def make_array(str)
       prepared_str = prepare(str)
       array = prepared_str.strip.split(/\s+/)
       array.reject{|el| el.size > REJECT_SIZE || el == '' || el == ' '}
     end
-
 end
