@@ -5,7 +5,7 @@ class YAMLParser
 
   def call()
     load_yaml_file().each do |sample|
-      image = Image.new()               # FIXME: cannot find Image class as rake...
+      image = Image.new()
       add_content(image, sample)
       image.save!
     end
