@@ -53,6 +53,6 @@ class YAMLParser
     def make_array(str)
       prepared_str = prepare(str)
       array = prepared_str.strip.split(/\s+/)
-      array.reject{|el| el.size > REJECT_SIZE || el == '' || el == ' '}
+      array.reject{|el| el.size > REJECT_SIZE || ['', ' ', '_'].include?(el) }
     end
 end
