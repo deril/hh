@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Tag do
-  
+
   it { should have_many(:images_tags).dependent(:destroy) }
   it { should have_many(:images).through(:images_tags) }
   it { should belong_to(:group) }
@@ -11,18 +11,31 @@ describe Tag do
   let!(:tag) { FactoryGirl.build(:tag) }
 
   describe "tag with speces" do
-    let(:bad_name) { " some_New  Action " }
     it "saves all in downcase, stripped and with underscores" do
-      tag.name = bad_name
+      tag.name = ' some_tag Name '
       tag.save
-      expect(tag.reload.name).to eq bad_name.strip.downcase.gsub(/\s+|_+/, ' ').capitalize
+      expect(tag.reload.name).to eq('Some tag name')
+    end
+  end
+
+  describe '.prepare_name' do
+    it 'make name in appropriate format' do
+      name = ' some_tag Name '
+      expect(Tag.prepare_name(name)).to eq('Some tag name')
+    end
+  end
+
+  describe '#prepare_name' do
+    it 'make name of tag in appropriate format' do
+      tag.name = ' some_tag Name '
+      expect(tag.prepare_name()).to eq('Some tag name')
     end
   end
 
   describe "#save_with_response" do
     it "gets message if saving fail" do
       tag.name = nil
-      tag.save_with_response.should == { alert: "Something bad with tag Saving." } 
+      tag.save_with_response.should == { alert: "Something bad with tag Saving." }
     end
     it "gets message if saving ok" do
       tag.save_with_response.should == { notice: "Tag successfully Saved." }

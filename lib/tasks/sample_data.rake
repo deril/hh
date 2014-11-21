@@ -14,13 +14,13 @@ namespace :db do
     puts "Creating tags..."
     tags = []
     %w(Tag_1 Tag_10 Tag_100 Tag_1000).each do |tag|
-      tags << groups[0].tags.find_or_create_by_name!(tag)
+      tags << groups[0].tags.find_or_create_by!(name: tag)
     end
     %w(Tag_2 Tag_20).each do |tag|
-      tags << groups[1].tags.find_or_create_by_name!(tag)
+      tags << groups[1].tags.find_or_create_by!(name: tag)
     end
     %w(Tag_3 Tag_30 Tag_300 Tag_3000 Tag_30000).each do |tag|
-      tags << groups[2].tags.find_or_create_by_name!(tag)
+      tags << groups[2].tags.find_or_create_by!(name: tag)
     end
 
     puts "Creating images..."
