@@ -47,7 +47,7 @@ class YAMLParser
 
     # TODO: may be rebase it into parse script
     def prepare(str)
-      str.gsub(/[^\w\s]/, '').strip()
+      str.gsub(/[^\w\s]/, '').gsub(/_+/, '_').strip()
     end
 
     def make_array(str)
