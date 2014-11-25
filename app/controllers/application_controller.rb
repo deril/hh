@@ -16,10 +16,9 @@ class ApplicationController < ActionController::Base
   end
 
   def get_uniq_tags_from(image_list = [], except_tag = nil)
-    all_tags = Tag.joins(:images).where(images: { id: image_list.map(&:id) }).uniq
-    all_tags.to_a.delete(except_tag) if except_tag
-    all_tags = all_tags.sort_by{ |tag| tag.name } if all_tags.present?
-    all_tags
+    all_tags = Tag.joins(:images).where(images: { id: image_list.map(&:id) })
+    all_tags = all_tags.where("tags.id != ?", except_tag.id) if except_tag
+    all_tags.uniq
   end
 
   def hh_authenticate_admin!
