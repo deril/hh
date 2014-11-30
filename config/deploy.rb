@@ -6,6 +6,7 @@ set :repo_url, 'git@github.com:Fattaf/hh.git'
 
 # Default branch is :master
 # ask :branch, "capistrano" #proc { `git rev-parse --abbrev-ref HEAD`.chomp }
+# ask :branch, 'seo_optimize'
 
 # Default deploy_to directory is /var/www/my_app
 set :deploy_to, '/var/www/hh'
@@ -51,6 +52,15 @@ namespace :deploy do
     end
   end
 
+  desc 'generate sitemap'
+  task :generate_sitemap do
+    on roles(:app) do
+      within release_path do
+        execute :rake, 'sitemap:refresh'
+      end
+    end
+  end
+
   desc 'work with server'
   task :restart do
     on roles(:app) do
@@ -62,7 +72,7 @@ namespace :deploy do
   after :finishing, "deploy:migrate"
   after :finishing, 'deploy:cleanup'
   after :finishing, :generate_secret
-  after :finishing, 'sitemap:refresh'
+  after :finishing, :generate_sitemap
   after :finishing, "deploy:log_revision"
   after :publishing, 'deploy:restart'
 end
