@@ -44,6 +44,7 @@ class Image < ActiveRecord::Base
     self.image_hash = ImageToHash::HashMaker.make_hash(self.image.path)
   end
 
+  # FIXME: deprecated
   def self.not_found
     { alert: "Can't find such Image." }
   end

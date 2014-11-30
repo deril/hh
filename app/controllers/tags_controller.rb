@@ -1,7 +1,7 @@
 class TagsController < ApplicationController
 
   before_action :find_tag, only: [:show]
-  before_action :add_warns, only: [:show, :search]
+  before_action :add_all_warns, only: [:show, :search]
 
   def index
     @tags = Tag.all.load()
