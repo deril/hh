@@ -1,6 +1,6 @@
 class TagsController < ApplicationController
 
-  before_action :find_tag, only: [:show]
+  before_action :find_tag,      only: [:show]
   before_action :add_all_warns, only: [:show, :search]
 
   def index
@@ -14,26 +14,33 @@ class TagsController < ApplicationController
 
   def autocomplete_search
     return render :json => [] unless params[:term].present?
-
-    all_terms = params[:term].split(/,\s*/)
-    last_term = all_terms.pop.strip
-    tag_names = Tag.where("name REGEXP ?", last_term).select(:name).map(&:name)
-    render :json => tag_names - all_terms
+    render :json => define_tags_except(params[:term])
   end
 
   def search
-    return redirect_to images_path, { alert: "Searching error." } unless params["search_query"]
+    return redirect_to images_path, { alert: "Searching error." } unless params[:search_query]
 
-    @search_tags = params[:search_query].strip.chomp(",").split(/,\s*/)
+    @search_tags = prepare_search_query(params[:search_query])
     @cur_tags = Tag.where(name: @search_tags)
     @imgs = Image.joins(:tags).where(tags: { name: @search_tags }).page(current_page)
     @tags = get_uniq_tags_from(@imgs)
   end
 
   private
+    def define_tags_except(tags_str)
+      all_terms = tags_str.split(/,\s*/)
+      last_term = all_terms.pop.strip
+      tag_names = Tag.where("name REGEXP ?", last_term).select(:name).map(&:name)
+      tag_names - all_terms
+    end
+
+    def prepare_search_query(term)
+      term.strip.chomp(",").split(/,\s*/)
+    end
+
     def find_tag
       @cur_tag = Tag.find_by(id: params[:id])
-      redirect_to tags_path, Tag.not_found unless @cur_tag
+      redirect_to tags_path, { alert: "Can't find such Tag." } unless @cur_tag
     end
 
 end
