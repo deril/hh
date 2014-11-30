@@ -1,0 +1,10 @@
+- if Rails.env == "production"
+  User-Agent: *
+  Allow: /
+  Disallow: /auth
+  Disallow: /tmp
+  Sitemap: http://hentaria.com/sitemap.xml.gz
+
+- else
+  User-Agent: *
+  Disallow: /

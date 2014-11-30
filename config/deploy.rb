@@ -62,6 +62,7 @@ namespace :deploy do
   after :finishing, "deploy:migrate"
   after :finishing, 'deploy:cleanup'
   after :finishing, :generate_secret
+  after :finishing, 'sitemap:refresh'
   after :finishing, "deploy:log_revision"
   after :publishing, 'deploy:restart'
 end
