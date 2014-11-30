@@ -52,15 +52,6 @@ namespace :deploy do
     end
   end
 
-  desc 'generate sitemap'
-  task :generate_sitemap do
-    on roles(:app) do
-      within release_path do
-        execute :rake, 'sitemap:refresh'
-      end
-    end
-  end
-
   desc 'work with server'
   task :restart do
     on roles(:app) do
@@ -72,7 +63,7 @@ namespace :deploy do
   after :finishing, "deploy:migrate"
   after :finishing, 'deploy:cleanup'
   after :finishing, :generate_secret
-  after :finishing, :generate_sitemap
   after :finishing, "deploy:log_revision"
+  after :finishing, 'deploy:sitemap:create'
   after :publishing, 'deploy:restart'
 end
