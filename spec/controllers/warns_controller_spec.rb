@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe WarnsController, :type => :controller do
+describe WarnsController, type: :controller do
 
   describe "#show" do
     let(:tag) { FactoryGirl.create(:tag) }

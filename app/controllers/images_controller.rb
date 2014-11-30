@@ -1,8 +1,9 @@
 class ImagesController < ApplicationController
 
-  before_action :find_image, only: [:show]
+  before_action :find_image,    only: [:show]
   before_action :add_all_warns, only: [:index, :show]
 
+  # TODO: add facade
   def index
     @imgs = Image.includes(:tags).desc.page(current_page)
     @tags = get_uniq_tags_from(@imgs)
