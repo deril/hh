@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe ApplicationController, :type => :controller do
+describe ApplicationController, type: :controller do
 
   let(:image_1) { FactoryGirl.create(:image) }
   let(:image_2) { FactoryGirl.create(:image) }
