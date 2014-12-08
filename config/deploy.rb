@@ -6,6 +6,7 @@ set :repo_url, 'git@github.com:Fattaf/hh.git'
 
 # Default branch is :master
 # ask :branch, "capistrano" #proc { `git rev-parse --abbrev-ref HEAD`.chomp }
+# ask :branch, 'seo_optimize'
 
 # Default deploy_to directory is /var/www/my_app
 set :deploy_to, '/var/www/hh'
@@ -63,5 +64,6 @@ namespace :deploy do
   after :finishing, 'deploy:cleanup'
   after :finishing, :generate_secret
   after :finishing, "deploy:log_revision"
+  after :finishing, 'deploy:sitemap:create'
   after :publishing, 'deploy:restart'
 end

@@ -34,6 +34,7 @@ gem 'sitemap_generator'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 group :development, :test do
+  gem 'quiet_assets'
   gem 'thin', require: false
   gem 'simplecov', require: false
   gem 'rspec-rails'

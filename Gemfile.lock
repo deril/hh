@@ -156,6 +156,8 @@ GEM
     parallel_tests (0.6.17)
       parallel
     polyglot (0.3.5)
+    quiet_assets (1.0.3)
+      railties (>= 3.1, < 5.0)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -280,6 +282,7 @@ DEPENDENCIES
   mysql2
   paperclip (~> 4.1)
   parallel_tests (= 0.6.17)
+  quiet_assets
   rails (= 4.1.5)
   rmagick (= 2.13.2)
   rspec-rails
