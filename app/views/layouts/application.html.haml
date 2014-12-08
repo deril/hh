@@ -27,9 +27,10 @@
         - header = Rails.env.development? ? 'header_background_dev' : 'header_background_2'
         .header__slider{ class: "#{ header }" }
           = form_tag search_tags_path, {class: "header-search"} do
-            = text_field_tag "search_query", nil, class: "header-search__input", data: { type: "autocomplete" }
+            = text_field_tag "search_query", nil, class: 'search rounded', placeholder: "Search...", data: { type: "autocomplete" }
             = hidden_field_tag "autocomplete_path", autocomplete_search_tags_path, data: { type: "autocomplete_path" }
-            = submit_tag "", class: "header-search__submit icon-search"
+            = image_submit_tag("search-icon.png", class: "header-search__submit icon-search")
+
 
       = alert_notifier
 
