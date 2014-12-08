@@ -1,6 +1,8 @@
 require 'spec_helper'
 require 'simplecov'
-SimpleCov.start "rails"
+SimpleCov.start 'rails' do
+  coverage_dir('tmp/coverage')
+end
 
 ENV["RAILS_ENV"] ||= 'test'
 

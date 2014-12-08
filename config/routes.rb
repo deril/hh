@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   resources :images, only: [:index, :show] do
     get 'page/:page', action: :index, on: :collection
   end
-  get 'about' => 'images#about'
+
+  get 'robots' => 'static_pages#robots'
+  get 'about' => 'static_pages#about'
 
   resources :tags, only: [:index, :show] do
     collection do
@@ -17,7 +19,7 @@ Rails.application.routes.draw do
   end
 
   get "warns/:id", to: 'warns#show', as: 'warn'
-  
+
   namespace :dispatch do
     resources :tags, :groups, :imgs, except: [:show]
     resources :stack, only: [:index, :create]
