@@ -35,25 +35,29 @@ describe Tag do
   describe "#save_with_response" do
     it "gets message if saving fail" do
       tag.name = nil
-      tag.save_with_response.should == { alert: "Something bad with tag Saving." }
+      expect(tag.save_with_response).to eq({ alert: "Something bad with tag Saving." })
+      # tag.save_with_response.should == { alert: "Something bad with tag Saving." }
     end
     it "gets message if saving ok" do
-      tag.save_with_response.should == { notice: "Tag successfully Saved." }
+      expect(tag.save_with_response).to eq({ notice: "Tag successfully Saved." })
+      # tag.save_with_response.should == { notice: "Tag successfully Saved." }
     end
   end
 
   describe "#destroy_with_response" do
     it "gets message if destroying fail" do
       expect(tag).to receive(:destroy).and_return(false)
-      tag.destroy_with_response.should == { alert: "Something bad with tag Deleting." }
+      # tag.destroy_with_response.should == { alert: "Something bad with tag Deleting." }
+      expect(tag.destroy_with_response).to eq({ alert: "Something bad with tag Deleting." })
     end
     it "gets message if destroying ok" do
-      tag.destroy_with_response.should == { notice: "Tag successfully Deleted." }
+      # tag.destroy_with_response.should == { notice: "Tag successfully Deleted." }
+      expect(tag.destroy_with_response).to eq({ notice: "Tag successfully Deleted." })
     end
   end
 
   describe "#not_found" do
-    it { Tag.not_found.should == { alert: "Can't find such Tag." } }
+    it { expect(Tag.not_found).to eq({ alert: "Can't find such Tag." }) }
   end
 
 end
