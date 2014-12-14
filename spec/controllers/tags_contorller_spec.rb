@@ -58,7 +58,7 @@ describe TagsController, type: :controller do
       expect(JSON.parse(response.body)).to eq(["Current name"])
     end
     it "gets [] if nothing was found" do
-      get :autocomplete_search, { term: '' }
+      get :autocomplete_search, { term: ' ' }
       expect(JSON.parse(response.body)).to eq([])
     end
   end

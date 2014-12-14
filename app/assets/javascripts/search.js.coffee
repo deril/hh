@@ -3,7 +3,7 @@ $(document).ready ->
   $path = $("[data-type = autocomplete_path]").val()
 
   split = (val) ->
-    val.split /,\s*/
+    val.split(/,\s+/)
 
   extractLast = (term) ->
     split(term).pop()
@@ -11,13 +11,17 @@ $(document).ready ->
   $("[data-type = autocomplete]").bind("keydown", (event) ->
     if event.keyCode is $.ui.keyCode.TAB and $(this).data("ui-autocomplete").menu.active
       event.preventDefault()
+      event.stopPropagation()
   ).autocomplete
     minLength: 2
     delay: 400
     "z-index": 9999
     source: $path
+    search: ->
+      term = extractLast(@value)
+      if term.length < 2
+        false
     focus: ->
-      # prevent value inserted on focus
       false
     select: (event, ui) ->
       terms = split(@value)
@@ -29,6 +33,5 @@ $(document).ready ->
       false
     response: (event, ui) ->
       unless ui.content.length
-        noResult = { value: "", label: "No results found" }
-        ui.content.push noResult
+        ui.content.push { value: "", label: "No results found" }
       false

@@ -12,13 +12,17 @@ Rails.application.routes.draw do
   get 'about' => 'static_pages#about'
 
   resources :tags, only: [:index, :show] do
+    get ':id/page/:page', action: :show, on: :collection
+
     collection do
       get :autocomplete_search
       post :search, as: "search"
     end
   end
 
-  get "warns/:id", to: 'warns#show', as: 'warn'
+  resources :warns, only: [:show] do
+    get ':id/page/:page', action: :show, on: :collection
+  end
 
   namespace :dispatch do
     resources :tags, :groups, :imgs, except: [:show]
