@@ -9,7 +9,7 @@ class Image < ActiveRecord::Base
     },
     convert_options: {
       :medium => "-quality 90 -interlace Plane",
-      :thumb => "-quality 60 -interlace Plane"
+      :thumb => "-quality 40 -interlace Plane"
     },
     default_url: "/images/:style/missing.png"
 
