@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
     page = (params[:page].to_i > 1) ? params[:page].to_i : 1
   end
 
-  def add_warns
+  def add_all_warns
     @warns = Warn.all.load.reverse
   end
 

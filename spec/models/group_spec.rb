@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Group do
-  
+
   it { should have_many(:tags) }
   it { should have_many(:children).class_name("Group").with_foreign_key("group_id") }
   it { should belong_to(:parent).class_name("Group").with_foreign_key("group_id") }
@@ -11,9 +11,9 @@ describe Group do
   describe "before callback #capitalize_name" do
     let(:group) { FactoryGirl.build(:group, name: "some") }
     it "make name capitalized" do
-      group.name.should == 'some'
+      expect(group.name).to eq('some')
       group.save!
-      group.name.should == 'Some'
+      expect(group.name).to eq('Some')
     end
   end
 

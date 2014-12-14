@@ -10,7 +10,7 @@ class Dispatch::StackController < ApplicationController
   PNG = "\x89\x50\x4e\x47"
 
   before_action :hh_authenticate_admin!
-  before_action :add_warns, only: [:index]
+  before_action :add_all_warns, only: [:index]
 
   def index
     if IMG_TMP_DIR.exist?

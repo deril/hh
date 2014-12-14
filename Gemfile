@@ -10,7 +10,7 @@ gem 'execjs'
 gem "paperclip", "~> 4.1"
 gem 'metamagic'
 gem 'devise'
-gem 'timecop'
+
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'sass-rails', '~> 4.0.3'
@@ -38,7 +38,7 @@ group :development, :test do
   gem 'thin', require: false
   gem 'simplecov', require: false
   gem 'rspec-rails'
-
+  gem 'timecop'
   gem 'shoulda-matchers'
   gem 'factory_girl_rails', '>= 3.3.0'
   gem 'cucumber-rails', '>= 1.3.0', :require => false

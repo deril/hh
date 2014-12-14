@@ -10,15 +10,15 @@ describe ImageToHash::HashMaker do
       expect { ImageToHash::HashMaker.make_hash(img_path) }.to_not raise_error
     end
     it "returns false if image not found" do
-      ImageToHash::HashMaker.make_hash('').should == nil
+      expect(ImageToHash::HashMaker.make_hash('')).to eq(nil)
     end
     it "returns false if image is invalid" do
-      ImageToHash::HashMaker.make_hash(invalid_img_path).should == nil
+      expect(ImageToHash::HashMaker.make_hash(invalid_img_path)).to eq(nil)
     end
     it 'returns hash_code if image was found' do
       result = ImageToHash::HashMaker.make_hash(img_path)
-      result.should be_an_instance_of(String)
-      result.size.should == 1024
+      expect(result).to be_an_instance_of(String)
+      expect(result.size).to eq(1024)
     end
   end
 
@@ -31,16 +31,16 @@ describe ImageToHash::HashMaker do
       expect { ImageToHash::HashMaker.compare_hashes('','') }.to_not raise_error
     end
     it 'return nil if one of arguments blank' do
-      ImageToHash::HashMaker.compare_hashes('','a').should == nil
+      expect(ImageToHash::HashMaker.compare_hashes('','a')).to eq(nil)
     end
     it "has big persent score if images are not similar" do
-      ImageToHash::HashMaker.compare_hashes(has_one, has_other).should > 50
+      expect(ImageToHash::HashMaker.compare_hashes(has_one, has_other) > 50).to eq(true)
     end
     it 'has small persent score if images are similar' do
-      ImageToHash::HashMaker.compare_hashes(has_one, has_two).should < 20
+      expect(ImageToHash::HashMaker.compare_hashes(has_one, has_two) < 20).to eq(true)
     end
     it 'has a little score if images are same' do
-      ImageToHash::HashMaker.compare_hashes(has_one, has_one).should == 0
+      expect(ImageToHash::HashMaker.compare_hashes(has_one, has_one)).to eq(0)
     end
   end
 
