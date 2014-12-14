@@ -13,8 +13,8 @@ class TagsController < ApplicationController
   end
 
   def autocomplete_search
-    return render :json => [] unless params[:term].present?
-    render :json => define_tags_except(params[:term])
+    term = prepare_term(params[:term])
+    render json: term.blank? ? [] : define_tags_except(term)
   end
 
   def search
@@ -28,10 +28,14 @@ class TagsController < ApplicationController
 
   private
     def define_tags_except(tags_str)
-      all_terms = tags_str.split(/,\s*/)
-      last_term = all_terms.pop.strip
-      tag_names = Tag.where("name REGEXP ?", last_term).select(:name).map(&:name)
+      all_terms = tags_str.split(', ')
+      last_term = all_terms.pop
+      tag_names = Tag.where("name REGEXP ?", last_term).pluck(:name)
       tag_names - all_terms
+    end
+
+    def prepare_term(term)
+      term ? term.strip.gsub(/\s+/,' ') : ''
     end
 
     def prepare_search_query(term)
