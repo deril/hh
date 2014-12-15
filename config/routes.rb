@@ -13,10 +13,9 @@ Rails.application.routes.draw do
 
   resources :tags, only: [:index, :show] do
     get ':id/page/:page', action: :show, on: :collection
-
     collection do
       get :autocomplete_search
-      post :search, as: "search"
+      get :search, as: "search"
     end
   end
 
