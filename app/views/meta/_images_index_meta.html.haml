@@ -1,4 +1,5 @@
 - desc = "Page #{cur_page_num}; #{APP_CONFIG['default_description']} Only on #{APP_CONFIG['default_site_name']}"
-- meta title: APP_CONFIG['default_pre_title'] + " | " + "Images - Page " + cur_page_num,
-       keywords: APP_CONFIG['default_pre_keys'] + ", " + join_by(sort_only_by(keywords, :count), :name, 8),
-       description: desc
+- title = APP_CONFIG['default_pre_title'] + " | " + "Images - Page " + cur_page_num
+- keywords = APP_CONFIG['default_pre_keys'] + ", " + join_by(sort_only_by(keywords, :count), :name, 8)
+
+- meta title: title, keywords: keywords, description: desc
