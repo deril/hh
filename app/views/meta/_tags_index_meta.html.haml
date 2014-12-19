@@ -1,3 +1,5 @@
-- meta title: APP_CONFIG['default_pre_title'] + " | " + "Tags",
-       keywords: APP_CONFIG['default_pre_keys'] + ", " + join_by(sort_only_by(keywords, :count), :name, 8),
-       description: "Find what kind hentai you like best. And pick it on your own taste. Only on " + APP_CONFIG['default_site_name']
+- meta_title = APP_CONFIG['default_pre_title'] + " | " + "Tags"
+- meta_keywords = APP_CONFIG['default_pre_keys'] + ", " + join_by(sort_only_by(keywords, :count), :name, 8)
+- meta_desc = "Find what kind hentai you like best. And pick it on your own taste. Only on #{APP_CONFIG['default_site_name']}. #{APP_CONFIG['default_pre_desc']}"
+
+- meta title: meta_title, keywords: meta_keywords, description: meta_desc
