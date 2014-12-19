@@ -1,6 +1,6 @@
 - tag_name = local_assigns[:tag_name].present? ? local_assigns[:tag_name].capitalize : 'No tag'
-- title = APP_CONFIG['default_pre_title'] + " | " + "Tag: #{tag_name}"
-- keywords = APP_CONFIG['default_pre_keys'] + ", " + join_by(sort_only_by(keywords, :count), :name, 8)
-- desc = "All hentai form the private collection tagged by #{tag_name}"
+- meta_title = APP_CONFIG['default_pre_title'] + " | " + "Tag: #{tag_name}"
+- meta_keywords = APP_CONFIG['default_pre_keys'] + ", " + join_by(sort_only_by(keywords, :count), :name, 8)
+- meta_desc = "All hentai form the private collection tagged by #{tag_name}. #{APP_CONFIG['default_pre_desc']}"
 
-- meta title: title, keywords: keywords, description: desc
+- meta title: meta_title, keywords: meta_keywords, description: meta_desc
