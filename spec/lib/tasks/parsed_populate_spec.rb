@@ -1,7 +1,6 @@
 require 'rails_helper'
 require 'rake'
-
-load File.join(Rails.root, 'lib', 'tasks', 'parsed_populate.rake')
+Rails.application.load_tasks
 
 describe 'Rake task parsed:populate' do
   let(:valid_yml) { Rails.root() + 'spec/fixtures/ymls/valid.yml' }
@@ -13,31 +12,22 @@ describe 'Rake task parsed:populate' do
     reset_constant(YAMLParser, :CONTENT_FILE, valid_yml)
   end
 
-  # it 'create new image' do
-  #   expect {
-  #     Rake::Task["parsed:populate"].invoke
-  #   }.to change(Image, :count).by(1)
-  # end
-  # it 'adds image' do
-  #   p YAMLParser::CONTENT_FILE
-  #   expect {
-  #     Rake::Task["parsed:populate"].invoke
-  #   }.to change(Image, :count).by(1)
-  # end
-  # it 'adds tags' do
-  #   Rake::Task["parsed:populate"].invoke
-  #   expect(Image.last.tags.size).to eq(2)
-  # end
-  # it 'adds warn' do
-  #   Rake::Task["parsed:populate"].invoke
-  #   expect(Image.last.warn).to eq(warn)
-  # end
-  # it 'raises error if something goes wrong' do
-  #   reset_constant(YAMLParser, :CONTENT_FILE, invalid_yml)
-  #   expect {
-  #     Rake::Task["parsed:populate"].invoke
-  #   }.to raise_error()
-  # end
+  it "calls YAMLParser if all good" do
+    expect_any_instance_of(YAMLParser).to receive(:call)
+    Rake::Task["parsed:populate"].invoke
+  end
+  context 'does not call YAMLParser if' do
+    it 'content dir is empty' do
+      allow(Dir).to receive(:empty?).and_return(true)
+      expect_any_instance_of(YAMLParser).to_not receive(:call)
+      Rake::Task["parsed:populate"].invoke
+    end
+    it 'content dir does not exist' do
+      allow(Dir).to receive(:exists?).and_return(false)
+      expect_any_instance_of(YAMLParser).to_not receive(:call)
+      Rake::Task["parsed:populate"].invoke
+    end
+  end
 
 private
   def reset_constant(klass, const_name, const_val)

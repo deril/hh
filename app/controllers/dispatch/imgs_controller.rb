@@ -3,7 +3,7 @@ class Dispatch::ImgsController < ApplicationController
 
   before_action :hh_authenticate_admin!
   before_action :find_image, only: [:update, :destroy, :edit]
-  before_action :add_warns, only: [:new, :edit]
+  before_action :add_all_warns, only: [:new, :edit]
 
   def index
     page = params[:page] ? params[:page] : 1

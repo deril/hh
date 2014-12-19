@@ -9,7 +9,7 @@ class Image < ActiveRecord::Base
     },
     convert_options: {
       :medium => "-quality 90 -interlace Plane",
-      :thumb => "-quality 60 -interlace Plane"
+      :thumb => "-quality 40 -interlace Plane"
     },
     default_url: "/images/:style/missing.png"
 
@@ -44,6 +44,7 @@ class Image < ActiveRecord::Base
     self.image_hash = ImageToHash::HashMaker.make_hash(self.image.path)
   end
 
+  # FIXME: deprecated
   def self.not_found
     { alert: "Can't find such Image." }
   end

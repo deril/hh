@@ -31,61 +31,61 @@ describe Image do
     it 'renames name of attached file' do
       name = 'hentaria_' + Time.now.to_i.to_s + '.jpeg'
       image.rename_image!
-      image.image_file_name.should == name
+      expect(image.image_file_name).to eq(name)
     end
   end
 
   describe '#save_with_response' do
     it "returns notice if good saving" do
       result = FactoryGirl.build(:image).save_with_response
-      result.should == { notice: "Image saved successfully." }
+      expect(result).to eq({ notice: "Image saved successfully." })
     end
     it "returns alert if bad saving" do
       result = FactoryGirl.build(:image, image: nil).save_with_response
-      result.should == { alert: "Image saving failed." }
+      expect(result).to eq({ alert: "Image saving failed." })
     end
   end
 
   describe '#destroy_with_response' do
     it "returns notice if good destroying" do
       result = image.destroy_with_response
-      result.should == { notice: "Image deleted successfully." }
+      expect(result).to eq({ notice: "Image deleted successfully." })
     end
     it "returns alert if bad destroying" do
       expect(image).to receive(:destroy).and_return(false)
       result = image.destroy_with_response
-      result.should == { alert: "Image deleting failed." }
+      expect(result).to eq({ alert: "Image deleting failed." })
     end
   end
 
   describe "#get_dimensions" do
     it 'returns images sizes' do
       sizes = Paperclip::Geometry.from_file(Paperclip.io_adapters.for(image.image))
-      image.get_dimensions.to_s.should == sizes.to_s
+      expect(image.get_dimensions.to_s).to eq(sizes.to_s)
     end
   end
 
   describe "#get_adapted_size" do
     it "shows Kb's" do
-      image.get_adapted_size.should == "156 Kb"
+      expect(image.get_adapted_size).to eq("156 Kb")
     end
 
     it "shows Mb's" do
       image.image_file_size = 52428800
       image.save!
-      image.get_adapted_size.should == "50 Mb"
+      expect(image.get_adapted_size).to eq("50 Mb")
     end
   end
 
   describe "#make_hash!" do
     it 'fill up image_hash if it is not filled' do
-      image.image_hash.should == nil
+      expect(image.image_hash).to eq(nil)
       image.make_hash!
-      image.image_hash.should_not == nil
+      expect(image.image_hash).to_not eq(nil)
     end
     it 'returns false if image_hash already filled' do
       image.update_column(:image_hash, 'test_hash')
-      image.image_hash.should == 'test_hash'
+      expect(image.image_hash).to eq('test_hash')
     end
   end
 

@@ -1,5 +1,5 @@
 !!! 5
-%html#document{html_attrs, :lang => 'en', 'xml:lang' => 'en' }
+%html#document{ html_attrs, :lang => 'en', 'xml:lang' => 'en' }
   %head
     = render partial: "meta/default_meta"
     = stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Gudea:400,400italic,700', :media => "all"
@@ -19,17 +19,18 @@
             %li= link_to_unless_current('Images', root_path)
             %li= link_to_unless_current('Tags', tags_path)
             %li= link_to_unless_current('About', about_path)
-        = link_to root_path, class: 'header__logo' do
-          Hentaria
-          %span .beta
+        = link_to root_path do
+          %h1.header__logo
+            Hentaria
+            %span .beta
         .clear-legacy
 
         - header = Rails.env.development? ? 'header_background_dev' : 'header_background_2'
         .header__slider{ class: "#{ header }" }
-          = form_tag search_tags_path, {class: "header-search"} do
+          = form_tag  search_tags_path, { method: :get, class: "header-search"} do
             = text_field_tag "search_query", nil, class: 'search rounded', placeholder: "Search...", data: { type: "autocomplete" }
-            = hidden_field_tag "autocomplete_path", autocomplete_search_tags_path, data: { type: "autocomplete_path" }
             = image_submit_tag("search-icon.png", class: "header-search__submit icon-search")
+          = hidden_field_tag "autocomplete_path", autocomplete_search_tags_path, data: { type: "autocomplete_path" }
 
 
       = alert_notifier

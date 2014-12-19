@@ -11,7 +11,6 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
-//= require jquery_ujs
-//= require jquery.ui.accordion
-//= require jquery.ui.autocomplete
+//= require jquery-ui/accordion
+//= require jquery-ui/autocomplete
 //= require_tree .

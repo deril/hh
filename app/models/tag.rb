@@ -36,6 +36,7 @@ class Tag < ActiveRecord::Base
     end
   end
 
+  # FIXME: deprecated
   def self.not_found
     { alert: "Can't find such Tag." }
   end
