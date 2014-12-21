@@ -1,5 +1,6 @@
 - image_name = local_assigns[:image_name]
+- meta_title = APP_CONFIG['default_pre_title'] + " | " + "Image: #{image_name}"
+- meta_keywords = APP_CONFIG['default_pre_keys'] + ", " + join_by(sort_only_by(keywords, :count), :name, 8)
+- meta_desc = "Tiny part of all hentai form our collection named by #{image_name}. #{APP_CONFIG['default_pre_desc']}"
 
-- meta title: APP_CONFIG['default_pre_title'] + " | " + "Image: #{image_name}",
-       keywords: APP_CONFIG['default_pre_keys'] + ", " + join_by(sort_only_by(keywords, :count), :name, 8),
-       description: "Tiny part of all hentai form our collection named by #{image_name}"
+- meta title: meta_title, keywords: meta_keywords, description: meta_desc

@@ -13,7 +13,6 @@ class Image < ActiveRecord::Base
     },
     default_url: "/images/:style/missing.png"
 
-
   has_many :images_tags, dependent: :destroy
   has_many :tags, through: :images_tags
   belongs_to :warn
