@@ -5,9 +5,11 @@ require Rails.root + 'lib/extensions/yaml_parser'
 namespace :parsed do
   desc 'Fill up db with parsed content.'
   task populate: :environment do
-    if content_folder_prepaed(YAMLParser::DATA_PATH)
-      YAMLParser.new().call()
-      p 'Done.'
+    ActiveRecord::Base.transaction do
+      if content_folder_prepaed(YAMLParser::DATA_PATH)
+        YAMLParser.new().call()
+        p 'Done.'
+      end
     end
   end
 
