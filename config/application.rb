@@ -8,6 +8,9 @@ Bundler.require(*Rails.groups)
 
 module Hh
   class Application < Rails::Application
+    # This will route any exceptions caught to your router Rack app.
+    config.exceptions_app = self.routes
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

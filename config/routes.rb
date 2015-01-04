@@ -8,9 +8,6 @@ Rails.application.routes.draw do
     get 'page/:page', action: :index, on: :collection
   end
 
-  get 'robots' => 'static_pages#robots'
-  get 'about' => 'static_pages#about'
-
   resources :tags, only: [:index, :show] do
     get ':id/page/:page', action: :show, on: :collection
     collection do
@@ -27,6 +24,15 @@ Rails.application.routes.draw do
     resources :tags, :groups, :imgs, except: [:show]
     resources :stack, only: [:index, :create]
   end
+
+  get 'robots' => 'static_pages#robots'
+  get 'about' => 'static_pages#about'
+
+  get "500", :to => "errors#internal_error"
+  %w( 404 422 ).each do |code|
+    get code, :to => "errors#not_found", :code => code
+  end
+
 
   root to: "images#index"
 

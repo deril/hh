@@ -2,7 +2,6 @@
 SitemapGenerator::Sitemap.default_host = "http://hentaria.com"
 
 SitemapGenerator::Sitemap.create do
-  add '/about'
   add images_path, priority: 0.7, changefreq: 'daily'
   Image.find_each do |image|
     add image_path(image)
@@ -11,6 +10,7 @@ SitemapGenerator::Sitemap.create do
   Tag.find_each do |tag|
     add tag_path(tag)
   end
+
   # Put links creation logic here.
   #
   # The root path '/' and sitemap index file are added automatically for you.

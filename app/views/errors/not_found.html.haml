@@ -1,0 +1,23 @@
+!!!
+%html
+  %head
+    %title The page you were looking for doesn't exist (404)
+    %link{:href => "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css", :rel => "stylesheet"}/
+    :css
+      .error-template { padding: 40px 15px; text-align: center; }
+      .error-actions { margin-top:15px; margin-bottom:15px; }
+      .error-actions .btn { margin-right:10px; }
+  %body
+    .container.error-template
+      .row
+        .col-md-12
+          %h1 Oops!
+          %h2 404 Not Found
+          .error-details
+            Sorry, an error has occured, Requested page not found!
+      .row
+        .col-md-12
+          .error-actions
+            = link_to root_path, { class: 'btn btn-primary btn-lg' } do
+              %span.glyphicon.glyphicon-home
+              Take Me Home
