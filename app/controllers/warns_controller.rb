@@ -3,7 +3,6 @@ class WarnsController < ApplicationController
   before_action :find_current_warn, only: [:show]
   before_action :add_all_warns,     only: [:show]
 
-  # TODO: add facade example: warn_facade
   def show
     @imgs = @cur_warn.images.page(current_page)
     @tags = get_uniq_tags_from(@imgs) if @imgs.present?
