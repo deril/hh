@@ -25,8 +25,7 @@
             %span> .com
         .clear-legacy
 
-        - header = Rails.env.development? ? 'header_background_dev' : 'header_background_2'
-        .header__slider{ class: "#{ header } tiny_rounded" }
+        .header__slider{ class: "header_background tiny_rounded #{ 'dev' if Rails.env.development? }" }
           = form_tag  search_tags_path, { method: :get, class: "header-search"} do
             = text_field_tag "search_query", nil, class: 'search rounded', placeholder: "Search...", data: { type: "autocomplete" }
             = image_submit_tag("search-icon.png", class: "header-search__submit icon-search")
