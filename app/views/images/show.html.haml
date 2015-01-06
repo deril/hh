@@ -1,7 +1,7 @@
 = render partial: "meta/images_show_meta", locals: { image_name: @img.image_file_name, keywords: @tags  }
 
 %aside.r-sidebar
-  = render partial: "images/warns_list", locals: { warns: @warns, selected_warn: @selected_warn }
+  = render partial: "images/warns_list", locals: { warns: @warns, selected_warn_id: @img.warn_id }
   = render partial: "tags/tags_list", locals: { tags: @tags }
 
 %article{ class: "image-show__wrap" }

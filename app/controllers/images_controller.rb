@@ -3,16 +3,14 @@ class ImagesController < ApplicationController
   before_action :find_image,    only: [:show]
   before_action :add_all_warns, only: [:index, :show]
 
-  # TODO: add facade
   def index
-    @imgs = Image.includes(:tags).desc.page(current_page)
+    @imgs = Image.desc.page(current_page)
     @tags = get_uniq_tags_from(@imgs)
     @cur_page_num = current_page.to_s
   end
 
   def show
     @tags = @img.tags
-    @selected_warn = @img.warn.try(:id)
   end
 
   private

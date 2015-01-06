@@ -20,9 +20,9 @@
             %li= link_to_unless_current('Tags', tags_path)
             %li= link_to_unless_current('About', about_path)
         = link_to root_path do
-          %h1.header__logo
+          %h1.header__logo<
             Hentaria
-            %span .com
+            %span> .com
         .clear-legacy
 
         - header = Rails.env.development? ? 'header_background_dev' : 'header_background_2'
@@ -39,4 +39,6 @@
 
       .clear
       .footer
-        Hentaria.com &copy; 2013-2014 Licensed CC-BY
+        = link_to 'Twitter', 'https://twitter.com/Hentaria', target: "_blank", alt: 'Our Tweeter'
+        = mail_to 'franchescopetrarca@gmail.com', 'Contact Us', alt: 'Out Email'
+        Hentaria.com &copy; 2013-2015, Licensed CC-BY

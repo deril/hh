@@ -36,22 +36,18 @@ describe Tag do
     it "gets message if saving fail" do
       tag.name = nil
       expect(tag.save_with_response).to eq({ alert: "Something bad with tag Saving." })
-      # tag.save_with_response.should == { alert: "Something bad with tag Saving." }
     end
     it "gets message if saving ok" do
       expect(tag.save_with_response).to eq({ notice: "Tag successfully Saved." })
-      # tag.save_with_response.should == { notice: "Tag successfully Saved." }
     end
   end
 
   describe "#destroy_with_response" do
     it "gets message if destroying fail" do
       expect(tag).to receive(:destroy).and_return(false)
-      # tag.destroy_with_response.should == { alert: "Something bad with tag Deleting." }
       expect(tag.destroy_with_response).to eq({ alert: "Something bad with tag Deleting." })
     end
     it "gets message if destroying ok" do
-      # tag.destroy_with_response.should == { notice: "Tag successfully Deleted." }
       expect(tag.destroy_with_response).to eq({ notice: "Tag successfully Deleted." })
     end
   end

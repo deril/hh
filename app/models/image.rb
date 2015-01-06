@@ -6,11 +6,11 @@ class Image < ActiveRecord::Base
     styles: {
       thumb: "180x180#",
       medium: "600x600>"
-    },
+      },
     convert_options: {
       :medium => "-quality 90 -interlace Plane",
       :thumb => "-quality 40 -interlace Plane"
-    },
+      },
     default_url: "/images/:style/missing.png"
 
   has_many :images_tags, dependent: :destroy
@@ -77,7 +77,7 @@ class Image < ActiveRecord::Base
   end
 
   def add_alt!
-    self.alt = self.tags.sample(5).map(&:name).join(', ')
+    self.alt = self.tags.unscoped.order(count: :desc).limit(6).map(&:name).join(', ')
   end
 
 end

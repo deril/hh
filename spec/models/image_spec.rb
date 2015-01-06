@@ -93,7 +93,7 @@ describe Image do
     context 'with tags' do
       it 'fills in alt field' do
         image = FactoryGirl.create(:image_with_tags)
-        expect(image.alt).to eq(image.tags.map(&:name).join(', '))
+        expect(image.alt).to eq(image.tags.unscoped.order(count: :desc).limit(6).map(&:name).join(', '))
       end
     end
     context 'without tags' do
