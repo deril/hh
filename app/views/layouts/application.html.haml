@@ -20,13 +20,12 @@
             %li= link_to_unless_current('Tags', tags_path)
             %li= link_to_unless_current('About', about_path)
         = link_to root_path do
-          %h1.header__logo
+          %h1.header__logo<
             Hentaria
-            %span .com
+            %span> .com
         .clear-legacy
 
-        - header = Rails.env.development? ? 'header_background_dev' : 'header_background_2'
-        .header__slider{ class: "#{ header } tiny_rounded" }
+        .header__slider{ class: "header_background tiny_rounded #{ 'dev' if Rails.env.development? }" }
           = form_tag  search_tags_path, { method: :get, class: "header-search"} do
             = text_field_tag "search_query", nil, class: 'search rounded', placeholder: "Search...", data: { type: "autocomplete" }
             = image_submit_tag("search-icon.png", class: "header-search__submit icon-search")
@@ -39,4 +38,6 @@
 
       .clear
       .footer
-        Hentaria.com &copy; 2013-2014 Licensed CC-BY
+        = link_to 'Twitter', 'https://twitter.com/Hentaria', target: "_blank", alt: 'Our Tweeter'
+        = mail_to 'franchescopetrarca@gmail.com', 'Contact Us', alt: 'Out Email'
+        Hentaria.com &copy; 2013-2015, Licensed CC-BY
