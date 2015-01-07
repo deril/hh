@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   devise_for :admins, path: "auth", skip: :registrations
 
   resources :images, only: [:index, :show] do
+    get :random, on: :collection
     get 'page/:page', action: :index, on: :collection
   end
 
