@@ -11,6 +11,7 @@ class ImagesController < ApplicationController
 
   def show
     @tags = @img.tags
+    @also_images = few_random_images(@img.warn_id)
   end
 
   def random
@@ -18,6 +19,11 @@ class ImagesController < ApplicationController
   end
 
   private
+    # TODO: tests
+    def few_random_images(warn_id)
+      Image.where(warn_id: warn_id).limit(4)      # TODO: make random
+    end
+
     def find_image
       @img = Image.find_by(id: params[:id])
       redirect_to images_path, { alert: "Can't find such Image." } unless @img

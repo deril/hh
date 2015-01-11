@@ -4,7 +4,7 @@
 - content_for :head do
   = rel_next_prev_link_tags imgs
 
-%section{ class: "image_list_wrap#{' m-92-top' unless cur_tag || search_tags || warn }" }
+%section{ class: "image_list_wrap #{'m-92-top' unless cur_tag || search_tags || warn }" }
 
   - # TODO: BAD - may be yield
   - if cur_tag
