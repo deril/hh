@@ -13,10 +13,19 @@ class ImagesController < ApplicationController
     @tags = @img.tags
   end
 
+  def random
+    redirect_to image_path(random_img_id)
+  end
+
   private
     def find_image
       @img = Image.find_by(id: params[:id])
       redirect_to images_path, { alert: "Can't find such Image." } unless @img
     end
 
+    def random_img_id
+      image_count = Image.count
+      return image_count if image_count < 1
+      Image.where('id >= ?', rand(image_count)).limit(1).first.id
+    end
 end
