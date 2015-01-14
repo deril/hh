@@ -19,6 +19,7 @@ class ImagesController < ApplicationController
   end
 
   private
+    # TODO: take look on view
     # TODO: tests
     def few_random_images(warn_id)
       Image.where(warn_id: warn_id).limit(4)      # TODO: make random
