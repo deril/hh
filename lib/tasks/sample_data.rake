@@ -23,14 +23,24 @@ namespace :db do
       tags << groups[2].tags.find_or_create_by!(name: tag)
     end
 
+    %w(Tag_4 Tag_40 Tag_400 Tag_4000 Tag_40000).each do |tag|
+      tags << groups[0].tags.find_or_create_by!(name: tag)
+    end
+
+    %w(Tag_5 Tag_50 Tag_500 Tag_5000 Tag_50000).each do |tag|
+      tags << groups[1].tags.find_or_create_by!(name: tag)
+    end
+
+    %w(Tag_6 Tag_60 Tag_600 Tag_6000 Tag_60000).each do |tag|
+      tags << groups[2].tags.find_or_create_by!(name: tag)
+    end
+
     puts "Creating images..."
     tags_size_set = (1...tags.size)
     100.times do |n|
       image = File.open(Dir.glob(File.join(Rails.root, 'lib/assets/images', '*')).sample)
       img = Image.create!(image: image, warn_id: rand(1..4))
-      img.tags.push(tags[rand(tags_size_set)],
-                    tags[rand(tags_size_set)],
-                    tags[rand(tags_size_set)])
+      img.tags.push(tags.sample(20))
     end
     Rake::Task["db:seed"].invoke
     Rake::Task["db:test:prepare"].invoke

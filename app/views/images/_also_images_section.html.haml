@@ -1,0 +1,10 @@
+- also_images = local_assigns[:also_images]
+
+%section{ class: "image_list_wrap m-50-top" }
+  - if also_images.present?
+    %h2{ class: "on_right" } May be some more:
+    .clear-legacy
+
+    %ul.image-list__block
+      - also_images.each do |img|
+        %li= link_to image_tag(img.image.url(:thumb), alt: img.alt), image_path(img.id), class: "image_thumbs"

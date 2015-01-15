@@ -40,6 +40,11 @@ describe ImagesController, type: :controller do
       expect(assigns(:img)).to eq(image)
       expect(assigns(:tags)).to eq([tag_1])
     end
+    it 'has also_images variable' do
+      get :show, { id: image.id }
+      expect(assigns(:also_images).to_a).to be_kind_of(Array)
+      expect(assigns(:also_images).first).to be_kind_of(Image)
+    end
   end
 
   describe '#random' do

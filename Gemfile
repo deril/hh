@@ -25,7 +25,6 @@ gem 'susy'
 gem 'uglifier', '>= 1.3.0'
 gem 'formtastic'
 gem 'sitemap_generator'
-# gem 'whenever', :require => false TODO: when we'll deploy rare, can generate sitemap
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', :platforms => :ruby
@@ -34,15 +33,20 @@ gem 'sitemap_generator'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 group :development, :test do
+  # detectors & metrics
+  gem 'simplecov', require: false
+  gem 'rack-mini-profiler', require: false
+  gem 'brakeman', require: false
+  #helpers
   gem 'quiet_assets'
   gem 'thin', require: false
-  gem 'simplecov', require: false
+  gem 'escape_utils', '0.2.4', require: false
+  # test tools
   gem 'rspec-rails'
   gem 'timecop'
   gem 'shoulda-matchers'
   gem 'factory_girl_rails', '>= 3.3.0'
   gem 'cucumber-rails', '>= 1.3.0', :require => false
-  gem 'escape_utils', '0.2.4', require: false
   gem 'capybara'
   gem 'database_cleaner', '>= 0.7.2', require: false
   gem 'email_spec', '>= 1.2.1'
