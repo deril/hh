@@ -40,5 +40,26 @@ describe ImagesController, type: :controller do
       expect(assigns(:img)).to eq(image)
       expect(assigns(:tags)).to eq([tag_1])
     end
+    it 'has also_images variable' do
+      get :show, { id: image.id }
+      expect(assigns(:also_images).to_a).to be_kind_of(Array)
+      expect(assigns(:also_images).first).to be_kind_of(Image)
+    end
+  end
+
+  describe '#random' do
+    it "has redirect response" do
+      get :random
+      expect(response).to be_redirect
+    end
+    it 'has no image defined if on images at all' do
+      get :random
+      expect(subject).to redirect_to(image_path(0))
+    end
+    it 'has random image defined if all good' do
+      image = FactoryGirl.create(:image)
+      get :random
+      expect(subject).to redirect_to(image_path(image.id))
+    end
   end
 end
