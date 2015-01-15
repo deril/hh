@@ -11,7 +11,7 @@ class ImagesController < ApplicationController
 
   def show
     @tags = @img.tags
-    @also_images = few_random_images(@img.warn_id)
+    @also_images = few_random_images(@img.warn_id, @tags)
   end
 
   def random
@@ -19,10 +19,14 @@ class ImagesController < ApplicationController
   end
 
   private
-    # TODO: take look on view
-    # TODO: tests
-    def few_random_images(warn_id)
-      Image.where(warn_id: warn_id).limit(4)      # TODO: make random
+    def few_random_images(warn_id, tags)
+      img_ids = Image.joins(:tags)
+                     .where(tags: { id: tags.map(&:id) })
+                     .where(warn_id: warn_id)
+                     .pluck(:id)
+                     .uniq
+                     .sample(4)
+      Image.where(id: img_ids)
     end
 
     def find_image
