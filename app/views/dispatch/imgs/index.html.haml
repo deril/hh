@@ -7,9 +7,9 @@
     .edit_img
       = image_tag(img.image.url(:thumb))
       .edit_area
-        = link_to "Edit", edit_dispatch_img_path(img.id), alt: "edit"
-        = link_to "Delete", dispatch_img_path(img.id), method: :delete, alt: "delete", data: { confirm: "Are you sure?" }
-        = link_to "Show", img.image.url(:original), alt: "show"
+        = link_to "Edit", edit_dispatch_img_path(img.id)
+        = link_to "Delete", dispatch_img_path(img.id), method: :delete, data: { confirm: "Are you sure?" }
+        = link_to "Show", img.image.url(:original)
 
   = paginate @imgs
 
