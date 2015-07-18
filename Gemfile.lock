@@ -156,6 +156,7 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.2)
+    newrelic_rpm (3.12.1.298)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     orm_adapter (0.5.0)
@@ -305,6 +306,7 @@ DEPENDENCIES
   launchy (>= 2.1.0)
   metamagic
   mysql2
+  newrelic_rpm
   paperclip (~> 4.1)
   parallel_tests (= 0.6.17)
   quiet_assets
