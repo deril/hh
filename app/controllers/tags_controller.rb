@@ -4,7 +4,7 @@ class TagsController < ApplicationController
   before_action :add_all_warns, only: [:show, :search]
 
   def index
-    @tags = Tag.all.load()
+    @tags = Tag.all.page(current_page).per(250)
   end
 
   def show
