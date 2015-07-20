@@ -5,5 +5,7 @@
 - if @tags.present?
   - tag_cloud @tags, %w[tag-link__s tag-link__sm tag-link__m tag-link__ml tag-link__l] do |tag, css_class|
     = link_to "#{tag.name} (#{tag.count})", tag_path(tag.id), class: "tag_link #{css_class} inline-block"
+
+  = paginate @tags
 - else
   No tags found...
