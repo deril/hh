@@ -24,11 +24,17 @@ class YAMLParser
 
     def add_tags(image, tags_str)
       tag_names = make_array(tags_str)
+
+      p tag_names
+
       tags = tag_names.inject([]) do |res, tag_name|
         prepared_tag_name = Tag.prepare_name(tag_name)
+
+        p prepared_tag_name
+
         res << Tag.find_or_create_by!(name: prepared_tag_name)
       end
-      image.tags = tags
+      image.tags = tags.uniq
       image
     end
 
@@ -47,12 +53,12 @@ class YAMLParser
 
     # TODO: may be rebase it into parse script
     def prepare(str)
-      str.gsub(/[^\w\s]/, '').gsub(/_+/, '_').strip()
+      str.gsub(/[^\w\s]|^_/, '').gsub(/_+/, '_').strip()
     end
 
     def make_array(str)
       prepared_str = prepare(str)
-      array = prepared_str.strip.split(/\s+/)
+      array = prepared_str.split(/\s+/)
       array.uniq.reject{|el| el.size > REJECT_SIZE || ['', ' ', '_'].include?(el) }
     end
 end
