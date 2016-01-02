@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'simplecov'
+
 SimpleCov.start 'rails' do
   coverage_dir('tmp/coverage')
 end
@@ -17,6 +18,15 @@ require 'paperclip/matchers'
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :active_record
+    with.library :active_model
+    with.library :rails
+  end
+end
 
 RSpec.configure do |config|
 

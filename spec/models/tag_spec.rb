@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Tag do
+describe Tag, type: :model do
 
   it { should have_many(:images_tags).dependent(:destroy) }
   it { should have_many(:images).through(:images_tags) }

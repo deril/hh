@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Image do
+describe Image, type: :model do
 
   let(:image) { FactoryGirl.create(:image) }
   let(:tag) { FactoryGirl.create(:tag) }

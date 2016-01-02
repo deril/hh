@@ -49,7 +49,7 @@ describe ApplicationHelper, type: :helper do
       expect(helper.sort_only_by(tags, :count)).to eq([tag3, tag2, tag1])
     end
     it 'fails if current field does not exist' do
-      expect { helper.sort_only_by(tags, :invalid) }.to raise_error
+      expect { helper.sort_only_by(tags, :invalid) }.to raise_error(NoMethodError)
     end
     it 'returns what we pulled in if it\'s not array' do
       expect(helper.sort_only_by('', :count)).to eq('')
@@ -66,7 +66,7 @@ describe ApplicationHelper, type: :helper do
       expect(helper.join_by(tags, :count, 2)).to eq(result)
     end
     it 'fails if current field does not exist' do
-      expect { helper.join_by(tags, :invalid) }.to raise_error
+      expect { helper.join_by(tags, :invalid) }.to raise_error(NoMethodError)
     end
     it "returns empty string if give inside not array" do
       expect(helper.join_by('', :count)).to eq('')

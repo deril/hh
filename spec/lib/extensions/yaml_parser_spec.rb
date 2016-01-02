@@ -32,7 +32,7 @@ describe "YAMLParser" do
     end
     it 'raises error if something goes wrong' do
       reset_constant(:CONTENT_FILE, invalid_yml)
-      expect { parser.call }.to raise_error()
+      expect { parser.call }.to raise_error(Psych::SyntaxError)
     end
   end
 
@@ -48,7 +48,7 @@ describe "YAMLParser" do
       end
       it 'raises error if yaml file invalid' do
         reset_constant(:CONTENT_FILE, invalid_yml)
-        expect{ parser.send(:load_yaml_file) }.to raise_error()
+        expect{ parser.send(:load_yaml_file) }.to raise_error(Psych::SyntaxError)
       end
     end
 
@@ -64,12 +64,12 @@ describe "YAMLParser" do
       it 'raises error if file invalid' do
         expect {
           parser.send(:add_image_file, image, 'invalid.jpeg')
-        }.to raise_error()
+        }.to raise_error(Errno::ENOENT)
       end
       it 'raises error if no file' do
         expect {
           parser.send(:add_image_file, image, 'notfoundfile.jpg')
-        }.to raise_error()
+        }.to raise_error(Errno::ENOENT)
       end
     end
 
@@ -106,7 +106,7 @@ describe "YAMLParser" do
       it 'raises error if warn not found' do
         expect {
           parser.send(:add_warn, image, nil)
-        }.to raise_error()
+        }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
@@ -133,7 +133,7 @@ describe "YAMLParser" do
       it 'raises error if something goes wrong' do
         expect {
           parser.send(:add_content, image, {})
-        }.to raise_error()
+        }.to raise_error(TypeError)
       end
     end
 
@@ -146,7 +146,7 @@ describe "YAMLParser" do
 
     describe '#make_array' do
       it 'returns appropriate array' do
-        str = '   asd s  s sadddddddddddddddddddddddddddddddddddddddddddddddddddd'
+        str = '   asd s  s sadddddddddddddddddddddddddddddddddddddddddddddddddd'
         expect(parser.send(:make_array, str)).to eq(['asd','s'])
       end
     end

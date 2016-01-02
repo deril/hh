@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Warn do
+describe Warn, type: :model do
 
   it { have_many(:images) }
   it { should validate_presence_of(:name) }

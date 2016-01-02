@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Group do
+describe Group, type: :model do
 
   it { should have_many(:tags) }
   it { should have_many(:children).class_name("Group").with_foreign_key("group_id") }
