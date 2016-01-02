@@ -22,7 +22,7 @@ class TagsController < ApplicationController
 
     @search_tags = prepare_search_query(params[:search_query])
     @cur_tags = Tag.where(name: @search_tags)
-    @imgs = Image.joins(:tags).where(tags: { name: @search_tags }).page(current_page)
+    @imgs = Image.joins(:tags).where(tags: { id: @cur_tags.map(&:id) }).page(current_page)
     @tags = get_uniq_tags_from(@imgs)
   end
 
