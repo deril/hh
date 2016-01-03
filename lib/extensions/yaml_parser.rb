@@ -24,14 +24,8 @@ class YAMLParser
 
     def add_tags(image, tags_str)
       tag_names = make_array(tags_str)
-
-      p tag_names
-
       tags = tag_names.inject([]) do |res, tag_name|
         prepared_tag_name = Tag.prepare_name(tag_name)
-
-        p prepared_tag_name
-
         res << Tag.find_or_create_by!(name: prepared_tag_name)
       end
       image.tags = tags.uniq

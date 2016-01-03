@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150105201305) do
+ActiveRecord::Schema.define(version: 20160103093132) do
 
   create_table "admins", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -38,6 +38,8 @@ ActiveRecord::Schema.define(version: 20150105201305) do
     t.datetime "updated_at"
   end
 
+  add_index "groups", ["group_id"], name: "index_groups_on_group_id", using: :btree
+
   create_table "images", force: true do |t|
     t.string   "image_file_name"
     t.string   "image_content_type"
@@ -48,10 +50,15 @@ ActiveRecord::Schema.define(version: 20150105201305) do
     t.string   "alt"
   end
 
+  add_index "images", ["warn_id"], name: "index_images_on_warn_id", using: :btree
+
   create_table "images_tags", force: true do |t|
     t.integer "tag_id"
     t.integer "image_id"
   end
+
+  add_index "images_tags", ["image_id"], name: "index_images_tags_on_image_id", using: :btree
+  add_index "images_tags", ["tag_id"], name: "index_images_tags_on_tag_id", using: :btree
 
   create_table "tags", force: true do |t|
     t.string   "name",       limit: 40
@@ -60,6 +67,8 @@ ActiveRecord::Schema.define(version: 20150105201305) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "tags", ["group_id"], name: "index_tags_on_group_id", using: :btree
 
   create_table "warns", force: true do |t|
     t.string   "name",       null: false

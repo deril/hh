@@ -147,7 +147,7 @@ describe "YAMLParser" do
     describe '#make_array' do
       it 'returns appropriate array' do
         str = '   asd s  s sadddddddddddddddddddddddddddddddddddddddddddddddddddd'
-        expect(parser.send(:make_array, str)).to eq(['asd','s', 's'])
+        expect(parser.send(:make_array, str)).to eq(['asd','s'])
       end
     end
   end
