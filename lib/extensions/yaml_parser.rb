@@ -1,7 +1,8 @@
 class YAMLParser
   DATA_PATH = Rails.root + "public/content"
   CONTENT_FILE = DATA_PATH + 'result.yml'
-  REJECT_SIZE = 40
+  REJECT_MAX_SIZE = 40
+  REJECT_MIN_SIZE = 3
 
   def call()
     load_yaml_file().each do |sample|
@@ -45,14 +46,17 @@ class YAMLParser
       image
     end
 
-    # TODO: may be rebase it into parse script
-    def prepare(str)
-      str.gsub(/[^\w\s]|^_/, '').gsub(/_+/, '_').strip()
+    def prepare_string(str)
+      prepared_str = str.downcase
+      prepared_str.gsub!(/'|"|,/, '')
+      prepared_str.gsub!(/-/, '_')
+      prepared_str.gsub!(/\s+_|_\s+|\s+/, ' ')
+      prepared_str
     end
 
     def make_array(str)
-      prepared_str = prepare(str)
-      array = prepared_str.split(/\s+/)
-      array.uniq.reject{|el| el.size > REJECT_SIZE || ['', ' ', '_'].include?(el) }
+      prepared_str = prepare_string(str)
+      array = prepared_str.split(' ').uniq
+      array.uniq.reject{|el| el.size > REJECT_MAX_SIZE || el.size < REJECT_MIN_SIZE  }
     end
 end
